@@ -1,0 +1,37 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TatBlog.Core.Entities;
+
+namespace TatBlog.Data.Mappings;
+
+public class TagMap : IEntityTypeConfiguration<Tag>
+{
+    public void Configure(EntityTypeBuilder<Tag> builder)
+    {
+        // table name
+        builder.ToTable("Tags");
+
+        // Id la khoa chinh
+        builder.HasKey(t => t.Id);
+        builder.Property(t => t.Name)
+            .HasMaxLength(50)
+            .IsRequired();  // not null
+
+        builder.Property(t => t.UrlSlug)
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder.Property(t => t.Description)
+            .HasMaxLength(500);
+
+
+
+
+
+    }
+}
