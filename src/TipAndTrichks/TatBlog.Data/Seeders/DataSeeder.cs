@@ -234,18 +234,37 @@ public class DataSeeder : IDataSeeder
                 {
                     tags[0]
                 }
+            }
+            ,
+            new()
+            {
+                Title = "Javascript",
+                ShortDescrption = "Duat and friend has a great repository",
+                Description = "Here 's a few great DON'T and DO example",
+                Meta = "Duat and friend has a great reponsitory ",
+                UrlSlug = "javascript ....",
+                Published= true,
+                PostedDate = new DateTime(2022, 12, 10, 2, 3 , 0),
+                ModifiedDate = null,
+                ViewCount = 2,
+                Author = authors[0],
+                Category = categories[0],
+                Tags = new List<Tag>()
+                {
+                    tags[0]
+                }
             },
             new()
             {
-                Title = "ASP .NET Core Diagnostic Scenarios",
-                ShortDescrption = "David and friend has a great repository",
+                Title = "HTML CSS",
+                ShortDescrption = "ABC and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
-                Meta = "David and friend has a great reponsitory ",
-                UrlSlug = "aspnet-core-diagnostic-scenarios",
+                Meta = "abc and friend has a great reponsitory ",
+                UrlSlug = "html css",
                 Published= true,
-                PostedDate = new DateTime(2022, 9, 30, 10, 20 , 0),
+                PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
                 ModifiedDate = null,
-                ViewCount = 10,
+                ViewCount = 1,
                 Author = authors[0],
                 Category = categories[0],
                 Tags = new List<Tag>()
