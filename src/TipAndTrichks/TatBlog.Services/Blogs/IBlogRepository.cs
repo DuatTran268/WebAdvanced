@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 
@@ -38,10 +40,13 @@ public interface IBlogRepository
 
     Task<IList<CategoryItem>> GetCategoryAsync(
         bool showOnMenu = false, CancellationToken cancellationToken = default);
-        
 
 
 
 
+    //// lay danh sach tu khoa / the phan trang theo cac tham so pagingParams
+    Task<IPagedList<TagItem>> GetPagedTageAsync(
+
+        IPagingParams pagingParams, CancellationToken cancellation = default);
 
 }

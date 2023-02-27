@@ -6,6 +6,7 @@ using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Data.Seeders;
 using TatBlog.Services.Blogs;
+using TatBlog.WinApp;
 // csdl va trang thai cua cac doi tuong
 var context = new BlogDbContext();
 
@@ -95,14 +96,46 @@ seeder.Initialize();
 
 
 
-// tao doi tuong BlogRepository
-IBlogRepository blogRepo = new BlogRepository(context);
-// danh sach
-var categories = await blogRepo.GetCategoryAsync();
+//// tao doi tuong BlogRepository
+//IBlogRepository blogRepo = new BlogRepository(context);
+//// danh sach
+//var categories = await blogRepo.GetCategoryAsync();
 
-// xuat ra man hinh
-Console.WriteLine("{0, -5}{1, -50}{2, 10}", "ID", "Name", "Count");
-foreach (var item in categories)
+//// xuat ra man hinh
+//Console.WriteLine("{0, -5}{1, -50}{2, 10}", "ID", "Name", "Count");
+//foreach (var item in categories)
+//{
+//    Console.WriteLine("{0, -5}{1, -50}{2, 10}", item.Id, item.Name, item.PostCount);
+//}
+
+
+
+
+
+
+
+
+
+// tao doi tuong Blogrepository
+IBlogRepository blogRepository = new BlogRepository(context);
+
+// tao doi tuong chua tham so phan trang
+var pagingParams = new PagingParams
 {
-    Console.WriteLine("{0, -5}{1, -50}{2, 10}", item.Id, item.Name, item.PostCount);
+    PageNumber = 1, // lay kq trang 1
+    PageSize = 5,   // lay 5 mau tin
+    SortColumn = "Name",        // sap xep tang dan theo ten
+    SortOrder = "DESC"      // theo chieu giam dan
+};
+
+
+// lay danh sach tu khoa
+var tagList = await blogRepository.GetPagedTageAsync(pagingParams);
+
+// hien thi 
+Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
+
+foreach (var item in tagList)
+{
+    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
 }
