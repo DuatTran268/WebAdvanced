@@ -19,7 +19,7 @@ seeder.Initialize();
 
 
 
-
+// ================== PART 5 ======================
 //var authors = context.Authors.ToList();
 
 //// xuat danh sach cac tac gia ra man hinh
@@ -39,7 +39,7 @@ seeder.Initialize();
 
 
 
-
+// ===== Hien thi danh sach bai viet kem theo chuyen muc tac gia ============
 // doc danh sach bai viet tu co so du lieu
 // lay kem ten tac gia va chuyen muc
 //var posts = context.Posts
@@ -71,7 +71,7 @@ seeder.Initialize();
 
 
 
-
+//====================== PART 6 ===============================
 ////tao doi tuong BlogRepository
 //IBlogRepository blogRepository = new BlogRepository(context);
 
@@ -95,7 +95,7 @@ seeder.Initialize();
 
 
 
-
+// ====================== PART 7=========================
 //// tao doi tuong BlogRepository
 //IBlogRepository blogRepo = new BlogRepository(context);
 //// danh sach
@@ -115,7 +115,7 @@ seeder.Initialize();
 
 
 
-
+// ======================= PART 8 ========================
 // tao doi tuong Blogrepository
 IBlogRepository blogRepository = new BlogRepository(context);
 
@@ -139,3 +139,5 @@ foreach (var item in tagList)
 {
     Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
 }
+
+// done
