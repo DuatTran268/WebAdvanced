@@ -119,28 +119,41 @@ seeder.Initialize();
 // tao doi tuong Blogrepository
 IBlogRepository blogRepository = new BlogRepository(context);
 
-// tao doi tuong chua tham so phan trang
-var pagingParams = new PagingParams
-{
-    PageNumber = 1, // lay kq trang 1
-    PageSize = 5,   // lay 5 mau tin
-    SortColumn = "Name",        // sap xep tang dan theo ten
-    SortOrder = "DESC"      // theo chieu giam dan
-};
+//// tao doi tuong chua tham so phan trang
+//var pagingParams = new PagingParams
+//{
+//    PageNumber = 1, // lay kq trang 1
+//    PageSize = 5,   // lay 5 mau tin
+//    SortColumn = "Name",        // sap xep tang dan theo ten
+//    SortOrder = "DESC"      // theo chieu giam dan
+//};
 
 
-// lay danh sach tu khoa
-var tagList = await blogRepository.GetPagedTageAsync(pagingParams);
+//// lay danh sach tu khoa
+//var tagList = await blogRepository.GetPagedTageAsync(pagingParams);
 
-// hien thi 
-Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
+//// hien thi 
+//Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
 
-foreach (var item in tagList)
-{
-    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
-}
+//foreach (var item in tagList)
+//{
+//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+//}
 
 // done part all B
 
 
 // test branch lab01-practice
+
+// a) tìm một thẻ tag theo tên định danh slug
+Console.WriteLine("a) Tim mot the tag theo dinh danh slug");
+var tagSlug = await blogRepository.GetTagSlugAsync("deep learning");
+Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", tagSlug.Id, tagSlug.Name, tagSlug.UrlSlug, tagSlug.Description);
+
+
+// e) tìm một chuyên mục category theo tên định dang slug
+Console.WriteLine("\n e) Tim mot chuyen muc category theo dinh danh slug");
+var categorySlug = await blogRepository.GetCategoryBySlugAsync("oop");
+Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", categorySlug.Id, categorySlug.Name, categorySlug.UrlSlug, categorySlug.Description);
+
+

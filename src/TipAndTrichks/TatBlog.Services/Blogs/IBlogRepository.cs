@@ -49,4 +49,14 @@ public interface IBlogRepository
 
         IPagingParams pagingParams, CancellationToken cancellation = default);
 
+
+    // tim mot the tag theo dinh danh slug
+    Task<Tag> GetTagSlugAsync(
+        string slug, CancellationToken cancellationToken = default);
+
+
+
+    // tìm một chuyên muc category theo dinh danh slug
+    Task<Category> GetCategoryBySlugAsync(
+        string slug, CancellationToken cancellationToken = default);
 }
