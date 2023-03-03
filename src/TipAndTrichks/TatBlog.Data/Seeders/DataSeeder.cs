@@ -19,6 +19,8 @@ public class DataSeeder : IDataSeeder
     public void Initialize()
     {
         _dbContext.Database.EnsureCreated();
+
+        // kiểm tra xem nếu có database trong sql rồi thì ko thêm nữa, return ra khỏi hàm luôn
         if (_dbContext.Posts.Any()) return;
 
         var authors = AddAuthors();
@@ -204,9 +206,24 @@ public class DataSeeder : IDataSeeder
                 Description = "abc is a ...",
                 UrlSlug = "abcacb"
             },
+            new()
+            {
+                Name = "HTML CSS",
+                Description = "HTML/CSS use web design",
+                UrlSlug = "webdesign"
+            },
         };
 
-        _dbContext.AddRange(tags);
+        // function update database to sql
+        //foreach (var item in tags)
+        //{
+        //    if (!_dbContext.Tags.Any(t => t.UrlSlug == item.UrlSlug))
+        //    {
+        //        _dbContext.Tags.Add(item);
+        //    }
+        //}
+
+        _dbContext.AddRange(tags);        // update database 
         _dbContext.SaveChanges();
         return tags;
     }

@@ -63,4 +63,12 @@ public interface IBlogRepository
     // e) tìm một chuyên muc category theo dinh danh slug
     Task<Category> GetCategoryBySlugAsync(
         string slug, CancellationToken cancellationToken = default);
+
+    // f) tìm một chuyên mục theo mã số cho trước
+    Task<Category> FindCategoryById (int id, CancellationToken cancellationToken = default);
+
+
+    // h) xoa mot chuyen muc theo ma so cho truoc
+    Task<bool> DeleteCategoryByID(int id, CancellationToken cancellationToken = default);
+
 }

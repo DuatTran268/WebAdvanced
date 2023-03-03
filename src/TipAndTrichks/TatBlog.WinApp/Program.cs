@@ -153,6 +153,11 @@ IBlogRepository blogRepository = new BlogRepository(context);
 //var tagSlug = await blogRepository.GetTagSlugAsync("deep learning");
 //Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", tagSlug.Id, tagSlug.Name, tagSlug.UrlSlug, tagSlug.Description);
 
+
+
+
+
+
 // c) 
 //Console.WriteLine("\n");
 //var tagAttachPost = await blogRepository.GetAllTagsAttachPost();
@@ -163,19 +168,23 @@ IBlogRepository blogRepository = new BlogRepository(context);
 //        tagPost.Id, tagPost.Name, tagPost.Description, tagPost.PostCount);
 //}
 
-// d) xoá một thẻ theo mã cho trước
-Console.WriteLine("\nd) xoa mot the theo ma cho truoc)");
-IBlogRepository tagRepo = new BlogRepository(context);
-// thay đổi id để thực hiện xoá
-//await tagRepo.RemoveTagById(5); // xoá id 5
 
-var tableTag = await tagRepo.GetAllTagsAttachPost();
-Console.WriteLine("Bang sau khi xoa");
-Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
-foreach (var tags in tableTag)
-{
-    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
-}
+
+
+
+
+//// d) xoá một thẻ theo mã cho trước
+//Console.WriteLine("\nd) xoa mot the theo ma cho truoc)");
+//IBlogRepository tagRepo = new BlogRepository(context);
+//var tableTag = await tagRepo.GetAllTagsAttachPost();
+//// đổi id để thực hiện xoá
+////await tagRepo.RemoveTagById(9); 
+//Console.WriteLine("\nBang sau khi xoa");
+//Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
+//foreach (var tags in tableTag)
+//{
+//    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
+//}
 
 
 
@@ -185,4 +194,40 @@ foreach (var tags in tableTag)
 //var categorySlug = await blogRepository.GetCategoryBySlugAsync("oop");
 //Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", categorySlug.Id, categorySlug.Name, categorySlug.UrlSlug, categorySlug.Description);
 
+
+
+
+
+//// f) tìm một chuyên mục theo mã số cho trước
+////Console.Write("Nhap vao ma so ID can tim ");      // test input find number 
+////int a = Convert.ToInt32(Console.ReadLine());
+//Console.WriteLine("\n e) Tim mot chuyen muc theo ma so cho truoc");
+//var findCateById = await blogRepository.FindCategoryById(6);   // tìm category chuyen muc co id = 6
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "Name", "UrlSlug", "Description");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", 
+//    findCateById.Id, 
+//    findCateById.Name, 
+//    findCateById.UrlSlug, 
+//    findCateById.Description);
+
+
+
+
+
+
+
+
+
+// h) xoá một chuyên mục theo mã số cho trước
+//Console.WriteLine(await blogRepository.DeleteCategoryByID(2));
+IBlogRepository delCategory = new BlogRepository(context);
+var category = await delCategory.GetCategoryAsync();
+// đổi id để thực hiện xoá
+//await delCategory.DeleteCategoryByID(2);      // thực hiện xoá ID 2
+Console.WriteLine("\nBang sau khi xoa");
+Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
+foreach (var tags in category)
+{
+    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
+}
 

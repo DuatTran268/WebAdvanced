@@ -165,5 +165,25 @@ public class BlogRepository : IBlogRepository
         return await categoryQuery.FirstOrDefaultAsync(cancellationToken);
     }
 
-   
+    // f)
+    public async Task<Category> FindCategoryById(int id, CancellationToken cancellationToken = default)
+    {
+        IQueryable<Category> cateFindId = _context.Set<Category>()
+            .Where(c => c.Id==id);
+        return await cateFindId.FirstOrDefaultAsync(cancellationToken);
+    }
+
+    // h) 
+    public async Task<bool> DeleteCategoryByID(int id, CancellationToken cancellationToken = default)
+    {
+        var cateDelete = await _context.Set<Category>()
+            .Where(c => c.Id == id)
+            .FirstOrDefaultAsync(cancellationToken);
+        if (cateDelete == null) return false;
+
+        _context.Set<Category>().Remove(cateDelete);
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
 }
