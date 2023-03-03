@@ -50,13 +50,17 @@ public interface IBlogRepository
         IPagingParams pagingParams, CancellationToken cancellation = default);
 
 
-    // tim mot the tag theo dinh danh slug
+    // a) tim mot the tag theo dinh danh slug
     Task<Tag> GetTagSlugAsync(
         string slug, CancellationToken cancellationToken = default);
 
+    // c) lấy danh sách tất cả các thẻ tag
+    Task<IList<TagItem>> GetAllTagsAttachPost (CancellationToken cancellationToken = default);
 
+    // d) xoá một thẻ cho trước
+    Task<bool> RemoveTagById (int id, CancellationToken cancellationToken = default);
 
-    // tìm một chuyên muc category theo dinh danh slug
+    // e) tìm một chuyên muc category theo dinh danh slug
     Task<Category> GetCategoryBySlugAsync(
         string slug, CancellationToken cancellationToken = default);
 }

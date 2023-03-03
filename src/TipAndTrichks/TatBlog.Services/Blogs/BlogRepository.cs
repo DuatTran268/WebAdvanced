@@ -121,6 +121,7 @@ public class BlogRepository : IBlogRepository
         return await tagQuery.ToPagedListAsync(pagingParams, cancellationToken);
     }
 
+    // a)
     public async Task<Tag> GetTagSlugAsync(string slug, CancellationToken cancellationToken = default)
     {
         IQueryable<Tag> tagQuery = _context.Set<Tag>()
@@ -129,10 +130,40 @@ public class BlogRepository : IBlogRepository
 
     }
 
+    // c)
+    public async Task<IList<TagItem>> GetAllTagsAttachPost(CancellationToken cancellationToken = default)
+    {
+        IQueryable<Tag> tagsQueryPost = _context.Set<Tag>();
+        return await tagsQueryPost.OrderBy(t => t.Name).Select(t => new TagItem()
+        {
+            Id = t.Id,
+            Name = t.Name,
+            UrlSlug = t.UrlSlug,
+            Description = t.Description,
+            PostCount = t.Posts.Count(p => p.Published)
+        }).ToListAsync(cancellationToken);
+    }
+
+    // d)
+    public async Task<bool> RemoveTagById(int id, CancellationToken cancellationToken = default)
+    {
+        var delByID = await _context.Set<Tag>()
+            .Include(t => t.Posts)
+            .Where(t => t.Id == id)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        _context.Set<Tag>().Remove(delByID);
+        await _context.SaveChangesAsync(cancellationToken); // lưu lại thay đổi
+
+        return true;
+    }
+    // e)
     public async Task<Category> GetCategoryBySlugAsync(string slug, CancellationToken cancellationToken = default)
     {
         IQueryable<Category> categoryQuery = _context.Set<Category>()
             .Where(c => c.UrlSlug== slug);
         return await categoryQuery.FirstOrDefaultAsync(cancellationToken);
     }
+
+   
 }

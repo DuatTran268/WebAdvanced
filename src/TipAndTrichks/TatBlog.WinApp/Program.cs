@@ -117,7 +117,7 @@ seeder.Initialize();
 
 // ======================= PART 8 ========================
 // tao doi tuong Blogrepository
-IBlogRepository blogRepository = new BlogRepository(context);
+//IBlogRepository blogRepository = new BlogRepository(context);
 
 //// tao doi tuong chua tham so phan trang
 //var pagingParams = new PagingParams
@@ -142,18 +142,47 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 // done part all B
 
-
+//============================== PRATICE ======================
 // test branch lab01-practice
 
-// a) tìm một thẻ tag theo tên định danh slug
-Console.WriteLine("a) Tim mot the tag theo dinh danh slug");
-var tagSlug = await blogRepository.GetTagSlugAsync("deep learning");
-Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", tagSlug.Id, tagSlug.Name, tagSlug.UrlSlug, tagSlug.Description);
+// tạo đối tượng IblogRepository
+IBlogRepository blogRepository = new BlogRepository(context);
+
+//// a) tìm một thẻ tag theo tên định danh slug
+//Console.WriteLine("a) Tim mot the tag theo dinh danh slug");
+//var tagSlug = await blogRepository.GetTagSlugAsync("deep learning");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", tagSlug.Id, tagSlug.Name, tagSlug.UrlSlug, tagSlug.Description);
+
+// c) 
+//Console.WriteLine("\n");
+//var tagAttachPost = await blogRepository.GetAllTagsAttachPost();
+//Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "Description","Post Count");
+//foreach (var tagPost in tagAttachPost)
+//{
+//    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", 
+//        tagPost.Id, tagPost.Name, tagPost.Description, tagPost.PostCount);
+//}
+
+// d) xoá một thẻ theo mã cho trước
+Console.WriteLine("\nd) xoa mot the theo ma cho truoc)");
+IBlogRepository tagRepo = new BlogRepository(context);
+// thay đổi id để thực hiện xoá
+//await tagRepo.RemoveTagById(5); // xoá id 5
+
+var tableTag = await tagRepo.GetAllTagsAttachPost();
+Console.WriteLine("Bang sau khi xoa");
+Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
+foreach (var tags in tableTag)
+{
+    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
+}
 
 
-// e) tìm một chuyên mục category theo tên định dang slug
-Console.WriteLine("\n e) Tim mot chuyen muc category theo dinh danh slug");
-var categorySlug = await blogRepository.GetCategoryBySlugAsync("oop");
-Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", categorySlug.Id, categorySlug.Name, categorySlug.UrlSlug, categorySlug.Description);
+
+
+//// e) tìm một chuyên mục category theo tên định dang slug
+//Console.WriteLine("\n e) Tim mot chuyen muc category theo dinh danh slug");
+//var categorySlug = await blogRepository.GetCategoryBySlugAsync("oop");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", categorySlug.Id, categorySlug.Name, categorySlug.UrlSlug, categorySlug.Description);
 
 
