@@ -216,7 +216,6 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 
 ////g) thêm hoặc cập nhập một chuyên mục chủ đề
-// add categories
 //Category categoryAdd = new Category()
 //{
 //    Name = "SQL server 2019",
@@ -263,15 +262,56 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 
 
-//// i) kiểm tra slug đã tồn tại hay chưa
-Console.WriteLine("\ni) Kiem tra dinh danh slug cua mot chuyen muc da ton tai hay chua");
+////// i) kiểm tra slug đã tồn tại hay chưa
+//Console.WriteLine("\ni) Kiem tra dinh danh slug cua mot chuyen muc da ton tai hay chua");
 
-var check = await blogRepository.CheckIDSlugOfCategoryExist("net-corer");
-if (check == true)
+//var check = await blogRepository.CheckIDSlugOfCategoryExist("net-corer");
+//if (check == true)
+//{
+//    Console.WriteLine("\n Da ton tai dinh danh slug trong chuyen muc ");
+//}
+//else
+//{
+//    Console.WriteLine("\n Chua ton tai dinh danh slug trong chuyen muc");
+//}
+
+
+
+
+
+//// l) tìm một bài viết theo mã số ID
+//Console.WriteLine("\n l) Tim mot bai viet theo ma so");
+//Console.Write("Nhap vao ma so ID can tim:  ");      // test input find number 
+//int numIdFind = Convert.ToInt32(Console.ReadLine());
+//var findPostById = await blogRepository.FindPostById(numIdFind);   // tìm category chuyen muc co id = 6
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,50}", "ID", "Title", "Description", "UrlSlug");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,20}",
+//    findPostById.Id,
+//    findPostById.Title,
+//    findPostById.Description,
+//    findPostById.UrlSlug);
+
+
+// m thêm một bài viết
+Post postAdd = new Post()
 {
-    Console.WriteLine("\n Da ton tai dinh danh slug trong chuyen muc ");
-}
-else
+    Title= "PHP",
+    ShortDescrption = "PHP is Language",
+    UrlSlug = "PHP-language",
+    Description = "PHP is language ... use web application developmen"
+};
+
+await blogRepository.AddOrUpdatePost(postAdd);
+
+Console.WriteLine("\n Bang du lieu sau khi them vao ");
+var postcategoryTable = await blogRepository.GetPostAsync();
+Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,50}", "Title", "SortDescription", "UrlSlug", "Description");
+foreach (var postTable in postcategoryTable)
 {
-    Console.WriteLine("\n Chua ton tai dinh danh slug trong chuyen muc");
+    Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,50}",
+        postTable.Title,
+        postTable.Sh,
+        postTable.UrlSlug,
+        postTable.Description);
 }
+

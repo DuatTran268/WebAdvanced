@@ -79,4 +79,10 @@ public interface IBlogRepository
     Task<bool> CheckIDSlugOfCategoryExist(string slug, CancellationToken cancellationToken = default);
 
 
+    // l) tìm một bài viêt theo mã số
+    Task<Post> FindPostById(int id, CancellationToken cancellationToken = default);
+
+    // m) thêm hoặc cập nhật một bài viết
+    Task AddOrUpdatePost(Post post, CancellationToken cancellationToken = default);
+
 }

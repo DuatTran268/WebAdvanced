@@ -214,4 +214,34 @@ public class BlogRepository : IBlogRepository
     {
         return await _context.Set<Category>().AnyAsync(c => c.UrlSlug == slug, cancellationToken);
     }
+
+
+    // l)
+    public async Task<Post> FindPostById(int id, CancellationToken cancellationToken = default)
+    {
+        IQueryable<Post> postFindId = _context.Set<Post>()
+            .Where(p => p.Id == id);
+        return await postFindId.FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task AddOrUpdatePost(Post post, CancellationToken cancellationToken = default)
+    {
+        Post postUpdate = await _context.Set<Post>()
+            .Where(p => p.UrlSlug == post.UrlSlug)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (postUpdate != null)
+        {
+            if (post.Id <= 0)
+            {
+                await Console.Out.WriteLineAsync("Da ton tai ID nay duoc them roi");
+                return;
+            }
+        }
+        else
+        {
+            _context.Set<Post>().Add(post);
+        }
+        await _context.SaveChangesAsync(cancellationToken);
+    }
 }
