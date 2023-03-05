@@ -173,6 +173,28 @@ public class BlogRepository : IBlogRepository
         return await cateFindId.FirstOrDefaultAsync(cancellationToken);
     }
 
+    //g)
+    public async Task AddOrUpdateCategory(Category category, CancellationToken cancellationToken = default)
+    {
+        Category categoriUpdate = await _context.Set<Category>()
+            .Where(c => c.UrlSlug == category.UrlSlug)
+            .FirstOrDefaultAsync(cancellationToken);
+        if (categoriUpdate != null)
+        {
+            if (category.Id <= 0)
+            {
+                await Console.Out.WriteLineAsync("Da ton tai ID nay duoc them roi");
+                return;
+            }
+            _context.Entry(categoriUpdate).CurrentValues.SetValues(category);
+        }
+        else
+        {
+            _context.Set<Category>().Add(category);
+        }
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
     // h) 
     public async Task<bool> DeleteCategoryByID(int id, CancellationToken cancellationToken = default)
     {
@@ -186,4 +208,11 @@ public class BlogRepository : IBlogRepository
         return true;
     }
 
+    // i
+    public async Task<bool> CheckIDSlugOfCategoryExist(string slug, CancellationToken cancellationToken = default)
+    {
+        return await _context.Set<Category>().AnyAsync( c=> c.UrlSlug== slug, cancellationToken);
+    }
+
+  
 }

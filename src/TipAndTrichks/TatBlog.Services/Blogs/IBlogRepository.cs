@@ -67,8 +67,17 @@ public interface IBlogRepository
     // f) tìm một chuyên mục theo mã số cho trước
     Task<Category> FindCategoryById (int id, CancellationToken cancellationToken = default);
 
+    //g) thêm hoặc cập nhật một chuyên mục chủ đề
+    Task AddOrUpdateCategory(Category category, CancellationToken cancellationToken = default);
 
     // h) xoa mot chuyen muc theo ma so cho truoc
     Task<bool> DeleteCategoryByID(int id, CancellationToken cancellationToken = default);
+
+
+    // i) kiểm tra tên định danh slug của một chuyên mục đã tồn tại chưa
+    Task<bool> CheckIDSlugOfCategoryExist(string slug, CancellationToken cancellationToken = default);
+    
+
+  
 
 }

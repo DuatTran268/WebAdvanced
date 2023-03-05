@@ -6,78 +6,96 @@ using System.Threading.Tasks;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 
-namespace TatBlog.Data.Seeders;
-
-public class DataSeeder : IDataSeeder
+namespace TatBlog.Data.Seeders
 {
-    private readonly BlogDbContext _dbContext;
-
-    public DataSeeder(BlogDbContext dbContext)
+    public class DataSeeder : IDataSeeder
     {
-        _dbContext = dbContext;
-    }
-    public void Initialize()
-    {
-        _dbContext.Database.EnsureCreated();
+        private readonly BlogDbContext _dbContext;
 
-        // kiểm tra xem nếu có database trong sql rồi thì ko thêm nữa, return ra khỏi hàm luôn
-        if (_dbContext.Posts.Any()) return;
+        public DataSeeder(BlogDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
-        var authors = AddAuthors();
-        var categories = AddCategories();
-        var tags = AddTags();
-        var posts = AddPosts(authors, categories, tags);
-    }
+        public void Initialize()
+        {
+            _dbContext.Database.EnsureCreated();
 
-    
-    private IList<Author> AddAuthors()
-    {
-        var authors = new List<Author>() {
-            new()
+            //if (_dbContext.Posts.Any()) return;
+
+            var authors = AddAuthors();
+            var categories = AddCategories();
+            var tags = AddTags();
+            var posts = AddPosts(authors, categories, tags);
+        }
+
+
+        private IList<Author> AddAuthors()
+        {
+            var authors = new List<Author>() {
+                new()
+                {
+                    FullNames = "Jason Mouth",
+                    UrlSlug = "jason-mouth",
+                    Email = "json@gmail.com",
+                    JoinedDate = new DateTime(2022, 10, 21)
+                },
+                new()
+                {
+                    FullNames = "Jessica Wonder",
+                    UrlSlug = "jessica-wonder",
+                    Email = "jessica665@gmail.com",
+                    JoinedDate = new DateTime(2020, 4, 19)
+                },
+                new()
+                {
+                    FullNames = "Leo Messi",
+                    UrlSlug = "leo-messi",
+                    Email = "messipsg10@gmail.com",
+                    JoinedDate = new DateTime(2022, 8, 19)
+                },
+                new()
+                {
+                    FullNames = "Cristiano Ronadldo",
+                    UrlSlug = "cristiano-ronaldo",
+                    Email = "ronaldo7@gmail.com",
+                    JoinedDate = new DateTime(2022, 8, 7)
+                },
+                new()
+                {
+                    FullNames = "Neymar Jr",
+                    UrlSlug = "neymar-jr",
+                    Email = "neymarjs11@gmail.com",
+                    JoinedDate = new DateTime(2023, 8, 6)
+                }
+                ,
+                new()
+                {
+                    FullNames = "Kevin Bruyner",
+                    UrlSlug = "kevin-bruyner",
+                    Email = "kevinbruynerjs11@gmail.com",
+                    JoinedDate = new DateTime(2023, 8, 16)
+                }
+            };
+
+
+            // update database
+            foreach (var author in authors)
             {
-                FullNames = "Jason Mouth",
-                UrlSlug = "jason-mouth",
-                Email = "json@gmail.com",
-                JoinedDate = new DateTime(2022, 10, 21)
-            },
-            new()
-            {
-                FullNames = "Jessica Wonder",
-                UrlSlug = "jessica-wonder",
-                Email = "jessica665@gmail.com",
-                JoinedDate = new DateTime(2020, 4, 19)
-            },
-            new()
-            {
-                FullNames = "Leo Messi",
-                UrlSlug = "messi",
-                Email = "messipsg10@gmail.com",
-                JoinedDate = new DateTime(2022, 8, 19)
-            },
-            new()
-            {
-                FullNames = "Cristiano Ronadldo",
-                UrlSlug = "cristiano ronaldo",
-                Email = "ronaldo7@gmail.com",
-                JoinedDate = new DateTime(2022, 8, 7)
-            },
-            new()
-            {
-                FullNames = "Neymar Jr",
-                UrlSlug = "neymar jr",
-                Email = "neymarjs11@gmail.com",
-                JoinedDate = new DateTime(2023, 8, 6)
+                if (!_dbContext.Authors.Any(a => a.UrlSlug == author.UrlSlug))
+                {
+                    _dbContext.Authors.Add(author);
+                }
             }
-        };
-        _dbContext.Authors.AddRange(authors);
-        _dbContext.SaveChanges();
+            //_dbContext.Authors.AddRange(authors);
+            _dbContext.SaveChanges();
 
-        return authors;
-    }
+            return authors;
+        }
 
-    private IList<Category> AddCategories()
-    {
-        var categories = new List<Category>() {
+        private IList<Category> AddCategories()
+        {
+            var categories = new List<Category>() {
             new()
             {
                 Name = ".NET Core",
@@ -139,18 +157,34 @@ public class DataSeeder : IDataSeeder
                 Description = "ABC is a ....",
                 UrlSlug = "abc abc abc"
             }
+            ,
+            new()
+            {
+                Name = "ABCDEF",
+                Description = "ABCDEF is a ....",
+                UrlSlug = "abc abc abc"
+            }
         };
 
-        _dbContext.AddRange(categories);
-        _dbContext.SaveChanges();
+            foreach (var catego in categories)
+            {
+                if (!_dbContext.Categories.Any(c => c.UrlSlug == catego.UrlSlug))
+                {
+                    _dbContext.Categories.Add(catego);
+                }
+            }
+            //_dbContext.AddRange(categories);
 
-        return categories;
-    }
+
+            _dbContext.SaveChanges();
+
+            return categories;
+        }
 
 
-    private IList<Tag> AddTags()
-    {
-        var tags = new List<Tag>()
+        private IList<Tag> AddTags()
+        {
+            var tags = new List<Tag>()
         {
             new()
             {
@@ -214,25 +248,24 @@ public class DataSeeder : IDataSeeder
             },
         };
 
-        // function update database to sql
-        //foreach (var item in tags)
-        //{
-        //    if (!_dbContext.Tags.Any(t => t.UrlSlug == item.UrlSlug))
-        //    {
-        //        _dbContext.Tags.Add(item);
-        //    }
-        //}
+            foreach (var tag in tags)
+            {
+                if (!_dbContext.Tags.Any(t => t.UrlSlug == tag.UrlSlug))
+                {
+                    _dbContext.Tags.Add(tag);
+                }
+            }
 
-        _dbContext.AddRange(tags);        // update database 
-        _dbContext.SaveChanges();
-        return tags;
-    }
+           
+            _dbContext.SaveChanges();
+            return tags;
+        }
 
 
-    private IList<Post> AddPosts(IList<Author> authors,
-        IList<Category> categories, IList<Tag> tags)
-    {
-        var posts = new List<Post>()
+        private IList<Post> AddPosts(IList<Author> authors,
+            IList<Category> categories, IList<Tag> tags)
+        {
+            var posts = new List<Post>()
         {
             new()
             {
@@ -249,7 +282,7 @@ public class DataSeeder : IDataSeeder
                 Category = categories[0],
                 Tags = new List<Tag>()
                 {
-                    tags[0]
+                    tags[0], tags[1], tags[2]
                 }
             }
             ,
@@ -263,12 +296,12 @@ public class DataSeeder : IDataSeeder
                 Published= true,
                 PostedDate = new DateTime(2022, 12, 10, 2, 3 , 0),
                 ModifiedDate = null,
-                ViewCount = 2,
-                Author = authors[0],
-                Category = categories[0],
+                ViewCount = 200,
+                Author = authors[2],
+                Category = categories[2],
                 Tags = new List<Tag>()
                 {
-                    tags[0]
+                   tags[0], tags[1], tags[2], tags[3]
                 }
             },
             new()
@@ -281,20 +314,50 @@ public class DataSeeder : IDataSeeder
                 Published= true,
                 PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
                 ModifiedDate = null,
-                ViewCount = 1,
-                Author = authors[0],
-                Category = categories[0],
+                ViewCount = 100,
+                Author = authors[1],
+                Category = categories[1],
                 Tags = new List<Tag>()
                 {
-                    tags[0]
+                    tags[0], tags[1]
                 }
-            },
+            }
+            ,new()
+            {
+                Title = "Reactjs",
+                ShortDescrption = "Reactjs and friend has a great repository",
+                Description = "Here 's a few great DON'T and DO example",
+                Meta = "reactjs and friend has a great reponsitory ",
+                UrlSlug = "reat-js",
+                Published= true,
+                PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
+                ModifiedDate = null,
+                ViewCount = 100,
+                Author = authors[1],
+                Category = categories[1],
+                Tags = new List<Tag>()
+                {
+                    tags[0], tags[1]
+                }
+            }
 
         };
 
-        _dbContext.AddRange(posts);
-        _dbContext.SaveChanges();
+            // update database
+            foreach (var post in posts)
+            {
+                if (!_dbContext.Posts.Any(a => a.UrlSlug == post.UrlSlug))
+                {
+                    _dbContext.Posts.Add(post);
+                }
+            }
+            //_dbContext.Authors.AddRange(authors);
+            _dbContext.SaveChanges();
 
-        return posts;
+            return posts;
+
+        }
     }
 }
+
+

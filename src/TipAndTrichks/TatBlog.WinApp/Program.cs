@@ -219,18 +219,18 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 
 // h) xoá một chuyên mục theo mã số cho trước
-//Console.WriteLine(await blogRepository.DeleteCategoryByID(2));
-IBlogRepository delCategory = new BlogRepository(context);
-var category = await delCategory.GetCategoryAsync();
-// đổi id để thực hiện xoá
-//await delCategory.DeleteCategoryByID(2);      // thực hiện xoá ID 2
-Console.WriteLine("\nBang sau khi xoa");
-Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
-foreach (var tags in category)
-{
-    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
-}
+////Console.WriteLine(await blogRepository.DeleteCategoryByID(2));
+//IBlogRepository delCategory = new BlogRepository(context);
+//var category = await delCategory.GetCategoryAsync();
+//// đổi id để thực hiện xoá
+////await delCategory.DeleteCategoryByID(2);      // thực hiện xoá ID 2
+//Console.WriteLine("\nBang sau khi xoa");
+//Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
+//foreach (var tags in category)
+//{
+//    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
+//}
 
 
 
-// test git push after create branch lab02
+
