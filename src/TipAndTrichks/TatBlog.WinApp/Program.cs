@@ -215,19 +215,63 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 
 
+////g) thêm hoặc cập nhập một chuyên mục chủ đề
+// add categories
+//Category categoryAdd = new Category()
+//{
+//    Name = "SQL server 2019",
+//    Description = "SQL server database 2019 ... test",
+//    UrlSlug = "sql-server2019-test"
+//};
+
+//await blogRepository.AddOrUpdateCategory(categoryAdd);
+
+//Console.WriteLine("\n Bang du lieu sau khi them vao ");
+//var categoryTable = await blogRepository.GetCategoryAsync();
+//Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
+//foreach (var cateTable in categoryTable)
+//{
+//    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}",
+//        cateTable.Id,
+//        cateTable.Name,
+//        cateTable.UrlSlug,
+//        cateTable.Description);
+//}
 
 
 
-// h) xoá một chuyên mục theo mã số cho trước
-//Console.WriteLine(await blogRepository.DeleteCategoryByID(2));
-IBlogRepository delCategory = new BlogRepository(context);
-var category = await delCategory.GetCategoryAsync();
-// đổi id để thực hiện xoá
-//await delCategory.DeleteCategoryByID(2);      // thực hiện xoá ID 2
-Console.WriteLine("\nBang sau khi xoa");
-Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
-foreach (var tags in category)
+
+
+
+
+
+//// h) xoá một chuyên mục theo mã số cho trước
+////Console.WriteLine(await blogRepository.DeleteCategoryByID(2));
+//IBlogRepository delCategory = new BlogRepository(context);
+//var category = await delCategory.GetCategoryAsync();
+//// đổi id để thực hiện xoá
+////await delCategory.DeleteCategoryByID(2);      // thực hiện xoá ID 2
+//Console.WriteLine("\nBang sau khi xoa");
+//Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", "ID", "Name", "UrlSlug", "Description");
+//foreach (var tags in category)
+//{
+//    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
+//}
+
+
+
+
+
+
+//// i) kiểm tra slug đã tồn tại hay chưa
+Console.WriteLine("\ni) Kiem tra dinh danh slug cua mot chuyen muc da ton tai hay chua");
+
+var check = await blogRepository.CheckIDSlugOfCategoryExist("net-corer");
+if (check == true)
 {
-    Console.WriteLine("{0, -5}{1, -20}{2, -30}{3,-50}", tags.Id, tags.Name, tags.UrlSlug, tags.Description);
+    Console.WriteLine("\n Da ton tai dinh danh slug trong chuyen muc ");
 }
-
+else
+{
+    Console.WriteLine("\n Chua ton tai dinh danh slug trong chuyen muc");
+}

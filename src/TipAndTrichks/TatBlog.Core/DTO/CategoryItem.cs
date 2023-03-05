@@ -16,4 +16,9 @@ public class CategoryItem
     public bool ShowOnMenu { get; set; }
     public int PostCount { get; set; }
 
+    public override string ToString()
+    {
+        return string.Format("{0,-5}{1,-30}{2,-10}{3,30}{4,50,},{5, 60}", Id, Name, UrlSlug, Description, ShowOnMenu, PostCount);
+    }
+
 }
