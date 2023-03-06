@@ -21,7 +21,7 @@ seeder.Initialize();
 
 
 
-
+#region teacher tutorial 
 // ================== PART 5 ======================
 //var authors = context.Authors.ToList();
 
@@ -144,7 +144,7 @@ seeder.Initialize();
 //}
 
 // done part all B
-
+#endregion
 
 #region Practice
 //============================== PRATICE ======================
@@ -377,16 +377,16 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 
 
 
-////c) Tìm một tác giả theo tên định dạng
-//Console.WriteLine("\n c) Tim mot tac gia theo dinh dang slug");
-//var findAuthorSlug = await repoAuthors.FindAuthorBySlug("leo-messi");
-//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
-//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
-//    findAuthorSlug.Id,
-//    findAuthorSlug.FullNames,
-//    findAuthorSlug.JoinedDate,
-//    findAuthorSlug.Email
-//    );
+//c) Tìm một tác giả theo tên định dạng
+Console.WriteLine("\n c) Tim mot tac gia theo dinh dang slug");
+var findAuthorSlug = await repoAuthors.FindAuthorBySlug("leo-messi");
+Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
+Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
+    findAuthorSlug.Id,
+    findAuthorSlug.FullNames,
+    findAuthorSlug.JoinedDate,
+    findAuthorSlug.Email
+    );
 
 
 
@@ -405,20 +405,20 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 
 
 
-// f tim danh sach N tac gia co nhieu bai viet nhat
-IPagingParams authorPagingParams = new PagingParams()
-{
-    PageNumber = 2,
-    PageSize = 3,
-    SortColumn = "FullNames",
-    SortOrder = "ASC" // sap giam
-};
+//// f tim danh sach N tac gia co nhieu bai viet nhat
+//IPagingParams authorPagingParams = new PagingParams()
+//{
+//    PageNumber = 2,
+//    PageSize = 3,
+//    SortColumn = "FullNames",
+//    SortOrder = "ASC" // sap giam
+//};
 
-var authorTopPost = await repoAuthors.GetNAuthorTopPosts(3, authorPagingParams);
-foreach (var athourTop in authorTopPost)
-{
-    Console.WriteLine(athourTop);
-}
+//var authorTopPost = await repoAuthors.GetNAuthorTopPosts(3, authorPagingParams);
+//foreach (var athourTop in authorTopPost)
+//{
+//    Console.WriteLine(athourTop);
+//}
 
 
 
