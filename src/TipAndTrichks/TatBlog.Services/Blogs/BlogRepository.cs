@@ -215,6 +215,21 @@ public class BlogRepository : IBlogRepository
         return await _context.Set<Category>().AnyAsync(c => c.UrlSlug == slug, cancellationToken);
     }
 
+    // j
+    public async Task<IPagedList<CategoryItem>> GetPageShareCategory(IPagingParams pagingParams, CancellationToken cancellationToken = default)
+    {
+        IQueryable<CategoryItem> categoryItems = _context.Set<Category>()
+            .Select(c => new CategoryItem()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                Name = c.Name,
+                ShowOnMenu = c.ShowOnMenu,
+                UrlSlug = c.UrlSlug,
+                PostCount = c.Posts.Count(p => p.Published)
+            });
+        return await categoryItems.ToPagedListAsync(pagingParams, cancellationToken);
+    }
 
     // l)
     public async Task<Post> FindPostById(int id, CancellationToken cancellationToken = default)
@@ -244,4 +259,20 @@ public class BlogRepository : IBlogRepository
         }
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    // n
+    public async Task ConvertStatusPostToPublished(int id, bool published, CancellationToken cancellationToken = default)
+    {
+        await _context.Set<Post>().Where(p => p.Id == id)
+            .ExecuteUpdateAsync(p => p.SetProperty(p => p.Published, published), cancellationToken);
+    }
+
+    // o
+    public async Task<IList<Post>> GetRandomNPost(int n, CancellationToken cancellationToken = default)
+    {
+        return await _context.Set<Post>().OrderBy(p => Guid.NewGuid()).Take(n).ToListAsync(cancellationToken);
+    }
+
+
+    
 }

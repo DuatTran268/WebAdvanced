@@ -2,6 +2,7 @@
 //Console.WriteLine("Hello, World!");
 
 
+using System.Runtime.InteropServices;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Data.Seeders;
@@ -278,8 +279,25 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 
 
+//j) lấy phân trang trong danh sách chuyên mục trả về kiểu IpageList<CategoryItem>
+// phân chia số trang và số bài hiển thị, sắp xếp
+//var extendPageCategoy = new PagingParams()
+//{
+//    PageNumber = 2, // có 2 trang
+//    PageSize = 5,   // hiển thị 5 bài trên 1 trang
+//    SortColumn = "UrlSlug",
+//    SortOrder = "ASC" // sap xep tang dan
+//};
 
-//// l) tìm một bài viết theo mã số ID
+//var categorySharePage = await blogRepository.GetPageShareCategory(extendPageCategoy);
+//foreach (var pageCate in categorySharePage)
+//{
+//    Console.WriteLine(pageCate);
+//}
+
+
+
+// l) tìm một bài viết theo mã số ID
 //Console.WriteLine("\n l) Tim mot bai viet theo ma so");
 //Console.Write("Nhap vao ma so ID can tim:  ");      // test input find number 
 //int numIdFind = Convert.ToInt32(Console.ReadLine());
@@ -293,25 +311,41 @@ IBlogRepository blogRepository = new BlogRepository(context);
 
 
 // m thêm một bài viết
-Post postAdd = new Post()
-{
-    Title= "PHP",
-    ShortDescrption = "PHP is Language",
-    UrlSlug = "PHP-language",
-    Description = "PHP is language ... use web application developmen"
-};
+//Post postAdd = new Post()
+//{
+//    Id = 12,
+//    Title = "ASP .NET CORE Test",
+//    ShortDescrption = "My test and friends has a great repository",
+//    Description = "asp .Net core is a ....",
+//    Meta = "My and friends has a greate repository filled",
+//    UrlSlug = "aspnet-core-reactj12",
+//    Published = true,
+//    PostedDate = new DateTime(2022, 6, 16, 10, 20, 0),
+//    ModifiedDate = null,
+//    AuthorId = context.Authors.ToList()[1].Id,
+//    CategoryId = context.Categories.ToList()[0].Id,
+//    ViewCount = 300,
+//};
 
-await blogRepository.AddOrUpdatePost(postAdd);
 
-Console.WriteLine("\n Bang du lieu sau khi them vao ");
-var postcategoryTable = await blogRepository.GetPostAsync();
-Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,50}", "Title", "SortDescription", "UrlSlug", "Description");
-foreach (var postTable in postcategoryTable)
+
+// n) chuyen doi trang thai Published cua bai viet
+
+//await blogRepository.ConvertStatusPostToPublished(1, false);    // dùng flase để chuyển về published mặc đinh là true(1)
+
+
+Console.WriteLine("o) lay ngau nhien N bai viet: ");
+var getRandomNPost = await blogRepository.GetRandomNPost(2);    // lay ngau nhien so bai viet
+foreach (var post in getRandomNPost)
 {
-    Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,50}",
-        postTable.Title,
-        postTable.Sh,
-        postTable.UrlSlug,
-        postTable.Description);
+    Console.WriteLine("\n".PadRight(60, '-'));
+    Console.WriteLine("ID       : {0}", post.Id);
+    Console.WriteLine("Title    : {0}", post.Title);
+    Console.WriteLine("View     : {0}", post.ViewCount);
+    Console.WriteLine("Date     : {0}", post.PostedDate);
+    Console.WriteLine("Desc     : {0}", post.Description);
+    Console.WriteLine("Tags     : {0}", post.Tags);
+    Console.WriteLine("Published: {0}", post.Published);
+    Console.WriteLine("Meta: {0}", post.Meta);
+    Console.WriteLine("".PadRight(60, '-'));
 }
-

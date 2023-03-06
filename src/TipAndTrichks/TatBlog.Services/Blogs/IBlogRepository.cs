@@ -79,10 +79,26 @@ public interface IBlogRepository
     Task<bool> CheckIDSlugOfCategoryExist(string slug, CancellationToken cancellationToken = default);
 
 
+    //j) lấy phân trang danh sách chuyên mục kết quả trả về kiểu IPageList
+    Task<IPagedList<CategoryItem>> GetPageShareCategory(IPagingParams pagingParams, CancellationToken cancellationToken = default);
+
+
     // l) tìm một bài viêt theo mã số
     Task<Post> FindPostById(int id, CancellationToken cancellationToken = default);
 
     // m) thêm hoặc cập nhật một bài viết
     Task AddOrUpdatePost(Post post, CancellationToken cancellationToken = default);
+
+
+    // n) chuyen đổi trạng thái public của bài viế
+    Task ConvertStatusPostToPublished(int id, bool published, CancellationToken cancellationToken = default);
+
+
+    // o) lấy ngẫu nhiên N bài viết N là tham số đầu vào.
+    Task<IList<Post>> GetRandomNPost(int n, CancellationToken cancellationToken = default);
+
+    //// q) tìm tất cả các bài viết thoả mã điều kiện tìm kiếm được cho đối tượng PostQuery
+    //Task<IList<Post>> FindAllPostsConditionFindObjectOfPostQuery(PostQuery postQuery, CancellationToken cancellation = default);
+
 
 }
