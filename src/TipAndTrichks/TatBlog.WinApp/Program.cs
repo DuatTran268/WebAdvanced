@@ -2,7 +2,9 @@
 //Console.WriteLine("Hello, World!");
 
 
+using System.Net.WebSockets;
 using System.Runtime.InteropServices;
+using TatBlog.Core.Contracts;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Data.Seeders;
@@ -143,9 +145,11 @@ seeder.Initialize();
 
 // done part all B
 
+
+#region Practice
 //============================== PRATICE ======================
 // test branch lab01-practice
-
+#region Section 1 of Practice C
 // tạo đối tượng IblogRepository
 IBlogRepository blogRepository = new BlogRepository(context);
 
@@ -334,18 +338,101 @@ IBlogRepository blogRepository = new BlogRepository(context);
 //await blogRepository.ConvertStatusPostToPublished(1, false);    // dùng flase để chuyển về published mặc đinh là true(1)
 
 
-Console.WriteLine("o) lay ngau nhien N bai viet: ");
-var getRandomNPost = await blogRepository.GetRandomNPost(2);    // lay ngau nhien so bai viet
-foreach (var post in getRandomNPost)
+//Console.WriteLine("o) lay ngau nhien N bai viet: ");
+//var getRandomNPost = await blogRepository.GetRandomNPost(2);    // lay ngau nhien so bai viet
+//foreach (var post in getRandomNPost)
+//{
+//    Console.WriteLine("\n".PadRight(60, '-'));
+//    Console.WriteLine("ID       : {0}", post.Id);
+//    Console.WriteLine("Title    : {0}", post.Title);
+//    Console.WriteLine("View     : {0}", post.ViewCount);
+//    Console.WriteLine("Date     : {0}", post.PostedDate);
+//    Console.WriteLine("Desc     : {0}", post.Description);
+//    Console.WriteLine("Tags     : {0}", post.Tags);
+//    Console.WriteLine("Published: {0}", post.Published);
+//    Console.WriteLine("Meta: {0}", post.Meta);
+//    Console.WriteLine("".PadRight(60, '-'));
+//}
+#endregion
+
+
+
+#region Section 2 of Practice C
+
+//// b) tìm một tác giả theo mã số
+//Console.WriteLine("b) Tim tac gia theo ma so");
+IAuthorRepository repoAuthors = new AuthorRepository(context);
+
+//Console.Write("Nhap vao ID tac gia can tim:  ");
+//int idAuthor = Convert.ToInt32(Console.ReadLine());
+
+//var findAuthorsById = await repoAuthors.FindAuthorById(idAuthor);
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
+//    findAuthorsById.Id,
+//    findAuthorsById.FullNames,
+//    findAuthorsById.JoinedDate,
+//    findAuthorsById.Email
+//    );
+
+
+
+////c) Tìm một tác giả theo tên định dạng
+//Console.WriteLine("\n c) Tim mot tac gia theo dinh dang slug");
+//var findAuthorSlug = await repoAuthors.FindAuthorBySlug("leo-messi");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
+//    findAuthorSlug.Id,
+//    findAuthorSlug.FullNames,
+//    findAuthorSlug.JoinedDate,
+//    findAuthorSlug.Email
+//    );
+
+
+
+
+
+//// e) them hoac cap nhat thong tin tac gia
+//Author authorsAdd = new Author()
+//{
+//    FullNames = "David Degea",
+//    UrlSlug = "david-degea",
+//    JoinedDate = new DateTime(2023, 3, 6),
+//    Email = "daviddegeamu@gmail.com"
+//};
+//await repoAuthors.AddOrUpdateInfoAuthor(authorsAdd);
+
+
+
+
+// f tim danh sach N tac gia co nhieu bai viet nhat
+IPagingParams authorPagingParams = new PagingParams()
 {
-    Console.WriteLine("\n".PadRight(60, '-'));
-    Console.WriteLine("ID       : {0}", post.Id);
-    Console.WriteLine("Title    : {0}", post.Title);
-    Console.WriteLine("View     : {0}", post.ViewCount);
-    Console.WriteLine("Date     : {0}", post.PostedDate);
-    Console.WriteLine("Desc     : {0}", post.Description);
-    Console.WriteLine("Tags     : {0}", post.Tags);
-    Console.WriteLine("Published: {0}", post.Published);
-    Console.WriteLine("Meta: {0}", post.Meta);
-    Console.WriteLine("".PadRight(60, '-'));
+    PageNumber = 2,
+    PageSize = 3,
+    SortColumn = "FullNames",
+    SortOrder = "ASC" // sap giam
+};
+
+var authorTopPost = await repoAuthors.GetNAuthorTopPosts(3, authorPagingParams);
+foreach (var athourTop in authorTopPost)
+{
+    Console.WriteLine(athourTop);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+#endregion
+#endregion
+
+
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
 using System.Linq;
@@ -100,5 +101,7 @@ public interface IBlogRepository
     //// q) tìm tất cả các bài viết thoả mã điều kiện tìm kiếm được cho đối tượng PostQuery
     //Task<IList<Post>> FindAllPostsConditionFindObjectOfPostQuery(PostQuery postQuery, CancellationToken cancellation = default);
 
+
+   
 
 }
