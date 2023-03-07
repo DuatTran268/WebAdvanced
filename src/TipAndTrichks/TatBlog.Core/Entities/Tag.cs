@@ -19,6 +19,4 @@ public class Tag : IEntity
     public IList<Post> Posts { get; set; }
 
 
-
-
 }
