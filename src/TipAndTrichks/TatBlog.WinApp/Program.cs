@@ -377,16 +377,16 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 
 
 
-//c) Tìm một tác giả theo tên định dạng
-Console.WriteLine("\n c) Tim mot tac gia theo dinh dang slug");
-var findAuthorSlug = await repoAuthors.FindAuthorBySlug("leo-messi");
-Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
-Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
-    findAuthorSlug.Id,
-    findAuthorSlug.FullNames,
-    findAuthorSlug.JoinedDate,
-    findAuthorSlug.Email
-    );
+////c) Tìm một tác giả theo tên định dạng
+//Console.WriteLine("\n c) Tim mot tac gia theo dinh dang slug");
+//var findAuthorSlug = await repoAuthors.FindAuthorBySlug("leo-messi");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
+//Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
+//    findAuthorSlug.Id,
+//    findAuthorSlug.FullNames,
+//    findAuthorSlug.JoinedDate,
+//    findAuthorSlug.Email
+//    );
 
 
 
@@ -435,4 +435,6 @@ Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
 #endregion
 
 
+
+// test branch code before work lab 2
 
