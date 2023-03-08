@@ -36,7 +36,7 @@ namespace TatBlog.WebApp.Controllers
         // action xuwr lys http request đến trang chủ của ứng dụng web hoặc tìm kiếm bài viết theo từ khoá
         public async Task<IActionResult> Index(
             [FromQuery(Name ="p")] int pageNumber = 1,
-            [FromQuery(Name = "ps")] int pageSize = 5
+            [FromQuery(Name = "ps")] int pageSize = 2
             )
         {
             // tạo đối tượng chứa các điều kiện truy vấn

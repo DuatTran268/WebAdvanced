@@ -10,12 +10,17 @@ public class PostQuery
 {
     // ma tac gia
     public int AuthorsId { get; set; }
+
+    // slug tac gia
+    public string AuthorSlug { get; set; }
     
     // ma chuyen muc
     public int CategoriesId { get; set; }
 
     // ten ki hieu chuyen muc
     public string CategoryName { get; set; }
+
+    public string CategorySlug { get; set; }
 
     // theo tu khoa keyword
     public string KeyWord { get; set; }
@@ -27,6 +32,7 @@ public class PostQuery
     public int PostedYear { get; set; }
 
     public string SelectedTags { get; set; }
+    public string TagSlug { get; set; }
     public bool PublishedOnly { get; set; }
     public bool NotPublished { get; set; }
 
