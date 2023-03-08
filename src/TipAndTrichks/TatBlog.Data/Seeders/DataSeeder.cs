@@ -21,7 +21,7 @@ namespace TatBlog.Data.Seeders
         {
             _dbContext.Database.EnsureCreated();
 
-            if (_dbContext.Posts.Any()) return;
+            //if (_dbContext.Posts.Any()) return;
 
             var authors = AddAuthors();
             var categories = AddCategories();
@@ -124,45 +124,45 @@ namespace TatBlog.Data.Seeders
             {
                 Name = "Design Patterns",
                 Description = "Design Patterns",
-                UrlSlug = "design patterns"
+                UrlSlug = "design-patterns"
             },
             new()
             {
                 Name = "Javascript",
                 Description = "Javascript Language",
-                UrlSlug = "javascript language"
+                UrlSlug = "javascript-language"
             },
             new()
             {
                 Name = "C++",
                 Description = "C++ Language",
-                UrlSlug = "c pluss pluss language"
+                UrlSlug = "c-pluss-pluss-language"
             },
             new()
             {
                 Name = "Python",
                 Description = "python is traslate con tran",
-                UrlSlug = "python python"
+                UrlSlug = "python-python"
             }
             ,
             new()
             {
                 Name = "React",
                 Description = "Reactjs is a framework",
-                UrlSlug = "reactjs reactjs"
+                UrlSlug = "reactjs-reactjs"
             },
             new()
             {
                 Name = "ABC",
                 Description = "ABC is a ....",
-                UrlSlug = "abc abc abc"
+                UrlSlug = "abc-abc-abc"
             }
             ,
             new()
             {
                 Name = "ABCDEF",
                 Description = "ABCDEF is a ....",
-                UrlSlug = "abc abc abc"
+                UrlSlug = "abc-abc-abc"
             }
         };
 
@@ -196,13 +196,13 @@ namespace TatBlog.Data.Seeders
             {
                 Name = "ASP .NET MVC",
                 Description = "ASP .NET MVC",
-                UrlSlug = "asp .net mvc"
+                UrlSlug = "asp-.net-mvc"
             },
             new()
             {
                 Name = "Razor Page",
                 Description = "Razor Page",
-                UrlSlug = "razor page"
+                UrlSlug = "razor-page"
             },
             new()
             {
@@ -214,25 +214,25 @@ namespace TatBlog.Data.Seeders
             {
                 Name = "Deep Learning",
                 Description = "Deep Learning",
-                UrlSlug = "deep learning"
+                UrlSlug = "deep-learning"
             },
             new()
             {
                 Name = "Neural Learning",
                 Description = "Neural Learning",
-                UrlSlug = "neural learing"
+                UrlSlug = "neural-learing"
             },
             new()
             {
                 Name = "C",
                 Description = "C language",
-                UrlSlug = "c language"
+                UrlSlug = "c-language"
             },
             new()
             {
                 Name = "Cpp",
                 Description = "C plus plus is a",
-                UrlSlug = "c plus plus"
+                UrlSlug = "c-plus-plus"
             },
             new()
             {
@@ -292,7 +292,7 @@ namespace TatBlog.Data.Seeders
                 ShortDescrption = "Duat and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "Duat and friend has a great reponsitory ",
-                UrlSlug = "javascript ....",
+                UrlSlug = "javascript-language",
                 Published= true,
                 PostedDate = new DateTime(2022, 12, 10, 2, 3 , 0),
                 ModifiedDate = null,
@@ -310,7 +310,7 @@ namespace TatBlog.Data.Seeders
                 ShortDescrption = "ABC and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "abc and friend has a great reponsitory ",
-                UrlSlug = "html css",
+                UrlSlug = "html-css-language-mark",
                 Published= true,
                 PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
                 ModifiedDate = null,
@@ -328,7 +328,7 @@ namespace TatBlog.Data.Seeders
                 ShortDescrption = "Reactjs and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "reactjs and friend has a great reponsitory ",
-                UrlSlug = "reat-js",
+                UrlSlug = "reat-js-javascript",
                 Published= true,
                 PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
                 ModifiedDate = null,
