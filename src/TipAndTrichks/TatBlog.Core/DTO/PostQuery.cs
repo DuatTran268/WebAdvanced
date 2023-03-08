@@ -15,7 +15,7 @@ public class PostQuery
     public int CategoriesId { get; set; }
 
     // ten ki hieu chuyen muc
-    public int CategoriesName { get; set; }
+    public string CategoryName { get; set; }
 
     // theo tu khoa keyword
     public string KeyWord { get; set; }
@@ -27,6 +27,8 @@ public class PostQuery
     public int PostedYear { get; set; }
 
     public string SelectedTags { get; set; }
+    public bool PublishedOnly { get; set; }
+    public bool NotPublished { get; set; }
 
     public List<String> GetSelectedTags()
     {

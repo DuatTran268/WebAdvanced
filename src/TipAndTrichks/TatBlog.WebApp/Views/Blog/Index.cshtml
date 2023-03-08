@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IPagedList<Post>
 @{
     ViewData["PageTitle"] = "Trang chủ";
 }
@@ -9,7 +7,14 @@
     Đây là trang chủ
 </h1>
 
-
+@*
 <p>
     Bây giờ là: @ViewBag.CurrentTime
-</p>
+</p>*@
+
+<div class="p-4">
+    @foreach (var postList in Model)
+    {
+        <partial name="_PostList" model="postList"/>
+    }
+</div>

@@ -123,13 +123,13 @@ seeder.Initialize();
 //IBlogRepository blogRepository = new BlogRepository(context);
 
 //// tao doi tuong chua tham so phan trang
-//var pagingParams = new PagingParams
-//{
-//    PageNumber = 1, // lay kq trang 1
-//    PageSize = 5,   // lay 5 mau tin
-//    SortColumn = "Name",        // sap xep tang dan theo ten
-//    SortOrder = "DESC"      // theo chieu giam dan
-//};
+var pagingParams = new PagingParams()
+{
+    PageNumber = 1, // lay kq trang 1
+    PageSize = 5,   // lay 5 mau tin
+    SortColumn = "Name",        // sap xep tang dan theo ten
+    SortOrder = "DESC"      // theo chieu giam dan
+};
 
 
 //// lay danh sach tu khoa
@@ -437,4 +437,5 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 
 
 // test branch code before work lab 2
+
 

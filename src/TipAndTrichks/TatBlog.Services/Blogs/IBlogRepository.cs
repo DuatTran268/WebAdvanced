@@ -102,6 +102,20 @@ public interface IBlogRepository
     //Task<IList<Post>> FindAllPostsConditionFindObjectOfPostQuery(PostQuery postQuery, CancellationToken cancellation = default);
 
 
-   
+
+    ////1e) tim va phan trang
+    //Task<IPagedList<Post>> GetPagePostsAsync(
+    //    PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default);
+
+    //Task<IPagedList<T>> GetPagePostsAsync<T>(
+    //    PostQuery query,
+    //    IPagingParams pagingParams,
+    //    Func<IQueryable<Post>, IQueryable<T>> mapper,
+    //    CancellationToken cancellationToken
+    //    );
+
+
+    Task<IPagedList<Post>> GetPagePostAsync(
+        PostQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
 }

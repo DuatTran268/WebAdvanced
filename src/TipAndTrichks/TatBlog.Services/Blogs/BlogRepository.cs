@@ -274,6 +274,104 @@ public class BlogRepository : IBlogRepository
         return await _context.Set<Post>().OrderBy(p => Guid.NewGuid()).Take(n).ToListAsync(cancellationToken);
     }
 
+  
 
-    
+
+    private IQueryable<Post> GetPostsByQueryToQueryable(PostQuery query)
+    {
+        IQueryable<Post> postsQuery = _context.Set<Post>()
+          .Include(p => p.Author)
+          .Include(p => p.Category)
+          .Include(p => p.Tags);
+
+        if (!string.IsNullOrEmpty(query.KeyWord))
+        {
+            postsQuery = postsQuery
+              .Where(p => p.Title.Contains(query.KeyWord)
+                || p.Description.Contains(query.KeyWord)
+                || p.ShortDescrption.Contains(query.KeyWord)
+                || p.UrlSlug.Contains(query.KeyWord)
+                || p.Tags.Any(t => t.Name.Contains(query.KeyWord))
+              );
+        }
+
+        if (query.PostedMonths > 0)
+        {
+            postsQuery = postsQuery
+              .Where(p => p.PostedDate.Month == query.PostedMonths);
+        }
+
+        if (query.CategoriesId > 0)
+        {
+            postsQuery = postsQuery
+              .Where(p => p.CategoryId == query.CategoriesId);
+        }
+
+        if (query.AuthorsId > 0)
+        {
+            postsQuery = postsQuery
+              .Where(p => p.AuthorId == query.AuthorsId);
+        }
+
+        if (!string.IsNullOrEmpty(query.CategoryName))
+        {
+            postsQuery = postsQuery
+                .Where(p => p.Category.Name == query.CategoryName);
+        }
+
+        if (query.PublishedOnly)
+        {
+            postsQuery = postsQuery.Where(p => p.Published);
+        }
+
+        if (query.NotPublished)
+        {
+            postsQuery = postsQuery.Where(p => !p.Published);
+        }
+
+
+        var selectedTags = query.GetSelectedTags();
+        if (selectedTags.Count > 0)
+        {
+            foreach (var tag in selectedTags)
+            {
+                postsQuery = postsQuery.Include(p => p.Tags)
+                  .Where(p => p.Tags.Any(t => t.Name == tag));
+            }
+        }
+
+        return postsQuery;
+    }
+
+
+    //1s: cách 1
+    //public async Task<IPagedList<Post>> GetPagePostsAsync(PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default)
+    //{
+    //    IQueryable<Post> postQuery = GetPostsByQueryToQueryable(query);
+    //    return await postQuery.ToPagedListAsync(pagingParams, cancellationToken);
+    //}
+
+    //public async Task<IPagedList<T>> GetPagePostsAsync<T>(PostQuery query, IPagingParams pagingParams, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken)
+    //{
+    //    IQueryable<Post> postFindQuery = GetPostsByQueryToQueryable(query);
+    //    IQueryable<T> tQueryResult = mapper(postFindQuery);
+    //    return await tQueryResult.ToPagedListAsync(pagingParams, cancellationToken);
+    //}
+
+
+    // 1s: cách của thầy
+    public async Task<IPagedList<Post>> GetPagePostAsync(
+        PostQuery condition,
+        int pageNumber = 1,
+        int pageSize = 5,
+        CancellationToken cancellationToken = default)
+    {
+        return await GetPostsByQueryToQueryable(condition)
+            .ToPageListAsync(
+            pageNumber,
+            pageSize, nameof(Post.PostedDate), "DESC",
+            cancellationToken);
+    }
+
+
 }
