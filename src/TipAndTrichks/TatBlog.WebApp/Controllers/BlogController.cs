@@ -35,6 +35,7 @@ namespace TatBlog.WebApp.Controllers
 
         // action xuwr lys http request đến trang chủ của ứng dụng web hoặc tìm kiếm bài viết theo từ khoá
         public async Task<IActionResult> Index(
+            [FromQuery(Name ="k")] string keyword = null,
             [FromQuery(Name ="p")] int pageNumber = 1,
             [FromQuery(Name = "ps")] int pageSize = 2
             )
@@ -43,17 +44,20 @@ namespace TatBlog.WebApp.Controllers
             var postQuery = new PostQuery()
             {
                 // chỉ lấy những bài viết có trạng thái Published
-                PublishedOnly = true
+                PublishedOnly = true,
+
+                // tìm bài viết theo từ khoá
+                Keyword = keyword
             };
 
             // truy vấn các bài viết theo điều kiện đã tạo
-            IPagingParams pagingParams = new PagingParams()
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                SortColumn = "PostedDate",
-                SortOrder = "DESC"
-            };
+            //IPagingParams pagingParams = new PagingParams()
+            //{
+            //    PageNumber = pageNumber,
+            //    PageSize = pageSize,
+            //    SortColumn = "PostedDate",
+            //    SortOrder = "DESC"
+            //};
 
             var postList = await _blogRepository.GetPagePostAsync(postQuery, pageNumber, pageSize);
             //var postList = await _blogRepository.GetPagePostsAsync(postQuery, pagingParams);

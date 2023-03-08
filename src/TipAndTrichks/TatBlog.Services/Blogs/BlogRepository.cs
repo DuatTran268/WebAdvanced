@@ -284,14 +284,14 @@ public class BlogRepository : IBlogRepository
           .Include(p => p.Category)
           .Include(p => p.Tags);
 
-        if (!string.IsNullOrEmpty(query.KeyWord))
+        if (!string.IsNullOrEmpty(query.Keyword))
         {
             postsQuery = postsQuery
-              .Where(p => p.Title.Contains(query.KeyWord)
-                || p.Description.Contains(query.KeyWord)
-                || p.ShortDescrption.Contains(query.KeyWord)
-                || p.UrlSlug.Contains(query.KeyWord)
-                || p.Tags.Any(t => t.Name.Contains(query.KeyWord))
+              .Where(p => p.Title.Contains(query.Keyword)
+                || p.Description.Contains(query.Keyword)
+                || p.ShortDescrption.Contains(query.Keyword)
+                || p.UrlSlug.Contains(query.Keyword)
+                || p.Tags.Any(t => t.Name.Contains(query.Keyword))
               );
         }
 

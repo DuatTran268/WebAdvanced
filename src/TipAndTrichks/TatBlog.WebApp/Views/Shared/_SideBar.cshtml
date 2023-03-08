@@ -1,6 +1,10 @@
-﻿<h1>Tìm kiếm bài viết</h1>
+﻿<!-- Search-->
+<partial name="_SearchForm" />
 
-<h1>Các chủ đề</h1>
+
+<!-- các chuyên mục chủ đề-->
+@await Component.InvokeAsync("CategoriesWidget")
+
 
 <h1>Bài viết nổi bật</h1>
 

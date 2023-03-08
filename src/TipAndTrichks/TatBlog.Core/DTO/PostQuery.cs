@@ -23,7 +23,7 @@ public class PostQuery
     public string CategorySlug { get; set; }
 
     // theo tu khoa keyword
-    public string KeyWord { get; set; }
+    public string Keyword { get; set; }
 
     // thang dang
     public int  PostedMonths { get; set; }
