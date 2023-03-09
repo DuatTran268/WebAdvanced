@@ -1,5 +1,7 @@
 ﻿@model Post
 
+
+
 @{
 	var ImageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl) ? "/images/duat.jpg" : $"/{Model.ImageUrl}";
 }
@@ -12,25 +14,48 @@
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
-					<h5 class="card-title">
+					<a class="h5 card-title text-decoration-none"
+					   asp-controller="Blog"
+					   asp-action="Post"
+					   asp-route-slug="@Model.UrlSlug"
+					   asp-route-day="@Model.PostedDate.Day"
+					   asp-route-month="@Model.PostedDate.Month"
+					   asp-route-year="@Model.PostedDate.Year">
 						@Model.Title
-					</h5>
+					</a>
 					<p class="card-text">
 						<small class="text-muted">
-							Tác giả: 
+							Tác giả:
 						</small>
-						<span class="text-primary">
-							@Model.Author.FullNames
-						</span>
+						<a class="show_link text-decoration-none"
+						   asp-controller="Blog"
+						   asp-action="Author"
+						   asp-route-slug="@Model.Author.UrlSlug">
+							<span class="text-primary">
+								@Model.Author.FullNames
+							</span>
+						</a>
+
 						<span class="text-muted">
 							Chủ đề:
 						</span>
-						<span class="text-primary">
-							@Model.Category.Name
-						</span>
+						<a class="show_link text-decoration-none"
+						   asp-controller="Blog"
+						   asp-action="Category"
+						   asp-route-slug="@Model.Category.UrlSlug">
+							<span class="text-primary">
+								@Model.Category.Name
+							</span>
+						</a>
+						@*<span class="text-muted">
+							Date:
+						</span>*@
+
 					</p>
+
+
 					<p class="card-text">
-						@Html.Raw(Model.ShortDescrption)
+						@Html.Raw(Model.Description)
 					</p>
 
 					<div class="tag-list">
@@ -46,7 +71,7 @@
 						   asp-route-slug="@Model.UrlSlug"
 						   class="btn btn-primary"
 						   title="@Model.Title">
-						   Xem chi tiết
+							Xem chi tiết
 						</a>
 					</div>
 				</div>

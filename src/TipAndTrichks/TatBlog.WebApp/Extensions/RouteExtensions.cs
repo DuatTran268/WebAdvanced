@@ -20,6 +20,13 @@
               pattern: "blog/post/{year:int}/{month:int}/{day:int}/{slug}",
               defaults: new { controller = "Blog", action = "Post" });
 
+
+            // practice c. 1
+            endpoint.MapControllerRoute(
+                name: "posts-by-author",
+                pattern: "blog/author/{slug}",
+                defaults: new { controller = "Blog", action = "Author" });
+
             endpoint.MapControllerRoute(
               name: "default",
               pattern: "{controller=Blog}/{action=Index}/{id?}");
