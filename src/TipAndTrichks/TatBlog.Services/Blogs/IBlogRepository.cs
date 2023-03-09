@@ -65,8 +65,8 @@ public interface IBlogRepository
     Task<Category> GetCategoryBySlugAsync(
         string slug, CancellationToken cancellationToken = default);
 
-    // f) tìm một chuyên mục theo mã số cho trước
-    Task<Category> FindCategoryById (int id, CancellationToken cancellationToken = default);
+	// f) tìm một chuyên mục theo mã số cho trước
+	Task<Category> FindCategoryById (int id, CancellationToken cancellationToken = default);
 
     //g) thêm hoặc cập nhật một chuyên mục chủ đề
     Task AddOrUpdateCategory(Category category, CancellationToken cancellationToken = default);
@@ -104,18 +104,18 @@ public interface IBlogRepository
 
 
     ////1e) tim va phan trang
-    //Task<IPagedList<Post>> GetPagePostsAsync(
-    //    PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default);
+    Task<IPagedList<Post>> GetPagePostsAsync(
+        PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default);
 
-    //Task<IPagedList<T>> GetPagePostsAsync<T>(
-    //    PostQuery query,
-    //    IPagingParams pagingParams,
-    //    Func<IQueryable<Post>, IQueryable<T>> mapper,
-    //    CancellationToken cancellationToken
-    //    );
+    Task<IPagedList<T>> GetPagePostsAsync<T>(
+        PostQuery query,
+        IPagingParams pagingParams,
+        Func<IQueryable<Post>, IQueryable<T>> mapper,
+        CancellationToken cancellationToken
+        );
 
 
-    Task<IPagedList<Post>> GetPagePostAsync(
-        PostQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+    //Task<IPagedList<Post>> GetPagePostAsync(
+    //    PostQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
 }
