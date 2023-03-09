@@ -358,18 +358,18 @@ public class BlogRepository : IBlogRepository
 
 
 	////1s: cách 1
-	public async Task<IPagedList<Post>> GetPagePostsAsync(PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default)
-	{
-		IQueryable<Post> postQuery = FilterPost(query);
-		return await postQuery.ToPagedListAsync(pagingParams, cancellationToken);
-	}
+	//public async Task<IPagedList<Post>> GetPagePostsAsync(PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default)
+	//{
+	//	IQueryable<Post> postQuery = FilterPost(query);
+	//	return await postQuery.ToPagedListAsync(pagingParams, cancellationToken);
+	//}
 
-	public async Task<IPagedList<T>> GetPagePostsAsync<T>(PostQuery query, IPagingParams pagingParams, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken)
-	{
-		IQueryable<Post> postFindQuery = FilterPost(query);
-		IQueryable<T> tQueryResult = mapper(postFindQuery);
-		return await tQueryResult.ToPagedListAsync(pagingParams, cancellationToken);
-	}
+	//public async Task<IPagedList<T>> GetPagePostsAsync<T>(PostQuery query, IPagingParams pagingParams, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken)
+	//{
+	//	IQueryable<Post> postFindQuery = FilterPost(query);
+	//	IQueryable<T> tQueryResult = mapper(postFindQuery);
+	//	return await tQueryResult.ToPagedListAsync(pagingParams, cancellationToken);
+	//}
 
 	public async Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default)
 	{
@@ -379,19 +379,19 @@ public class BlogRepository : IBlogRepository
 	}
 
 
-	//// 1s: cách của thầy
-	//public async Task<IPagedList<Post>> GetPagePostAsync(
-	//    PostQuery condition,
-	//    int pageNumber = 1,
-	//    int pageSize = 2,
-	//    CancellationToken cancellationToken = default)
-	//{
-	//    return await FilterPost(condition)
-	//        .ToPageListAsync(
-	//        pageNumber,
-	//        pageSize, nameof(Post.PostedDate), "DESC",
-	//        cancellationToken);
-	//}
+	// 1s: cách của thầy
+	public async Task<IPagedList<Post>> GetPagePostAsync(
+		PostQuery condition,
+		int pageNumber = 1,
+		int pageSize = 2,
+		CancellationToken cancellationToken = default)
+	{
+		return await FilterPost(condition)
+			.ToPageListAsync(
+			pageNumber,
+			pageSize, nameof(Post.PostedDate), "DESC",
+			cancellationToken);
+	}
 
 
 }
