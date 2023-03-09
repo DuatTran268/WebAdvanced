@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
 
 namespace TatBlog.WebApp.Controllers
@@ -98,9 +99,33 @@ namespace TatBlog.WebApp.Controllers
             return View("Index",posts);
         }
 
+        public async Task<IActionResult> Author(
+            string slug,
+            [FromQuery(Name = "p")] int pageNumber = 1,
+            [FromQuery(Name = "ps")] int pageSize = 3)
+        {
+            var author = await _blogRepository.GetAuthorBySlugAsync(slug);
+			var postQuery = new PostQuery()
+			{
+				PublishedOnly = true,
+				AuthorSlug = slug,
+			};
+
+			IPagingParams pagingParams = CreatePagingParam(pageNumber, pageSize);
+			var posts = await _blogRepository
+			  .GetPagePostsAsync(postQuery, pagingParams);
+
+			// lưu lại bảng truy vấn 
+			ViewBag.PostQuery = postQuery;
+			ViewBag.Title = $"Bài viết của chủ đề '{author.FullNames}'";
+
+			return View("Index", posts);
+
+		}
 
 
-		public IPagingParams CreatePagingParam(
+
+        public IPagingParams CreatePagingParam(
             int pageNumber = 1,
             int pageSize = 3,
 			 string sortColumn = "PostedDate",

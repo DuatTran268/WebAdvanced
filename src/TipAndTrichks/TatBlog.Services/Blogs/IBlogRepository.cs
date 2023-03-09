@@ -118,4 +118,8 @@ public interface IBlogRepository
     //Task<IPagedList<Post>> GetPagePostAsync(
     //    PostQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
+
+    // chuc nang moi
+    Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default);
+
 }

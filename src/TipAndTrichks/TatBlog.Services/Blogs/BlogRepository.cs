@@ -166,6 +166,9 @@ public class BlogRepository : IBlogRepository
 		return await categoryQuery.FirstOrDefaultAsync(cancellationToken);
 	}
 
+	
+
+
 	// f)
 	public async Task<Category> FindCategoryById(int id, CancellationToken cancellationToken = default)
 	{
@@ -300,6 +303,11 @@ public class BlogRepository : IBlogRepository
 					.Where(p => p.Category.UrlSlug == query.CategorySlug);
 		}
 
+		if (!string.IsNullOrWhiteSpace(query.AuthorSlug))
+		{
+			postsQuery = postsQuery.Where(a => a.Author.UrlSlug == query.AuthorSlug);
+		}
+
 		if (query.PostedMonths > 0)
 		{
 			postsQuery = postsQuery
@@ -361,6 +369,13 @@ public class BlogRepository : IBlogRepository
 		IQueryable<Post> postFindQuery = FilterPost(query);
 		IQueryable<T> tQueryResult = mapper(postFindQuery);
 		return await tQueryResult.ToPagedListAsync(pagingParams, cancellationToken);
+	}
+
+	public async Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default)
+	{
+		IQueryable<Author> authorQuery = _context.Set<Author>()
+			.Where(a => a.UrlSlug == slug);
+		return await authorQuery.FirstOrDefaultAsync(cancellationToken);
 	}
 
 
