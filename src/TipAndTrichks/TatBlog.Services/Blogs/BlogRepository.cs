@@ -308,6 +308,12 @@ public class BlogRepository : IBlogRepository
 			postsQuery = postsQuery.Where(a => a.Author.UrlSlug == query.AuthorSlug);
 		}
 
+		if (!string.IsNullOrWhiteSpace(query.TagSlug))
+		{
+			postsQuery = postsQuery
+			  .Where(p => p.Tags.Any(t => t.UrlSlug == query.TagSlug));
+		}
+
 		if (query.PostedMonths > 0)
 		{
 			postsQuery = postsQuery
@@ -379,7 +385,7 @@ public class BlogRepository : IBlogRepository
 	}
 
 
-	// 1s: cách của thầy
+	//// 1s: cách của thầy
 	public async Task<IPagedList<Post>> GetPagePostAsync(
 		PostQuery condition,
 		int pageNumber = 1,
@@ -393,5 +399,10 @@ public class BlogRepository : IBlogRepository
 			cancellationToken);
 	}
 
-
+	public async Task<Tag> GetTagBySlugAsync(string slug, CancellationToken cancellationToken = default)
+	{
+		IQueryable<Tag> tagQuery = _context.Set<Tag>()
+			.Where(t => t.UrlSlug == slug);
+		return await tagQuery.FirstOrDefaultAsync(cancellationToken);
+	}
 }

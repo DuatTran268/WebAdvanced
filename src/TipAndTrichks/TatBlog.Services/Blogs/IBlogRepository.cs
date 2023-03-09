@@ -122,4 +122,6 @@ public interface IBlogRepository
     // chuc nang moi
     Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default);
 
+    Task<Tag> GetTagBySlugAsync(string slug, CancellationToken cancellationToken = default);
+
 }
