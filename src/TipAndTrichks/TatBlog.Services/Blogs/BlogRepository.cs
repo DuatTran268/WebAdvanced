@@ -430,4 +430,17 @@ public class BlogRepository : IBlogRepository
 		}
 			
 	}
+
+	public async Task<IList<TagItem>> GetTagsAllAsync(CancellationToken cancellationToken = default)
+	{
+		IQueryable<Tag> tagsQuery = _context.Set<Tag>();
+		return await tagsQuery.OrderBy(t => t.Name).Select(t => new TagItem()
+		{
+			Id = t.Id,
+			Name = t.Name,
+			UrlSlug = t.UrlSlug,
+			Description = t.Description,
+			PostCount = t.Posts.Count(p => p.Published)
+		}).ToListAsync(cancellationToken);
+	}
 }
