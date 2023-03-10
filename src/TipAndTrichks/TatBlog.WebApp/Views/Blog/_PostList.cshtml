@@ -3,7 +3,7 @@
 
 
 @{
-	var ImageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl) ? "/images/duat.jpg" : $"/{Model.ImageUrl}";
+	var ImageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl) ? "/images/duat_js.jpg" : $"/{Model.ImageUrl}";
 }
 
 <article class="blog-entry mb-4">
@@ -47,9 +47,12 @@
 								@Model.Category.Name
 							</span>
 						</a>
-						@*<span class="text-muted">
-							Date:
-						</span>*@
+						<span class="text-muted">
+							Date: 
+						</span>
+						<span class="text-primary">
+							@Model.PostedDate.ToString("dd/MM/yyyy hh:mm:ss tt")
+						</span>
 
 					</p>
 

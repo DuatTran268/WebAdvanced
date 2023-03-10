@@ -1,0 +1,128 @@
+﻿@model Post
+
+
+@{
+	ViewData["PageTitle"] = "Chi tiết";
+	var urlImagePost = string.IsNullOrWhiteSpace(Model.ImageUrl)
+	? "/images/duat_js.jpg" : $"/{Model.ImageUrl}";
+}
+
+
+<div class="container">
+	<div class="card">
+		<h1 class="text-primary">
+			@Model.Title
+		</h1>
+
+		<p class="card-text">
+			<span style="tab-size:5">
+				<i class="fa fa-user"></i>
+				<small class="text-muted">
+					Tác giả:
+				</small>
+				<a class="show_link text-decoration-none"
+				   asp-controller="Blog"
+				   asp-action="Author"
+				   asp-route-slug="@Model.Author.UrlSlug">
+					<span class="text-primary">
+						@Model.Author.FullNames
+					</span>
+				</a>
+			</span>
+
+			<span style="tab-size:5">
+				<i class="fa fa-calendar"></i>
+				@if (Model.ModifiedDate != null)
+				{
+					<small class="text-muted">
+						Cập nhật lần cuối:
+					</small>
+					<small class="text-primary">
+						@Model.PostedDate.ToString()
+					</small>
+				}
+				else
+				{
+					<small class="text-muted">
+						Ngày đăng:
+					</small>
+					<small class="text-primary">
+						@Model.PostedDate.ToString()
+					</small>
+				}
+			</span>
+			<span style="tab-size:5">
+				<i class="fa fa-eye"></i>
+				<small class="text-muted">
+					Số lượt xem:
+				</small>
+				<span class="text-danger">
+					@Model.ViewCount
+				</span>
+			</span>
+		</p>
+
+		
+		<p class="card-text">
+			<span>
+				<i class="fa fa-globe"></i>
+				<small class="text-muted">
+					Chủ đề bài viết:
+				</small>
+				<a class="show_link text-decoration-none"
+				   asp-controller="Blog"
+				   asp-action="Category"
+				   asp-route-slug="@Model.Category.UrlSlug">
+					<span class="text-primary">
+						@Model.Category.Name
+					</span>
+				</a>
+			</span>
+		</p>
+
+		<p class="card-text">
+			<span>
+				<i class="fa fa-tags"></i>
+				<small class="text-muted">
+					Tag:
+				</small>
+				@*@if (Model.Tags.Count > 0)
+				{
+					<partial name="_TagList" model="@Model.Tags" />
+				}
+				else
+				{
+					<p>Bài viết chưa được gắn Tag</p>
+				}*@
+			</span>
+		</p>
+
+		<p class="card-text">
+			<span>
+				<small class="text-muted">
+					Short Description:  
+					<span class="text-primary">@Model.ShortDescrption</span>
+				</small>
+			</span>
+		</p>
+		
+		<img src="@urlImagePost" class="card-img"alt="@Model.Title">
+
+		<br />
+		<p class="card-text">
+			<span>
+				<small class="text-muted">
+					Description:
+				</small>
+				<span class="pt-4">@Model.Description</span>
+			</span>
+		</p>
+
+		<br />
+
+
+	</div>
+
+
+
+</div>

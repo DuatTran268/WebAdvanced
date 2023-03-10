@@ -143,22 +143,46 @@ namespace TatBlog.WebApp.Controllers
             return View("Index", postList);
 		}
 
-
-        public IPagingParams CreatePagingParam(
-            int pageNumber = 1,
-            int pageSize = 3,
-			 string sortColumn = "PostedDate",
-	        string sortOrder = "DESC")
+        public async Task<IActionResult> Post(
+            int year, int month, string slug,
+			[FromQuery(Name = "p")] int pageNumber = 1,
+			[FromQuery(Name = "ps")] int pageSize = 3)
         {
-			return new PagingParams()
-			{
-				PageNumber = pageNumber,
-				PageSize = pageSize,
-				SortColumn = sortColumn,
-				SortOrder = sortOrder
-			};
+            var postQuery = await _blogRepository.GetPostAsync(year, month, slug);
+
+            if (postQuery == null)
+            {
+
+				ViewBag.Message = $"Không tìm thấy bài viết '{slug}'";
+                return View("Error");
+			}
+            if (!postQuery.Published)   // fasle
+            {
+                ViewBag.Message = $"Bài viết không được public '{slug}'";
+                return View("Error");
+            }
+            await _blogRepository.IncreaseViewCountAsync(postQuery.Id); // tăng số lượt xem
+            return View("DetailPost", postQuery);
 		}
-            
-            
+
+
+
+
+		//      public IPagingParams CreatePagingParam(
+		//          int pageNumber = 1,
+		//          int pageSize = 3,
+		//	 string sortColumn = "PostedDate",
+		//       string sortOrder = "DESC")
+		//      {
+		//	return new PagingParams()
+		//	{
+		//		PageNumber = pageNumber,
+		//		PageSize = pageSize,
+		//		SortColumn = sortColumn,
+		//		SortOrder = sortOrder
+		//	};
+		//}
+
+
 	}
 }

@@ -124,4 +124,9 @@ public interface IBlogRepository
 
     Task<Tag> GetTagBySlugAsync(string slug, CancellationToken cancellationToken = default);
 
+
+    Task<Post> GetPostSlugAsync(int year, int month,string slug, CancellationToken cancellationToken= default);
+
+
+
 }

@@ -405,4 +405,29 @@ public class BlogRepository : IBlogRepository
 			.Where(t => t.UrlSlug == slug);
 		return await tagQuery.FirstOrDefaultAsync(cancellationToken);
 	}
+
+	public async Task<Post> GetPostSlugAsync(int year, int month, string slug, CancellationToken cancellationToken = default)
+	{
+		IQueryable<Post> postQuery = _context.Set<Post>()
+			.Include(p => p.Category)
+			.Include(p => p.Author)
+			.Include(p => p.Tags);
+		{
+			if (year > 0)
+			{
+				postQuery = postQuery.Where(p => p.PostedDate.Year == year);
+			}
+			if(month > 0)
+			{
+				postQuery = postQuery.Where(p => p.PostedDate.Month == month);
+			}
+			if(!string.IsNullOrEmpty(slug))
+			{
+				postQuery = postQuery.Where(p => p.UrlSlug == slug);
+			}
+
+			return await postQuery.FirstOrDefaultAsync(cancellationToken);
+		}
+			
+	}
 }
