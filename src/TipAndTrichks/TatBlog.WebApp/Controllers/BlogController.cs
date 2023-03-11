@@ -165,7 +165,26 @@ namespace TatBlog.WebApp.Controllers
             return View("DetailPost", postQuery);
 		}
 
+        // archive
 
+        public async Task<IActionResult> Archives (
+            [FromQuery(Name = "month")] int month,
+            [FromQuery(Name = "year")] int year,
+            [FromQuery(Name = "p")] int pageNumber = 1,
+            [FromQuery(Name = "ps")] int pageSize = 3)
+        {
+            var postQuery = new PostQuery()
+            {
+                PostedMonths = month,
+                PostedYear = year,
+            };
+
+            var postList = await _blogRepository.GetPagePostAsync(postQuery, pageNumber, pageSize);
+            ViewBag.PostQuery = postQuery;
+
+            ViewBag.Title = $"Bài viết trong tháng {postQuery.PostedMonths} năm {postQuery.PostedYear}";
+            return View("Index", postList);
+        }
 
 
 		//      public IPagingParams CreatePagingParam(

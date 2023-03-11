@@ -129,4 +129,6 @@ public interface IBlogRepository
 
     Task<IList<TagItem>> GetTagsAllAsync(CancellationToken cancellationToken = default);
 
+    Task<IList<PostMonth>> PostCountInMonth(int month, CancellationToken cancellationToken = default);
+
 }

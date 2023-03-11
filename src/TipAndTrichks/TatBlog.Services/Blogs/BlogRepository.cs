@@ -443,4 +443,21 @@ public class BlogRepository : IBlogRepository
 			PostCount = t.Posts.Count(p => p.Published)
 		}).ToListAsync(cancellationToken);
 	}
+
+	public async Task<IList<PostMonth>> PostCountInMonth(int month, CancellationToken cancellationToken = default)
+	{
+		return await _context.Set<Post>()
+			.Select(p => new PostMonth()
+			{
+				Year = p.PostedDate.Year,
+				Month = p.PostedDate.Month,
+				PostCount = _context.Set<Post>()
+				.Where(x => x.PostedDate == p.PostedDate)
+				.Count()
+			})
+			.Distinct()
+			.OrderByDescending(p => p.Year).ThenByDescending(p => p.Month)
+			.Take(month)
+			.ToListAsync(cancellationToken);
+	}
 }
