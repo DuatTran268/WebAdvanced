@@ -42,7 +42,8 @@ public interface IBlogRepository
     Task<IList<CategoryItem>> GetCategoryAsync(
         bool showOnMenu = false, CancellationToken cancellationToken = default);
 
-
+    Task<IList<AuthorItem>> GetAuthorAsync(
+        CancellationToken cancellationToken = default);
 
 
     //// lay danh sach tu khoa / the phan trang theo cac tham so pagingParams
