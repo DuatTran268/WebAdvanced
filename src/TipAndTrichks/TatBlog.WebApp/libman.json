@@ -164,6 +164,15 @@
         "fonts/fontawesome-webfont.svg",
         "fonts/fontawesome-webfont.eot"
       ]
+    },
+    {
+      "library": "speakingurl@14.0.1",
+      "destination": "wwwroot/lib/speakingurl/",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "speakingurl.min.js"
+      ]
     }
   ]
 }
