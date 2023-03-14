@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.Services.Media;
 using TatBlog.WebApp.Areas.Admin.Models;
 
 namespace TatBlog.WebApp.Areas.Admin.Controllers
@@ -12,12 +13,13 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
     {
 		private readonly IBlogRepository _blogRepository;
 		private readonly IMapper _mapper;
+		private readonly IMediaManager _mediaManager;
 
-
-		public PostsController(IBlogRepository blogRepository, IMapper mapper)
+		public PostsController(IBlogRepository blogRepository, IMapper mapper, IMediaManager mediaManager)
 		{
 			_blogRepository = blogRepository;
 			_mapper = mapper;
+			_mediaManager = mediaManager;
 		}
 
 		
@@ -103,11 +105,11 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(PostEditModel model)
 		{
-			//if (!ModelState.IsValid)
-			//{
-			//	await PopulatePostEditModelAsync(model);
-			//	return View(model);
-			//}
+			if (!ModelState.IsValid)
+			{
+				await PopulatePostEditModelAsync(model);
+				return View(model);
+			}
 
 			var post = model.Id > 0
 				? await _blogRepository.GetPostByIdAsync(model.Id) : null;
@@ -124,6 +126,23 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				_mapper.Map(model, post);
 				post.Category = null;
 				post.ModifiedDate = DateTime.Now;
+			}
+
+			//upload hinh anh minh hoa cho bai viet
+			if (model.ImageFile?.Length > 0)
+			{
+				// thuc hien luu tap tin vao thu muc upload
+				var newImagePath = await _mediaManager.SaveFileAsync(
+					model.ImageFile.OpenReadStream(),
+					model.ImageFile.FileName,
+					model.ImageFile.ContentType);
+
+				// luu thanh cong xoa tap tin anh cu
+				if (!string.IsNullOrWhiteSpace(newImagePath))
+				{
+					await _mediaManager.DeleteFileAsync(post.ImageUrl);
+					post.ImageUrl = newImagePath;
+				}
 			}
 
 			await _blogRepository.CreateOrUpdatePostAsync(post, model.GetSlectedTags());
