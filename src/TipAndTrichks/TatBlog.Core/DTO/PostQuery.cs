@@ -12,28 +12,29 @@ public class PostQuery
     public int? AuthorsId { get; set; }
 
     // slug tac gia
-    public string AuthorSlug { get; set; }
-    
+    public string AuthorSlug { get; set; } = "";
+
     // ma chuyen muc
     public int? CategoriesId { get; set; }
 
     // ten ki hieu chuyen muc
-    public string CategoryName { get; set; }
+    public string CategoryName { get; set; } = "";
 
-    public string CategorySlug { get; set; }
+    public string CategorySlug { get; set; } = "";
 
     // theo tu khoa keyword
-    public string Keyword { get; set; }
+    public string Keyword { get; set; } = "";
 
     // thang dang
-    public int?  PostedMonths { get; set; }
+    public int? PostedMonths { get; set; } = 0;
 
     // nam dang bai
-    public int? PostedYear { get; set; }
+    public int? PostedYear { get; set; } = 0;
 
-    public string SelectedTags { get; set; }
-    public string TagSlug { get; set; }
-    public bool PublishedOnly { get; set; }
+    public string SelectedTags { get; set; } = "";
+    public string TagSlug { get; set; } = "";
+    public string TagName { get; set; } = "";
+    public bool PublishedOnly { get; set; } 
     public bool NotPublished { get; set; }
 
     public List<String> GetSelectedTags()

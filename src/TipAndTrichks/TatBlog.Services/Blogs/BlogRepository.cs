@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SlugGenerator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -476,5 +477,76 @@ public class BlogRepository : IBlogRepository
 			.OrderByDescending(p => p.Year).ThenByDescending(p => p.Month)
 			.Take(month)
 			.ToListAsync(cancellationToken);
+	}
+
+	
+	public async Task<Post> CreateOrUpdatePostAsync(Post post, IEnumerable<string> tags, CancellationToken cancellationToken = default)
+	{
+		if (post.Id > 0)
+		{
+			await _context.Entry(post).Collection(x => x.Tags).LoadAsync(cancellationToken);
+		}
+		else
+		{
+			post.Tags = new List<Tag>();
+		}
+
+		var validTags = tags.Where(x => !string.IsNullOrWhiteSpace(x))
+			.Select(x => new
+			{
+				Name = x,
+				Slug = x.GenerateSlug()
+			})
+			.GroupBy(x => x.Slug)
+			.ToDictionary(g => g.Key, g => g.First().Name);
+
+
+		foreach (var kv in validTags)
+		{
+			if (post.Tags.Any(x => string.Compare(x.UrlSlug, kv.Key, StringComparison.InvariantCultureIgnoreCase) == 0)) continue;
+
+			var tag = await GetTagSlugAsync(kv.Key, cancellationToken) ?? new Tag()
+			{
+				Name = kv.Value,
+				Description = kv.Value,
+				UrlSlug = kv.Key
+			};
+
+			post.Tags.Add(tag);
+		}
+
+		post.Tags = post.Tags.Where(t => validTags.ContainsKey(t.UrlSlug)).ToList();
+
+		if (post.Id > 0)
+			_context.Update(post);
+		else
+			_context.Add(post);
+
+		await _context.SaveChangesAsync(cancellationToken);
+
+		return post;
+	}
+
+	//public async Task<Post> GetPostByIdAsync(Guid postId, CancellationToken cancellationToken = default)
+	//{
+	//	return await _context.Set<Post>()
+	//		.Include(s => s.Author)
+	//		.Include(s => s.Tags)
+	//		.Include(s => s.Category)
+	//		.FirstOrDefaultAsync(s => s.Id.Equals(postId), cancellationToken);
+	//}
+
+	public async Task<Post> GetPostByIdAsync(int postId, bool includeDetails = false, CancellationToken cancellationToken = default)
+	{
+		if (!includeDetails)
+		{
+			return await _context.Set<Post>().FindAsync(postId);
+		}
+
+		return await _context.Set<Post>()
+			.Include(x => x.Category)
+			.Include(x => x.Author)
+			.Include(x => x.Tags)
+			.FirstOrDefaultAsync(x => x.Id == postId, cancellationToken);
 	}
 }

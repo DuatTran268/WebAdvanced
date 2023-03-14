@@ -29,10 +29,7 @@
 				defaults: new { controller = "Blog", action = "Author" });
 
 
-			endpoint.MapControllerRoute(
-			  name: "single-post",
-			  pattern: "blog/post/{year:int}/{month:int}/{day:int}/{slug}",
-			  defaults: new { controller = "Blog", action = "Post" });
+			
 
 			endpoint.MapControllerRoute(
 				name: "admin-area",

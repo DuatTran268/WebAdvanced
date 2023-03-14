@@ -42,7 +42,7 @@ public interface IBlogRepository
     Task<IList<CategoryItem>> GetCategoryAsync(
         bool showOnMenu = false, CancellationToken cancellationToken = default);
 
-    Task<IList<AuthorItem>> GetAuthorAsync(
+	Task<IList<AuthorItem>> GetAuthorAsync(
         CancellationToken cancellationToken = default);
 
 
@@ -132,4 +132,13 @@ public interface IBlogRepository
 
     Task<IList<PostMonth>> PostCountInMonth(int month, CancellationToken cancellationToken = default);
 
+    //Task<Post> GetPostByIdAsync(Guid postId, CancellationToken cancellationToken = default);
+
+    public Task<Post> GetPostByIdAsync(
+        int postId, bool includeDetails = false,
+        CancellationToken cancellationToken = default);
+
+	public Task<Post> CreateOrUpdatePostAsync(
+        Post post, IEnumerable<string> tags,
+        CancellationToken cancellationToken = default);
 }

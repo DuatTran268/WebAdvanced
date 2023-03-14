@@ -18,6 +18,7 @@ namespace TatBlog.Core.DTO
 		public string ImageUrl { get; set; }
 		public bool Published { get; set; }
 		public DateTime PostDate { get; set; }
+		public DateTime? ModifiedDate { get; set; }
 		public IList<string> Tags { get; set; }
 	}
 

@@ -42,5 +42,8 @@ public class Post :IEntity
     public Author Author { get; set; }
     // danh sach cac tu khoa cua bai viet
     public IList<Tag> Tags { get; set; }
+    
+    // list comment
+    //public IList<Comment> Comments { get; set; }
 
 }
