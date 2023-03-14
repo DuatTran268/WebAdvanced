@@ -36,7 +36,7 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 
 
 		[DisplayName("Slug")]
-		[Remote("VerifyPostSlug", "Post", "Admin", HttpMethod = "POST", AdditionalFields = "Id")]
+		[Remote("VerifyPostSlug", "Posts", "Admin", HttpMethod = "POST", AdditionalFields = "Id")]
 		[Required(ErrorMessage = "Metadata không được để trống")]
 		[MaxLength(200, ErrorMessage = "Slug tối đa 200 ký tự")]
 		public string UrlSlug { get; set; }
