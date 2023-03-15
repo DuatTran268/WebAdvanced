@@ -97,7 +97,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.ConfigureMvc()
             .ConfigureServices()
             .ConfigureMapster()
-            .ConfigureFluentValidation();
+            .ConfigureFluentValidation()
+            .ConfigrueNlog();
 }
 
 var app = builder.Build();

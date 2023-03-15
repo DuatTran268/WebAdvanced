@@ -22,17 +22,19 @@
 }
 
 
-@if(Model.PageCount > 1){
+@if (Model.PageCount > 1)
+{
 	<div class="text-center my-4">
 		@if (Model.HasPreviousPage)
 		{
 			<a asp-controller="Blog"
-				asp-action="@actionName"
-				asp-route-slug="@slug"
-				asp-route-k="@postQuery.Keyword"
-				asp-route-p="@(Model.PageNumber -1)"
-				asp-route-ps="@Model.PageSize"
-				class="btn btn-info">
+	   asp-area=""
+	   asp-action="@actionName"
+	   asp-route-slug="@slug"
+	   asp-route-k="@postQuery.Keyword"
+	   asp-route-p="@(Model.PageNumber -1)"
+	   asp-route-ps="@Model.PageSize"
+	   class="btn btn-info">
 				<i class="fa fa-arrow-left"></i>
 				Trang trước
 			</a>
@@ -47,13 +49,13 @@
 
 		@if (Model.HasNextPage)
 		{
-			<a  asp-controller="Blog"
-				asp-action="@actionName"
-				asp-route-slug="@slug"
-				asp-route-k="@postQuery.Keyword"
-				asp-route-p="@(Model.PageNumber + 1)"
-				asp-route-ps="@Model.PageSize"
-				class="btn btn-info">
+			<a asp-controller="Blog"
+	   asp-area=""
+	   asp-route-slug="@slug"
+	   asp-route-k="@postQuery.Keyword"
+	   asp-route-p="@(Model.PageNumber + 1)"
+	   asp-route-ps="@Model.PageSize"
+	   class="btn btn-info">
 				Trang sau
 				<i class="fa fa-arrow-right"></i>
 			</a>

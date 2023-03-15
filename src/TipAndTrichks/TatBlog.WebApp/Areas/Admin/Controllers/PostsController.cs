@@ -16,12 +16,17 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		private readonly IBlogRepository _blogRepository;
 		private readonly IMapper _mapper;
 		private readonly IMediaManager _mediaManager;
+		private readonly ILogger<PostsController> _logger;
 
-		public PostsController(IBlogRepository blogRepository, IMediaManager mediaManager, IMapper mapper)
+		public PostsController(IBlogRepository blogRepository, 
+			IMediaManager mediaManager, 
+			IMapper mapper
+			, ILogger<PostsController> logger)
 		{
 			_blogRepository = blogRepository;
 			_mediaManager = mediaManager;
 			_mapper = mapper;
+			_logger = logger;
 		}
 
 		// lọc tìm kiếm (filter and find)
@@ -72,12 +77,15 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			//	PostedYear = model.Year,
 			//	PostedMonths = model.Month
 			//};
+			_logger.LogInformation("Tạo điều kiện truy vấn");
+
 
 			// sử dụng mapster để tạo đối tượng PostQuery từ đối tượng PostFilterModel model
 			var postQuery = _mapper.Map<PostQuery>(model);
 
-
 			ViewBag.PostList = await _blogRepository.GetPagePostAsync(postQuery, 1, 10);
+
+			_logger.LogInformation("Chuẩn bị dữ liệu cho view model");
 
 			await PopulatePostFilterModelAsync(model);
 			return View(model);

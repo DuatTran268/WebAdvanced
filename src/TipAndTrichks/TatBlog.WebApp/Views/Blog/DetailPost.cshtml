@@ -80,22 +80,22 @@
 			</span>
 		</p>
 
-		<p class="card-text">
+		@*<p class="card-text">
 			<span>
 				<i class="fa fa-tags"></i>
 				<small class="text-muted">
-					Tag:
+					tag:
 				</small>
-				@*@if (Model.Tags.Count > 0)
+				@if (model.tags.count > 0)
 				{
-					<partial name="_TagList" model="@Model.Tags" />
+					<partial name="_taglist" model="@model.tags" />
 				}
 				else
 				{
-					<p>Bài viết chưa được gắn Tag</p>
-				}*@
+					<p>bài viết chưa được gắn tag</p>
+				}
 			</span>
-		</p>
+		</p>*@
 
 		<p class="card-text">
 			<span>

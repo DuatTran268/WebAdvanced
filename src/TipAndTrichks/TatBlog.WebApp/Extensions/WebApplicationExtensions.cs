@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 using TatBlog.Data.Contexts;
 using TatBlog.Data.Seeders;
 using TatBlog.Services.Blogs;
 using TatBlog.Services.Media;
+using TatBlog.WebApp.Middlewares;
 
 namespace TatBlog.WebApp.Extensions;
 
@@ -36,6 +38,14 @@ public static class WebApplicationExtensions
         return builder;
 
     }
+    // cấu hình việc sử dụng NLog
+    public static WebApplicationBuilder ConfigrueNlog(this WebApplicationBuilder builder)
+    {
+        builder.Logging.ClearProviders();
+        builder.Host.UseNLog();
+        return builder;
+    }
+
 
 
     // cau hinh HTTP Request pipeline
@@ -65,6 +75,8 @@ public static class WebApplicationExtensions
 
         // middleware lua chon endpoint phu hop xu ly mot http request
         app.UseRouting();
+
+        app.UseMiddleware<UserActivityMiddleware>();
 
         return app;
     }
