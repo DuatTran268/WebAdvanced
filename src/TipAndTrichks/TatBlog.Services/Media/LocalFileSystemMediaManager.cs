@@ -22,8 +22,7 @@ namespace TatBlog.Services.Media
 			Stream buffer,
 			string originalFileName,
 			string contentType,
-			CancellationToken cancellationToken = default
-			)
+			CancellationToken cancellationToken = default)
 		{
 			try
 			{
@@ -33,7 +32,8 @@ namespace TatBlog.Services.Media
 				}
 				var fileExt = Path.GetExtension(originalFileName).ToLower();
 				var returnedFilePath = CreateFilePath(fileExt, contentType.ToLower());
-				var fullPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "wwwroot", returnedFilePath));
+				var fullPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, 
+					"wwwroot", returnedFilePath));
 
 				buffer.Position = 0;
 
@@ -60,10 +60,10 @@ namespace TatBlog.Services.Media
 				}
 
 				var fullPath = Path.GetFullPath(Path.Combine(
-					Environment.CurrentDirectory, "wwwroot", filePath
-					));
-
+					Environment.CurrentDirectory, "wwwroot", filePath));
 				File.Delete(fullPath);
+
+
 				return Task.FromResult(true);
 			}
 			catch (Exception ex)

@@ -1,4 +1,6 @@
-﻿using MapsterMapper;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TatBlog.Core.DTO;
@@ -15,14 +17,12 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		private readonly IMapper _mapper;
 		private readonly IMediaManager _mediaManager;
 
-		public PostsController(IBlogRepository blogRepository, IMapper mapper, IMediaManager mediaManager)
+		public PostsController(IBlogRepository blogRepository, IMediaManager mediaManager, IMapper mapper)
 		{
 			_blogRepository = blogRepository;
-			_mapper = mapper;
 			_mediaManager = mediaManager;
+			_mapper = mapper;
 		}
-
-		
 
 		// lọc tìm kiếm (filter and find)
 		private async Task PopulatePostFilterModelAsync(PostFilterModel model)
@@ -103,8 +103,16 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(PostEditModel model)
+		public async Task<IActionResult> Edit([FromServices]
+			IValidator<PostEditModel> postValidator,PostEditModel model)
 		{
+			var validationResult = await postValidator.ValidateAsync(model);
+
+			if (!validationResult.IsValid)
+			{
+				validationResult.AddToModelState(ModelState);
+			}
+
 			if (!ModelState.IsValid)
 			{
 				await PopulatePostEditModelAsync(model);

@@ -27,11 +27,11 @@ public static class WebApplicationExtensions
             options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
 
+        // media
+        builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
         builder.Services.AddScoped<IBlogRepository, BlogRepository>();
         builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
-        // media
-        builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
 
         return builder;
 
