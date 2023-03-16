@@ -185,8 +185,16 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		// public and private posts
 		public async Task<IActionResult> PublicPostStatus(int id)
 		{
-			await _blogRepository.TogglePublicStatusPostAsync(id);
+			await _blogRepository.ChangePublicStatusPostAsync(id);
 			return RedirectToAction("Index");
+		}
+
+		// delete post
+		public async Task<IActionResult> RemovePost(int id)
+		{
+			await _blogRepository.DeletePostById(id);
+			return RedirectToAction("Index");
+
 		}
 	}
 }

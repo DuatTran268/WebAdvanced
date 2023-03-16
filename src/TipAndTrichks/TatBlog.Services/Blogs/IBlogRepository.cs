@@ -142,5 +142,10 @@ public interface IBlogRepository
         Post post, IEnumerable<string> tags,
         CancellationToken cancellationToken = default);
 
-	Task TogglePublicStatusPostAsync(int postId, CancellationToken cancellationToken = default);
+    // change status post: public and private
+	Task ChangePublicStatusPostAsync(int postId, CancellationToken cancellationToken = default);
+
+    // remove post
+	Task<bool> DeletePostById(int id, CancellationToken cancellationToken = default);
+
 }

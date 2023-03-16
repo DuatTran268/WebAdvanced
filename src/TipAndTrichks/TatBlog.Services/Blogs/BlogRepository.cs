@@ -548,9 +548,21 @@ public class BlogRepository : IBlogRepository
 			.FirstOrDefaultAsync(x => x.Id == postId, cancellationToken);
 	}
 
-	public async Task TogglePublicStatusPostAsync(int postId, CancellationToken cancellationToken = default)
+	// change status post
+	public async Task ChangePublicStatusPostAsync(int postId, CancellationToken cancellationToken = default)
 	{
 		await _context.Set<Post>().Where(x => x.Id == postId)
 			.ExecuteUpdateAsync(p => p.SetProperty(x => x.Published, x => !x.Published), cancellationToken);
 	}
+
+
+	public async Task<bool> DeletePostById(int id, CancellationToken cancellationToken = default)
+	{
+		var delPostId = await _context.Set<Post>()
+			.Include(p => p.Tags).Where(p => p.Id == id).FirstOrDefaultAsync(cancellationToken);
+		_context.Set<Post>().Remove(delPostId);
+		await _context.SaveChangesAsync(cancellationToken);
+		return true;
+	}
+
 }
