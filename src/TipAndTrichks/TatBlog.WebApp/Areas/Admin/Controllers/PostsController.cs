@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
@@ -181,5 +182,11 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 
 
+		// public and private posts
+		public async Task<IActionResult> PublicPostStatus(int id)
+		{
+			await _blogRepository.TogglePublicStatusPostAsync(id);
+			return RedirectToAction("Index");
+		}
 	}
 }

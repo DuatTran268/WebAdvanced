@@ -14,7 +14,7 @@ namespace TatBlog.WebApp.Components
 
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			var archive = await _blogRepository.PostCountInMonth(12);
+			var archive = await _blogRepository.CountPostInMonth(12);
 			return View(archive);
 		}
 	}

@@ -4,7 +4,7 @@
 	ViewData["PageTitle"] = "Manage Posts";
 
 	var postList = ViewBag.PostList as IPagedList<Post>;
-	
+
 }
 
 <h1>
@@ -24,7 +24,8 @@
 				<th>Tiêu đề</th>
 				<th>Tác giả</th>
 				<th>Chủ đề </th>
-				<th>Xuất bản</th>
+				<th>Trạng thái</th>
+				<th>Xoá</th>
 			</tr>
 		</thead>
 
@@ -52,7 +53,26 @@
 						@post.Category.Name
 					</td>
 					<td>
-						@(post.Published ? "Có" : "Không")
+						<a class="btn"
+						   asp-area="Admin"
+						   asp-controller="Posts"
+						   asp-action="PublicPostStatus"
+						   asp-route-id="@post.Id">
+							@if (post.Published)
+							{
+								<i class="fa fa-unlock"></i>
+								<span>Public</span>
+							}
+							else
+							{
+								<i class="fa fa-lock"></i>
+								<span>Private</span>
+							}
+						</a>
+					</td>
+
+					<td>
+						<i class="fa fa-trash" style="color:red"></i>
 					</td>
 				</tr>
 			}

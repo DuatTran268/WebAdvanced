@@ -462,18 +462,16 @@ public class BlogRepository : IBlogRepository
 		}).ToListAsync(cancellationToken);
 	}
 
-	public async Task<IList<PostMonth>> PostCountInMonth(int month, CancellationToken cancellationToken = default)
+	public async Task<IList<PostMonth>> CountPostInMonth(int month, CancellationToken cancellationToken = default)
 	{
 		return await _context.Set<Post>()
+			.GroupBy(p => new { p.PostedDate.Year ,p.PostedDate.Month })
 			.Select(p => new PostMonth()
 			{
-				Year = p.PostedDate.Year,
-				Month = p.PostedDate.Month,
-				PostCount = _context.Set<Post>()
-				.Where(x => x.PostedDate == p.PostedDate)
-				.Count()
+				Year = p.Key.Year,
+				Month = p.Key.Month,
+				PostCount = p.Count()
 			})
-			.Distinct()
 			.OrderByDescending(p => p.Year).ThenByDescending(p => p.Month)
 			.Take(month)
 			.ToListAsync(cancellationToken);
@@ -548,5 +546,11 @@ public class BlogRepository : IBlogRepository
 			.Include(x => x.Author)
 			.Include(x => x.Tags)
 			.FirstOrDefaultAsync(x => x.Id == postId, cancellationToken);
+	}
+
+	public async Task TogglePublicStatusPostAsync(int postId, CancellationToken cancellationToken = default)
+	{
+		await _context.Set<Post>().Where(x => x.Id == postId)
+			.ExecuteUpdateAsync(p => p.SetProperty(x => x.Published, x => !x.Published), cancellationToken);
 	}
 }

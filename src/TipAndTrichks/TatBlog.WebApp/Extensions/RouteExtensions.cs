@@ -4,6 +4,10 @@
 	{
 		public static IEndpointRouteBuilder UseBlogRouters(this IEndpointRouteBuilder endpoint)
 		{
+			endpoint.MapControllerRoute(
+			name: "post-by-archive",
+			pattern: "blog/Archives/{year:int}/{month:int}",
+			defaults: new { controller = "Blog", action = "Archives" });
 
 			// định nghĩa route template , constraint cho các endpoint kết hợp với các action trong các controller
 			endpoint.MapControllerRoute(
