@@ -1,8 +1,10 @@
 ﻿@model TatBlog.WebApp.Areas.Admin.Models.PostFilterModel
+
 @{
 	ViewData["PageTitle"] = "Manage Posts";
 
 	var postList = ViewBag.PostList as IPagedList<Post>;
+	
 }
 
 <h1>
@@ -57,7 +59,7 @@
 		</tbody>
 	</table>
 
-
+	<partial name="_Pager" model="postList" />
 }
 else
 {

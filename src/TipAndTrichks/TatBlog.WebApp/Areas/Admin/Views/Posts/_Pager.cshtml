@@ -18,9 +18,6 @@
 	{
 		actionName = "Tag";
 		slug = postQuery.TagSlug;
-	}else if(postQuery.PostedMonths > 0 && postQuery.PostedYear > 0)
-	{
-		actionName = "Archives";
 	}
 }
 
@@ -30,8 +27,8 @@
 	<div class="text-center my-4">
 		@if (Model.HasPreviousPage)
 		{
-			<a asp-controller="Blog"
-	   asp-area=""
+			<a asp-controller="Posts"
+	   asp-area="Admin"
 	   asp-action="@actionName"
 	   asp-route-slug="@slug"
 	   asp-route-k="@postQuery.Keyword"
@@ -52,8 +49,8 @@
 
 		@if (Model.HasNextPage)
 		{
-			<a asp-controller="Blog"
-	   asp-area=""
+			<a asp-controller="Posts"
+	   asp-area="Admin"
 	   asp-route-slug="@slug"
 	   asp-route-k="@postQuery.Keyword"
 	   asp-route-p="@(Model.PageNumber + 1)"
@@ -70,8 +67,6 @@
 				<i class="fa fa-arrow-right"></i>
 			</button>
 		}
-
-
 
 	</div>
 }
