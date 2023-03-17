@@ -77,7 +77,8 @@
 					   asp-area="Admin"
 					   asp-controller="Posts"
 					   asp-action="RemovePost"
-					   asp-route-id="@post.Id">
+					   asp-route-id="@post.Id"
+				   onclick="return confirm('Bạn có chắc chắn xoá bài viết này')">
 							<i class="fa fa-trash" style="color:red"></i>
 						</a>
 					</td>
