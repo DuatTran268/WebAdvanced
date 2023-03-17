@@ -565,4 +565,18 @@ public class BlogRepository : IBlogRepository
 		return true;
 	}
 
+	public async Task<IPagedList<Author>> GetNAuthorTopPosts(int n, IPagingParams pagingParams, CancellationToken cancellationToken = default)
+	{
+		Author authorTop = _context.Set<Author>()
+			.Include(a => a.Posts)
+			.OrderByDescending(a => a.Posts.Count(p => p.Published)).First();
+
+		int maxPost = authorTop.Posts.Count(p => p.Published);
+
+		return await _context.Set<Author>()
+			.Include(a => a.Posts)
+			.Where(a => a.Posts.Count(p => p.Published) == maxPost)
+			.Take(n)
+			.ToPagedListAsync(pagingParams, cancellationToken);
+	}
 }

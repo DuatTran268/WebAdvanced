@@ -148,4 +148,6 @@ public interface IBlogRepository
     // remove post
 	Task<bool> DeletePostById(int id, CancellationToken cancellationToken = default);
 
+	Task<IPagedList<Author>> GetNAuthorTopPosts(int n, IPagingParams pagingParams, CancellationToken cancellationToken = default);
+
 }
