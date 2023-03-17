@@ -53,7 +53,7 @@
 						@post.Category.Name
 					</td>
 					<td>
-						<button class="btn"
+						<a class="btn"
 				   asp-area="Admin"
 				   asp-controller="Posts"
 				   asp-action="PublicPostStatus"
@@ -61,25 +61,25 @@
 							@if (post.Published)
 							{
 								@*<i class="fa fa-unlock"></i>*@
-								<i class="fa fa-globe"></i>
-								<span>Public</span>
+								<i class="fa fa-globe" style="color:blue"></i>
+								<span style="color: blue">Public</span>
 							}
 							else
 							{
-								<i class="fa fa-lock"></i>
-								<span>Private</span>
+								<i class="fa fa-lock" style="color:red"></i>
+								<span style="color:red">Private</span>
 							}
-						</button>
+						</a>
 					</td>
 
 					<td>
-						<button class="btn"
+						<a class="btn"
 					   asp-area="Admin"
 					   asp-controller="Posts"
 					   asp-action="RemovePost"
 					   asp-route-id="@post.Id">
 							<i class="fa fa-trash" style="color:red"></i>
-						</button>
+						</a>
 					</td>
 				</tr>
 			}
