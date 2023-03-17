@@ -82,21 +82,5 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 
 		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }
