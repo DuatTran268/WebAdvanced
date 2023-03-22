@@ -156,6 +156,8 @@ public interface IBlogRepository
 	   CategoryQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
 
-
+	public Task<Category> GetCategoryByIdAsync(
+	  int categoryId, bool includeDetails = false,
+	  CancellationToken cancellationToken = default);
 
 }

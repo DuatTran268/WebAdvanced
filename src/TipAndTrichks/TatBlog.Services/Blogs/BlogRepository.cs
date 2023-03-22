@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SlugGenerator;
 using System;
 using System.Collections.Generic;
@@ -607,6 +608,16 @@ public class BlogRepository : IBlogRepository
 	{
 		return await FilterCategory(condition).ToPageListAsync(
 			pageNumber, pageSize, "Id", "DESC", cancellationToken);
+	}
+
+	public async Task<Category> GetCategoryByIdAsync(int categoryId, bool includeDetails = false, CancellationToken cancellationToken = default)
+	{
+		if (!includeDetails)
+		{
+			return await _context.Set<Category>().FindAsync(categoryId);
+		}
+		return await _context.Set<Category>().FirstOrDefaultAsync(x => x.Id == categoryId, cancellationToken);
+
 	}
 
 
