@@ -1,11 +1,16 @@
-﻿using MapsterMapper;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Project;
 using TatBlog.Core.Collections;
 using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.Services.Media;
 using TatBlog.WebApp.Areas.Admin.Models;
+using TatBlog.WebApp.Validations;
 
 namespace TatBlog.WebApp.Areas.Admin.Controllers
 {
@@ -39,6 +44,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 		}
 
+		// get click item category show details
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id = 0)
 		{
@@ -51,9 +57,52 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				: _mapper.Map<CategoryEditModel>(category);
 
 			return View(model);
-
 			
 		}
+
+
+		// post after edit
+		[HttpPost]
+		public async Task<IActionResult> Edit([FromServices]
+			IValidator<CategoryEditModel> cateValidator, CategoryEditModel model)
+		{
+			var validationResult = await cateValidator.ValidateAsync(model);
+
+			if (!validationResult.IsValid)
+			{
+				validationResult.AddToModelState(ModelState);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			var cate = model.Id > 0
+				? await _blogRepository.GetCategoryByIdAsync(model.Id) : null;
+
+			if (cate == null)
+			{
+				cate = _mapper.Map<Category>(model);
+				cate.Id = 0;
+			}
+			else
+			{
+				_mapper.Map(model, cate);
+			}
+
+
+			await _blogRepository.CreateOrUpdateCategoryAsync(cate);
+			return RedirectToAction(nameof(Index));
+		}
+
+
+
+
+
+
+
+
 
 
 	}

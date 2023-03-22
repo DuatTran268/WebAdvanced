@@ -160,4 +160,7 @@ public interface IBlogRepository
 	  int categoryId, bool includeDetails = false,
 	  CancellationToken cancellationToken = default);
 
+    Task<Category> CreateOrUpdateCategoryAsync(Category category, CancellationToken cancellationToken = default);
+
+
 }

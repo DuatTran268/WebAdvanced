@@ -620,5 +620,19 @@ public class BlogRepository : IBlogRepository
 
 	}
 
+	public async Task<Category> CreateOrUpdateCategoryAsync(Category category, CancellationToken cancellationToken = default)
+	{
+		if (_context.Set<Category>().Any(c => c.Id == category.Id))
+		{
+			_context.Entry(category).State = EntityState.Modified;
+		}
+		else
+		{
+			_context.Categories.Add(category);
+		}
 
+		await _context.SaveChangesAsync(cancellationToken);
+
+		return category;
+	}
 }
