@@ -591,12 +591,12 @@ public class BlogRepository : IBlogRepository
 
 		//Console.WriteLine(cateQuery);
 
-		//if (!string.IsNullOrEmpty(query.Keyword))
-		//{
-		//	cateQuery = cateQuery
-		//	  .Where(c => c.Name.Contains(query.Keyword));
+		if (!string.IsNullOrEmpty(query.Keyword))
+		{
+			cateQuery = cateQuery
+			  .Where(c => c.Name.Contains(query.Keyword));
 
-		//}
+		}
 		return cateQuery;
 	}
 
