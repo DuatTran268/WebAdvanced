@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
@@ -635,4 +636,15 @@ public class BlogRepository : IBlogRepository
 
 		return category;
 	}
+
+	public async Task<bool> DeleteCategoryById(int id, CancellationToken cancellationToken = default)
+	{
+		var delCategoryId = await _context.Set<Category>().Where(c => c.Id == id).FirstOrDefaultAsync(cancellationToken);
+		_context.Set<Category>().Remove(delCategoryId);
+		await _context.SaveChangesAsync(cancellationToken);
+		return true;
+	}
+
+
+
 }

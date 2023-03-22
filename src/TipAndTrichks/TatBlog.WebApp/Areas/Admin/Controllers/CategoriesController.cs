@@ -97,7 +97,12 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		}
 
 
+		public async Task<IActionResult> RemoveCategory(int id)
+		{
+			await _blogRepository.DeletePostById(id);
+			return RedirectToAction("Index");
 
+		}
 
 
 

@@ -163,4 +163,8 @@ public interface IBlogRepository
     Task<Category> CreateOrUpdateCategoryAsync(Category category, CancellationToken cancellationToken = default);
 
 
+	// delete category
+	Task<bool> DeleteCategoryById(int id, CancellationToken cancellationToken = default);
+
+
 }
