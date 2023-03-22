@@ -150,4 +150,12 @@ public interface IBlogRepository
 
 	Task<IPagedList<Author>> GetNAuthorTopPosts(int n, IPagingParams pagingParams, CancellationToken cancellationToken = default);
 
+
+
+	Task<IPagedList<Category>> GetPageCategoryAsync(
+	   CategoryQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+
+
+
+
 }

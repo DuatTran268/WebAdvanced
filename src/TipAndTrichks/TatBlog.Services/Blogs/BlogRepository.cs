@@ -10,6 +10,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Extensions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TatBlog.Services.Blogs;
 
@@ -111,9 +112,9 @@ public class BlogRepository : IBlogRepository
 	public async Task<IList<AuthorItem>> GetAuthorAsync(CancellationToken cancellationToken = default)
 	{
 		IQueryable<Author> authors = _context.Set<Author>();
-		return await authors.OrderBy(x => x.FullNames).Select( x => new AuthorItem()
+		return await authors.OrderBy(x => x.FullNames).Select(x => new AuthorItem()
 		{
-			AuthorId= x.Id,
+			AuthorId = x.Id,
 			FullName = x.FullNames,
 			UrlSlug = x.UrlSlug,
 			ImageUrl = x.ImageUrl,
@@ -184,7 +185,7 @@ public class BlogRepository : IBlogRepository
 		return await categoryQuery.FirstOrDefaultAsync(cancellationToken);
 	}
 
-	
+
 
 
 	// f)
@@ -435,18 +436,18 @@ public class BlogRepository : IBlogRepository
 			{
 				postQuery = postQuery.Where(p => p.PostedDate.Year == year);
 			}
-			if(month > 0)
+			if (month > 0)
 			{
 				postQuery = postQuery.Where(p => p.PostedDate.Month == month);
 			}
-			if(!string.IsNullOrEmpty(slug))
+			if (!string.IsNullOrEmpty(slug))
 			{
 				postQuery = postQuery.Where(p => p.UrlSlug == slug);
 			}
 
 			return await postQuery.FirstOrDefaultAsync(cancellationToken);
 		}
-			
+
 	}
 
 	public async Task<IList<TagItem>> GetTagsAllAsync(CancellationToken cancellationToken = default)
@@ -465,7 +466,7 @@ public class BlogRepository : IBlogRepository
 	public async Task<IList<PostMonth>> CountPostInMonth(int month, CancellationToken cancellationToken = default)
 	{
 		return await _context.Set<Post>()
-			.GroupBy(p => new { p.PostedDate.Year ,p.PostedDate.Month })
+			.GroupBy(p => new { p.PostedDate.Year, p.PostedDate.Month })
 			.Select(p => new PostMonth()
 			{
 				Year = p.Key.Year,
@@ -477,7 +478,7 @@ public class BlogRepository : IBlogRepository
 			.ToListAsync(cancellationToken);
 	}
 
-	
+
 	public async Task<Post> CreateOrUpdatePostAsync(Post post, IEnumerable<string> tags, CancellationToken cancellationToken = default)
 	{
 		if (post.Id > 0)
@@ -579,4 +580,34 @@ public class BlogRepository : IBlogRepository
 			.Take(n)
 			.ToPagedListAsync(pagingParams, cancellationToken);
 	}
+
+
+
+	private IQueryable<Category> FilterCategory(CategoryQuery query)
+	{
+		IQueryable<Category> cateQuery = _context.Set<Category>();
+
+		//Console.WriteLine(cateQuery);
+
+		//if (!string.IsNullOrEmpty(query.Keyword))
+		//{
+		//	cateQuery = cateQuery
+		//	  .Where(c => c.Name.Contains(query.Keyword));
+
+		//}
+		return cateQuery;
+	}
+
+
+	public async Task<IPagedList<Category>> GetPageCategoryAsync(
+		CategoryQuery condition, 
+		int pageNumber, 
+		int pageSize, 
+		CancellationToken cancellationToken = default)
+	{
+		return await FilterCategory(condition).ToPageListAsync(
+			pageNumber, pageSize, "Id", "DESC", cancellationToken);
+	}
+
+
 }

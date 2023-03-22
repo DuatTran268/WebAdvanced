@@ -1,7 +1,56 @@
-﻿@{
+﻿@model TatBlog.WebApp.Areas.Admin.Models.CategoryFilterModel
+
+@{
 	ViewData["PageTitle"] = "Manage Categories";
+	var categoryList = ViewBag.CateList as IPagedList<Category>;
 }
 
 <h1>
 	Danh sách Categories
 </h1>
+
+<partial name="_CategoryFilterPane" model="Model" />
+
+@if (categoryList != null && categoryList.Count > 0)
+{
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Thông tin chủ đề</th>
+				<th>Tổng số bài viết</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var cate in categoryList)
+			{
+				<tr>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Categories"
+				   asp-action="Edit"
+				   asp-route-id="@cate.Id"
+				   class="text-bold">
+							@cate.Name
+						</a>
+
+						<p class="text-muted">
+							@cate.Description
+						</p>
+					</td>
+					<td>
+						0
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<partial name="_Pager" model="categoryList" />
+
+}
+else
+{
+	<h2 class="text-warning">
+		Không có chủ đề nào
+	</h2>
+}
