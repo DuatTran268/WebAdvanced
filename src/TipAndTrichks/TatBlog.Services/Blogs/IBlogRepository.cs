@@ -167,4 +167,11 @@ public interface IBlogRepository
 	Task<bool> DeleteCategoryById(int id, CancellationToken cancellationToken = default);
 
 
+
+	// tag/ get page tag
+
+	// Tag/ get page tag
+	Task<IPagedList<Tag>> GetPageTagAsync(
+		TagQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+
 }

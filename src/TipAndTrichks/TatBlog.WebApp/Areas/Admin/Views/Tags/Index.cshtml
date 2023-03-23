@@ -1,7 +1,73 @@
-﻿@{
+﻿@model TatBlog.WebApp.Areas.Admin.Models.TagFilterModel
+
+
+@{
 	ViewData["PageTitle"] = "Manage Tags";
+	var tagList = ViewBag.TagList as IPagedList<Tag>;
+
 }
 
 <h1>
 	Danh sách các thẻ tag
 </h1>
+
+
+<partial name="_TagFilterPane" model="Model" />
+
+@if (tagList != null && tagList.Count > 0)
+{
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Tên thẻ</th>
+				<th>Description</th>
+				<th>Số bài viết</th>
+				<th>Xoá</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var tag in tagList)
+			{
+				<tr>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Tags"
+				   asp-action="Edit"
+				   asp-route-id="@tag.Id"
+				   class="text-bold">
+							@tag.Name
+						</a>
+					</td>
+
+					<td>
+						@tag.Description
+					</td>
+
+					<td>
+						0
+					</td>
+
+					<td>
+						<a class="btn"
+				   asp-area="Admin"
+				   asp-controller="Tags"
+				   asp-action=""
+				   asp-route-id="@tag.Id"
+				   onclick="return confirm('Bạn có chắc chắn xoá bài viết này')">
+							<i class="fa fa-trash" style="color:red"></i>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<partial name="_Pager" model="tagList" />
+
+}
+else
+{
+	<h1 class="text-warning mt-5 text-center mb-5">
+		Không tìm thấy chủ đề nào
+	</h1>
+}

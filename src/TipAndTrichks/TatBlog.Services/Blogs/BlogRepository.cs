@@ -647,4 +647,37 @@ public class BlogRepository : IBlogRepository
 
 
 
+	// Tag
+
+	private IQueryable<Tag> FilterTag(TagQuery query)
+	{
+		IQueryable<Tag> tagQuery = _context.Set<Tag>();
+
+		//if (!string.IsNullOrEmpty(query.Keyword))
+		//{
+		//	tagQuery = tagQuery
+		//	  .Where(t => t.Name.Contains(query.Keyword));
+
+		//}
+		return tagQuery;
+	}
+
+
+	public async Task<IPagedList<Tag>> GetPageTagAsync(TagQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+	{
+		return await FilterTag(condition)
+			.ToPageListAsync(pageNumber, pageSize, "Id", "DESC", cancellationToken);
+	}
+
+
+
+	//public async Task<IPagedList<Category>> GetPageCategoryAsync(
+	//	CategoryQuery condition,
+	//	int pageNumber,
+	//	int pageSize,
+	//	CancellationToken cancellationToken = default)
+	//{
+	//	return await FilterCategory(condition).ToPageListAsync(
+	//		pageNumber, pageSize, "Id", "DESC", cancellationToken);
+	//}
 }
