@@ -1,0 +1,81 @@
+﻿@model TatBlog.WebApp.Areas.Admin.Models.AuthorEditModel
+
+
+@{
+	ViewData["PageTitle"] = "Thêm/Cập nhật tác giả";
+}
+
+<h1>Thêm cập nhật tác giả</h1>
+
+
+<form asp-area="Admin"
+	  asp-controller="Authors"
+	  asp-action="Edit"
+	  enctype="multipart/form-data"
+	  method="post">
+
+	<div asp-validation-summary="ModelOnly"></div>
+	<input type="hidden" asp-for="Id" />
+
+	<div class="row mb-3">
+		<label asp-for="FullNames" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" asp-for="FullNames" />
+			<span asp-validation-for="FullNames" class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label asp-for="Email" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" asp-for="Email" />
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label asp-for="Note" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" asp-for="Note" />
+			<span asp-validation-for="Note" class="text-danger"></span>
+		</div>
+	</div>
+
+	
+	@if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+	{
+		<div class="row mb-3">
+			<label asp-for="ImageUrl" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<img src="/@Model.ImageUrl"/>
+			</div>
+		</div>
+	}
+
+	<div class="row mb-3">
+		<label asp-for="ImageFile" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input type="file" class="form-control" asp-for="ImageFile" />
+		</div>
+	</div>
+
+	<div class="text-center">
+		<button type="submit" class="btn btn-primary">
+			Lưu các thay đổi
+		</button>
+		<a asp-area="Admin"
+		   asp-controller="Categories"
+		   asp-action="Index"
+		   class="btn btn-danger">
+			Huỷ & Quay lại
+		</a>
+	</div>
+
+</form>
+
+
+@section scripts{
+	<partial name="_ValidationScriptsPartial" />
+
+
+}

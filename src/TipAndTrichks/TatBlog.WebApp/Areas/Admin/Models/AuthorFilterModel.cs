@@ -5,6 +5,11 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 {
 	public class AuthorFilterModel
 	{
+		[DisplayName("Mã tác giả")]
+		public int AuthorId { get; set; }
+		
+		[DisplayName("Tên tác giả")]
+		public string FullNames { get; set; }
 		[DisplayName("Từ khoá")]
 		public string Keyword { get; set; }
 

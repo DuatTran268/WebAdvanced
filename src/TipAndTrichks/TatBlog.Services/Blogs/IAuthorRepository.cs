@@ -32,6 +32,11 @@ public interface IAuthorRepository
 	Task<IPagedList<Author>> GetPageAuthorAsync(
 		AuthorQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
-	
+
+	// get author by id async
+    public Task<Author> GetAuthorByIdAsync(
+        int authorId, bool includeDetails = false, CancellationToken cancellationToken = default);
+
+
 
 }

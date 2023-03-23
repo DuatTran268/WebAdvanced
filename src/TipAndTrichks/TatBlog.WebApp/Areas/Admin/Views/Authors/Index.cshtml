@@ -8,3 +8,80 @@
 <h1>
 	Danh sách tác giả
 </h1>
+
+<partial name="_AuthorFilterPane" model="Model" />
+
+@if (authorList != null && authorList.Count > 0)
+{
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Avatar tác giả</th>
+				<th>Tên tác giả</th>
+				<th>Ngày tham gia</th>
+				<th>Email</th>
+				<th>Số bài viết</th>
+				<th>Xoá</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var author in authorList)
+			{
+				<tr>
+					<td>
+						@if (!string.IsNullOrWhiteSpace(author.ImageUrl))
+						{
+							<img src="@author.ImageUrl" width="50" />
+						}
+						else
+						{
+							<img src="~/images/duat.jpg" width="50px"/>
+						}
+
+					</td>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Authors"
+				   asp-action="Edit"
+				   asp-route-id="@author.Id"
+				   class="text-bold">
+							@author.FullNames
+						</a>
+					</td>
+
+					<td>
+						@author.JoinedDate.ToShortDateString()
+					</td>
+
+					<td>
+						@author.Email
+					</td>
+
+					<td>
+						0
+					</td>
+
+					<td>
+						<a class="btn"
+				   asp-area="Admin"
+				   asp-controller="Authors"
+				   asp-action=""
+				   asp-route-id="@author.Id"
+				   onclick="return confirm('Bạn có chắc chắn xoá bài viết này')">
+							<i class="fa fa-trash" style="color:red"></i>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<partial name="_Pager" model="authorList" />
+
+}
+else
+{
+	<h1 class="text-warning mt-5 text-center mb-5">
+		Không tìm thấy chủ đề nào
+	</h1>
+}

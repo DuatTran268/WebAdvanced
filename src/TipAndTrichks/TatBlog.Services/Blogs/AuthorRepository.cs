@@ -95,4 +95,16 @@ public class AuthorRepository :IAuthorRepository
 	{
 		return await FilterAuthor(condition).ToPageListAsync(pageNumber, pageSize, "Id", "DESC", cancellationToken);
 	}
+
+	public async Task<Author> GetAuthorByIdAsync(int authorId, bool includeDetails = false, CancellationToken cancellationToken = default)
+	{
+        if (!includeDetails)
+        {
+            return await _context.Set<Author>().FindAsync(authorId);
+        }
+        return await _context.Set<Author>().FirstOrDefaultAsync(x => x.Id == authorId, cancellationToken);
+	}
+
+
+
 }
