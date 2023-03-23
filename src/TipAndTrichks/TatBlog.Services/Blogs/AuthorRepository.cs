@@ -88,7 +88,13 @@ public class AuthorRepository :IAuthorRepository
     private IQueryable<Author> FilterAuthor(AuthorQuery query)
     {
         IQueryable<Author> authorQuery = _context.Set<Author>();
-        return authorQuery;
+
+        if (!string.IsNullOrEmpty(query.Keyword))
+        {
+            authorQuery = authorQuery.Where(a => a.FullNames.Contains(query.Keyword));
+        }
+
+		return authorQuery;
     }
 
 	public async Task<IPagedList<Author>> GetPageAuthorAsync(AuthorQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default)
@@ -105,6 +111,19 @@ public class AuthorRepository :IAuthorRepository
         return await _context.Set<Author>().FirstOrDefaultAsync(x => x.Id == authorId, cancellationToken);
 	}
 
+	public async Task<Author> CreateOrUpdateAuthorAsync(Author author, CancellationToken cancellationToken = default)
+	{
+        if (_context.Set<Author>().Any(a => a.Id == author.Id))
+        {
+            _context.Entry(author).State = EntityState.Modified;
+        }
+        else
+        {
+            _context.Authors.Add(author);
+        }
+        await _context.SaveChangesAsync(cancellationToken);
 
-
+        return author;
+	}
+	
 }

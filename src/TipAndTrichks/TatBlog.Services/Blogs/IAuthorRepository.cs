@@ -37,6 +37,7 @@ public interface IAuthorRepository
     public Task<Author> GetAuthorByIdAsync(
         int authorId, bool includeDetails = false, CancellationToken cancellationToken = default);
 
+	Task<Author> CreateOrUpdateAuthorAsync(Author author, CancellationToken cancellationToken = default);
 
 
 }
