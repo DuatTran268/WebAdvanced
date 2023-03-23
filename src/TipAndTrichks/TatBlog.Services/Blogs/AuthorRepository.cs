@@ -6,6 +6,7 @@ using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using TatBlog.Core.Contracts;
+using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Extensions;
@@ -83,4 +84,15 @@ public class AuthorRepository :IAuthorRepository
             
             
     }
+
+    private IQueryable<Author> FilterAuthor(AuthorQuery query)
+    {
+        IQueryable<Author> authorQuery = _context.Set<Author>();
+        return authorQuery;
+    }
+
+	public async Task<IPagedList<Author>> GetPageAuthorAsync(AuthorQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+	{
+		return await FilterAuthor(condition).ToPageListAsync(pageNumber, pageSize, "Id", "DESC", cancellationToken);
+	}
 }

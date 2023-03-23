@@ -29,6 +29,9 @@ namespace TatBlog.WebApp.Mapsters
 				.Ignore(dest => dest.ImageFile);
 
 
+			config.NewConfig<CategoryEditModel, Category>()
+				.Ignore(dest => dest.Posts);
+
 
 
 

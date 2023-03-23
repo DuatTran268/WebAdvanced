@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,4 +27,11 @@ public interface IAuthorRepository
 
     // f
     Task<IPagedList<Author>> GetNAuthorTopPosts(int n, IPagingParams pagingParams, CancellationToken cancellationToken = default);
+
+
+	Task<IPagedList<Author>> GetPageAuthorAsync(
+		AuthorQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+
+	
+
 }

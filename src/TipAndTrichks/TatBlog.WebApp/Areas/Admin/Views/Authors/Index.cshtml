@@ -1,6 +1,8 @@
-﻿
+﻿@model TatBlog.WebApp.Areas.Admin.Models.AuthorFilterModel
+
 @{
 	ViewData["PageTitle"] = "Manage Author";
+	var authorList = ViewBag.AuthorList as IPagedList<Author>;
 }
 
 <h1>
