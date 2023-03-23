@@ -653,12 +653,12 @@ public class BlogRepository : IBlogRepository
 	{
 		IQueryable<Tag> tagQuery = _context.Set<Tag>();
 
-		//if (!string.IsNullOrEmpty(query.Keyword))
-		//{
-		//	tagQuery = tagQuery
-		//	  .Where(t => t.Name.Contains(query.Keyword));
+		if (!string.IsNullOrEmpty(query.Keyword))
+		{
+			tagQuery = tagQuery
+			  .Where(t => t.Name.Contains(query.Keyword));
 
-		//}
+		}
 		return tagQuery;
 	}
 
@@ -671,13 +671,4 @@ public class BlogRepository : IBlogRepository
 
 
 
-	//public async Task<IPagedList<Category>> GetPageCategoryAsync(
-	//	CategoryQuery condition,
-	//	int pageNumber,
-	//	int pageSize,
-	//	CancellationToken cancellationToken = default)
-	//{
-	//	return await FilterCategory(condition).ToPageListAsync(
-	//		pageNumber, pageSize, "Id", "DESC", cancellationToken);
-	//}
 }
