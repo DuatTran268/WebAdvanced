@@ -39,5 +39,6 @@ public interface IAuthorRepository
 
 	Task<Author> CreateOrUpdateAuthorAsync(Author author, CancellationToken cancellationToken = default);
 
-
+	// remove
+	Task<bool> DeleteAuthorById(int id, CancellationToken cancellationToken = default);
 }

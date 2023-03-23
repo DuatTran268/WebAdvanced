@@ -125,5 +125,14 @@ public class AuthorRepository :IAuthorRepository
 
         return author;
 	}
-	
+
+	public async Task<bool> DeleteAuthorById(int id, CancellationToken cancellationToken = default)
+	{
+        var removeAuthorById = await _context.Set<Author>()
+            .Where(a => a.Id == id).FirstOrDefaultAsync(cancellationToken);
+        _context.Set<Author>().Remove(removeAuthorById);
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
+	}
+
 }

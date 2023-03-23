@@ -60,7 +60,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit([FromServices] IValidator<AuthorEditModel> authorValidator
+		public async Task<IActionResult> Edit([FromServices] 
+		IValidator<AuthorEditModel> authorValidator
 			, AuthorEditModel model)
 		{
 			var validationResult = await authorValidator.ValidateAsync(model);
@@ -80,11 +81,13 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			{
 				author = _mapper.Map<Author>(model);
 				author.Id= 0;
-				//author.JoinedDate = DateTime.Now;
+				author.JoinedDate = DateTime.Now;
 			}
 			else
 			{
 				_mapper.Map(model, author);
+				author.Posts = null;
+				author.JoinedDate = DateTime.Now;
 			}
 
 			//upload hinh anh minh hoa cho bai viet
@@ -110,5 +113,13 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		}
 
 
+		// function delete
+		public async Task<IActionResult> RemoveAuthor(int id)
+		{
+			await _authorRepository.DeleteAuthorById(id);
+			//return RedirectToAction(nameof(Index));
+			return RedirectToAction("Index");
+
+		}
 	}
 }
