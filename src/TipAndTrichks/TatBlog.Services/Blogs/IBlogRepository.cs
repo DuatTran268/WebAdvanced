@@ -174,4 +174,7 @@ public interface IBlogRepository
 	Task<IPagedList<Tag>> GetPageTagAsync(
 		TagQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
+	public Task<Tag> GetTagByIdAsync(
+	  int tagId, bool includeDetails = false,
+	  CancellationToken cancellationToken = default);
 }

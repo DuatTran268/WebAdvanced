@@ -38,5 +38,20 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			ViewBag.TagList = await _blogRepository.GetPageTagAsync(tagQuery, pageNumber, pageSize);
 			return View(model);
 		}
+
+		// click show details
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id = 0)
+		{
+			var tag = id > 0
+				? await _blogRepository.GetTagByIdAsync(id, true) : null;
+			var model = tag == null
+				? new TagEditModel()
+				: _mapper.Map<TagEditModel>(tag);
+
+			return View(model);
+		}
+
+
 	}
 }

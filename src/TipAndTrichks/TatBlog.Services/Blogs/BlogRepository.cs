@@ -669,6 +669,14 @@ public class BlogRepository : IBlogRepository
 			.ToPageListAsync(pageNumber, pageSize, "Id", "DESC", cancellationToken);
 	}
 
+	public async Task<Tag> GetTagByIdAsync(int tagId, bool includeDetails = false, CancellationToken cancellationToken = default)
+	{
+		if (!includeDetails)
+		{
+			return await _context.Set<Tag>().FindAsync(tagId);
+		}
+		return await _context.Set<Tag>().FirstOrDefaultAsync(x => x.Id == tagId, cancellationToken);
+	}
 
 
 }
