@@ -86,5 +86,12 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			return RedirectToAction(nameof(Index)); // trả về action
 		}
 
+
+		// delete tag item
+		public async Task<IActionResult> RemoveTag (int id)
+		{
+			await _blogRepository.DeleteTagById(id);
+			return RedirectToAction("Index");
+		}
 	}
 }

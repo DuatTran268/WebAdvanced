@@ -692,4 +692,13 @@ public class BlogRepository : IBlogRepository
 		return tag;
 	}
 
+	public async Task<bool> DeleteTagById(int id, CancellationToken cancellationToken = default)
+	{
+		var deleteTag = await _context.Set<Tag>().Where(c => c.Id == id).FirstOrDefaultAsync(cancellationToken);
+		_context.Set<Tag>().Remove(deleteTag);
+		await _context.SaveChangesAsync(cancellationToken);
+		return true;
+	}
+
+
 }

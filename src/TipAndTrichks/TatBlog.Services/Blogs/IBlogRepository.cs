@@ -181,6 +181,8 @@ public interface IBlogRepository
 	// create or update tag
 	Task<Tag> CreateOrUpdateTagAsync(Tag tag, CancellationToken cancellationToken = default);
 
+	// remove tag by id
+	Task<bool> DeleteTagById(int id, CancellationToken cancellationToken = default);
 
 
 }
