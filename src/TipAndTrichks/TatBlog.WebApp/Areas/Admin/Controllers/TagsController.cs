@@ -1,6 +1,9 @@
-﻿using MapsterMapper;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
 using TatBlog.Services.Media;
 using TatBlog.WebApp.Areas.Admin.Models;
@@ -52,6 +55,36 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			return View(model);
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> Edit([FromServices] IValidator<TagEditModel> tagValidator,
+			TagEditModel model)
+		{
+			var validatorResult = await tagValidator.ValidateAsync(model);
+			if (!validatorResult.IsValid)
+			{
+				validatorResult.AddToModelState(ModelState);
+			}
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+			var tag = model.Id > 0
+				? await _blogRepository.GetTagByIdAsync(model.Id)
+				: null;
+			if (tag == null)
+			{
+				tag = _mapper.Map<Tag>(model);
+				tag.Id = 0;
+			}
+			else
+			{
+				_mapper.Map(model, tag);
+			}
+
+			await _blogRepository.CreateOrUpdateTagAsync(tag);
+
+			return RedirectToAction(nameof(Index)); // trả về action
+		}
 
 	}
 }

@@ -678,5 +678,18 @@ public class BlogRepository : IBlogRepository
 		return await _context.Set<Tag>().FirstOrDefaultAsync(x => x.Id == tagId, cancellationToken);
 	}
 
+	public async Task<Tag> CreateOrUpdateTagAsync(Tag tag, CancellationToken cancellationToken = default)
+	{
+		if (_context.Set<Tag>().Any(t => t.Id == tag.Id))
+		{
+			_context.Entry(tag).State = EntityState.Modified;
+		}
+		else
+		{
+			_context.Tags.Add(tag);
+		}
+		await _context.SaveChangesAsync(cancellationToken);
+		return tag;
+	}
 
 }

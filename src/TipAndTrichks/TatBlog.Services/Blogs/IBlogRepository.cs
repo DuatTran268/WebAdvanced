@@ -177,4 +177,10 @@ public interface IBlogRepository
 	public Task<Tag> GetTagByIdAsync(
 	  int tagId, bool includeDetails = false,
 	  CancellationToken cancellationToken = default);
+
+	// create or update tag
+	Task<Tag> CreateOrUpdateTagAsync(Tag tag, CancellationToken cancellationToken = default);
+
+
+
 }

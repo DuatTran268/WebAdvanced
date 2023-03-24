@@ -35,6 +35,8 @@ namespace TatBlog.WebApp.Mapsters
 			config.NewConfig<AuthorEditModel, Author>()
 				.Ignore(dest => dest.Posts);
 
+			config.NewConfig<TagEditModel, Tag>()
+				.Ignore(dest => dest.Posts);
 
 
 
