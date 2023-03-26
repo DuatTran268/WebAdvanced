@@ -33,10 +33,18 @@ namespace TatBlog.WebApp.Mapsters
 				.Ignore(dest => dest.Posts);
 
 			config.NewConfig<AuthorEditModel, Author>()
-				.Ignore(dest => dest.Posts);
+				.Ignore(dest => dest.Posts)
+				.Ignore(dest => dest.Id)
+				.Ignore(dest => dest.ImageUrl);
 
 			config.NewConfig<TagEditModel, Tag>()
 				.Ignore(dest => dest.Posts);
+
+			config.NewConfig<Category, CategoryItem>()
+				.Map(dest => dest.PostCount, src => src.Posts.Count);
+
+			config.NewConfig<Tag, TagItem>()
+				.Map(dest => dest.PostCount, src => src.Posts.Count);
 
 
 

@@ -340,6 +340,11 @@ public class BlogRepository : IBlogRepository
 			postsQuery = postsQuery
 			  .Where(p => p.PostedDate.Month == query.PostedMonths);
 		}
+		if (query.PostedYear > 0)
+		{
+			postsQuery = postsQuery
+				.Where(p => p.PostedDate.Year == query.PostedYear);
+		}
 
 		if (query.CategoriesId > 0)
 		{
