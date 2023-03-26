@@ -10,7 +10,7 @@ namespace TatBlog.Core.DTO
 	{
 		public int Id { get; set; }
 		public string Keyword { get; set; }
-		public int JoinMonth { get; set; }
-		public int JoinYear { get; set; }
-	}
+		public int? JoinMonth { get; set; } = 0;
+		public int? JoinYear { get; set; } = 0;
+    }
 }

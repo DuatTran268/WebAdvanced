@@ -15,9 +15,10 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 		public string Keyword { get; set; }
 
 		[DisplayName("Năm tham gia")]
-		public int Year { get; set; }
+		public int? JoinYear { get; set; }
+
 		[DisplayName("Tháng tham gia")]
-		public int Month { get; set; }
+		public int? JoinMonth { get; set; }
 
 
 		// display list months

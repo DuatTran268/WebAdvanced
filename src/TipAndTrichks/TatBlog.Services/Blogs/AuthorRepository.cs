@@ -94,7 +94,16 @@ public class AuthorRepository :IAuthorRepository
             authorQuery = authorQuery.Where(a => a.FullNames.Contains(query.Keyword));
         }
 
-		return authorQuery;
+        if (query.JoinMonth > 0)
+        {
+            authorQuery = authorQuery.Where(a => a.JoinedDate.Month == query.JoinMonth);
+        }
+
+        if (query.JoinYear > 0)
+        {
+            authorQuery = authorQuery.Where(a => a.JoinedDate.Year == query.JoinYear);
+        }
+        return authorQuery;
     }
 
 	public async Task<IPagedList<Author>> GetPageAuthorAsync(AuthorQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default)
