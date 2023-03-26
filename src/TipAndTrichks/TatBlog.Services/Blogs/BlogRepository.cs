@@ -709,4 +709,9 @@ public class BlogRepository : IBlogRepository
 	{
 		return await _context.Set<Post>().CountAsync(cancellationToken);
 	}
+
+	public async Task<int> PostCountNonPublicAsync(CancellationToken cancellationToken = default)
+	{
+		return await _context.Set<Post>().CountAsync(p => !p.Published, cancellationToken);
+	}
 }

@@ -187,4 +187,7 @@ public interface IBlogRepository
     // count 
     // count post
     Task<int> PostCountAsync(CancellationToken cancellationToken =default);
+
+    // count post non public
+    Task<int> PostCountNonPublicAsync(CancellationToken cancellationToken = default);
 }
