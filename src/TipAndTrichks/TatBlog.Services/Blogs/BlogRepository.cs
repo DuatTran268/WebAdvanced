@@ -592,7 +592,7 @@ public class BlogRepository : IBlogRepository
 
 	private IQueryable<Category> FilterCategory(CategoryQuery query)
 	{
-		IQueryable<Category> cateQuery = _context.Set<Category>();
+		IQueryable<Category> cateQuery = _context.Set<Category>().Include(c => c.Posts);
 
 		//Console.WriteLine(cateQuery);
 
@@ -656,7 +656,7 @@ public class BlogRepository : IBlogRepository
 
 	private IQueryable<Tag> FilterTag(TagQuery query)
 	{
-		IQueryable<Tag> tagQuery = _context.Set<Tag>();
+		IQueryable<Tag> tagQuery = _context.Set<Tag>().Include(t => t.Posts);
 
 		if (!string.IsNullOrEmpty(query.Keyword))
 		{

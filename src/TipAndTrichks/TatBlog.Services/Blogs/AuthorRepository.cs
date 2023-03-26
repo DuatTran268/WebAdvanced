@@ -87,7 +87,7 @@ public class AuthorRepository :IAuthorRepository
 
     private IQueryable<Author> FilterAuthor(AuthorQuery query)
     {
-        IQueryable<Author> authorQuery = _context.Set<Author>();
+        IQueryable<Author> authorQuery = _context.Set<Author>().Include(a => a.Posts);
 
         if (!string.IsNullOrEmpty(query.Keyword))
         {
