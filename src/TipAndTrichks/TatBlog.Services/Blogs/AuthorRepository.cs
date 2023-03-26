@@ -144,4 +144,8 @@ public class AuthorRepository :IAuthorRepository
         return true;
 	}
 
+	public async Task<int> CountAuthorAsync(CancellationToken cancellationToken = default)
+	{
+        return await _context.Set<Author>().CountAsync(cancellationToken);
+	}
 }

@@ -6,10 +6,12 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
     public class DashboardController : Controller
 	{
         private readonly IBlogRepository _blogRepository;
+        private readonly IAuthorRepository _authorRepository;
 
-        public DashboardController(IBlogRepository blogRepository)
+        public DashboardController(IBlogRepository blogRepository, IAuthorRepository authorRepository)
         {
             _blogRepository = blogRepository;
+            _authorRepository = authorRepository;
         }
         //public IActionResult Index()
         //{
@@ -23,6 +25,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
             ViewBag.PostCountUnPubish = await _blogRepository.PostCountNonPublicAsync();
             
             ViewBag.CountCategory = await _blogRepository.CountCategoryAsync();
+
+            ViewBag.CountAuthor = await _authorRepository.CountAuthorAsync();
             return View();
         }
     }

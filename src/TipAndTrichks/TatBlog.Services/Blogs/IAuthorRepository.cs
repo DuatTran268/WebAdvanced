@@ -41,4 +41,7 @@ public interface IAuthorRepository
 
 	// remove
 	Task<bool> DeleteAuthorById(int id, CancellationToken cancellationToken = default);
+
+    // count author
+    Task<int> CountAuthorAsync(CancellationToken cancellationToken = default);
 }
