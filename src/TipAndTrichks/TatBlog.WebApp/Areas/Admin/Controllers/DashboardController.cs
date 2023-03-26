@@ -19,6 +19,10 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.PostCount = await _blogRepository.PostCountAsync();
+            
+            ViewBag.PostCountUnPubish = await _blogRepository.PostCountNonPublicAsync();
+            
+            ViewBag.CountCategory = await _blogRepository.CountCategoryAsync();
             return View();
         }
     }

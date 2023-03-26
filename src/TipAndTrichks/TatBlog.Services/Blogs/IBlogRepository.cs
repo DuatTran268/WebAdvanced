@@ -190,4 +190,7 @@ public interface IBlogRepository
 
     // count post non public
     Task<int> PostCountNonPublicAsync(CancellationToken cancellationToken = default);
+
+    // count category
+    Task<int> CountCategoryAsync(CancellationToken cancellationToken =default);
 }
