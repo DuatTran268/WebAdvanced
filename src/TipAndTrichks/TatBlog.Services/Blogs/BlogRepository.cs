@@ -705,5 +705,8 @@ public class BlogRepository : IBlogRepository
 		return true;
 	}
 
-
+	public async Task<int> PostCountAsync(CancellationToken cancellationToken = default)
+	{
+		return await _context.Set<Post>().CountAsync(cancellationToken);
+	}
 }

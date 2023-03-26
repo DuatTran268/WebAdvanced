@@ -184,5 +184,7 @@ public interface IBlogRepository
 	// remove tag by id
 	Task<bool> DeleteTagById(int id, CancellationToken cancellationToken = default);
 
-
+    // count 
+    // count post
+    Task<int> PostCountAsync(CancellationToken cancellationToken =default);
 }
