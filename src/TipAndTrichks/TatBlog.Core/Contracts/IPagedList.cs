@@ -9,8 +9,7 @@ namespace TatBlog.Core.Contracts;
 public interface IPagedList
 {
     // tong so trang
-    int PageCount { get; set; }
-
+    int PageCount { get; }
 
     // tong so phan tu tra ve tu truy van
     int TotalItemCount { get; } // get lay ve
