@@ -32,11 +32,13 @@
 					<td>
 						@if (!string.IsNullOrWhiteSpace(author.ImageUrl))
 						{
-							<img src="/@author.ImageUrl" class="rounded-circle" style="object-fit: cover; width:60px; height: 60px" />
+							<img src="/@author.ImageUrl" class="rounded-circle" style="object-fit: cover; width:80px; height: 80px" />
 						}
 						else
 						{
-							<img src="~/images/duat.jpg" class="rounded-circle" style="object-fit: cover; width:60px; height: 60px" />
+							@*<img src="~/images/duat.jpg" class="rounded-circle" style="object-fit: cover; width:60px; height: 60px" />*@
+							<i class="fa fa-user-circle fa-5x" style="color: deeppink"></i>
+						
 						}
 
 					</td>
@@ -82,6 +84,6 @@
 else
 {
 	<h1 class="text-warning mt-5 text-center mb-5">
-		Không tìm thấy chủ đề nào
+		Không tìm thấy tác giả nào
 	</h1>
 }
