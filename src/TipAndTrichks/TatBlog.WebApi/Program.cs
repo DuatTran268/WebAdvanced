@@ -45,8 +45,22 @@
 //}
 #endregion
 
+using TatBlog.WebApi.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+{
+	// add service to container
+	builder.ConfigureCors()
+		.ConfigureNLog()
+		.ConfigureServices()
+		.ConfigureSwaggerOpenApi();
+}
+
 
 var app = builder.Build();
+{
+	app.SetUpRequestPipeline();
+	app.Run();
 
-app.Run();
+}
+
