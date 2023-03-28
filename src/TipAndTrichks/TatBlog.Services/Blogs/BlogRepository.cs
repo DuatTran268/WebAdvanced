@@ -114,10 +114,10 @@ public class BlogRepository : IBlogRepository
 	public async Task<IList<AuthorItem>> GetAuthorAsync(CancellationToken cancellationToken = default)
 	{
 		IQueryable<Author> authors = _context.Set<Author>();
-		return await authors.OrderBy(x => x.FullNames).Select(x => new AuthorItem()
+		return await authors.OrderBy(x => x.FullName).Select(x => new AuthorItem()
 		{
 			Id = x.Id,
-			FullName = x.FullNames,
+			FullName = x.FullName,
 			UrlSlug = x.UrlSlug,
 			ImageUrl = x.ImageUrl,
 			Email = x.Email,
@@ -396,12 +396,16 @@ public class BlogRepository : IBlogRepository
 	//	return await postQuery.ToPagedListAsync(pagingParams, cancellationToken);
 	//}
 
-	//public async Task<IPagedList<T>> GetPagePostsAsync<T>(PostQuery query, IPagingParams pagingParams, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken)
-	//{
-	//	IQueryable<Post> postFindQuery = FilterPost(query);
-	//	IQueryable<T> tQueryResult = mapper(postFindQuery);
-	//	return await tQueryResult.ToPagedListAsync(pagingParams, cancellationToken);
-	//}
+	public async Task<IPagedList<T>> GetPagePostsAsync<T>(PostQuery query,
+		IPagingParams pagingParams,
+		Func<IQueryable<Post>,
+		IQueryable<T>> mapper,
+		CancellationToken cancellationToken = default)
+	{
+		IQueryable<Post> postFindQuery = FilterPost(query);
+		IQueryable<T> tQueryResult = mapper(postFindQuery);
+		return await tQueryResult.ToPagedListAsync(pagingParams, cancellationToken);
+	}
 
 	public async Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default)
 	{
@@ -607,9 +611,9 @@ public class BlogRepository : IBlogRepository
 
 
 	public async Task<IPagedList<Category>> GetPageCategoryAsync(
-		CategoryQuery condition, 
-		int pageNumber, 
-		int pageSize, 
+		CategoryQuery condition,
+		int pageNumber,
+		int pageSize,
 		CancellationToken cancellationToken = default)
 	{
 		return await FilterCategory(condition).ToPageListAsync(

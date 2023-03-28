@@ -93,7 +93,7 @@ public class AuthorRepository :IAuthorRepository
 
         if (!string.IsNullOrEmpty(query.Keyword))
         {
-            authorQuery = authorQuery.Where(a => a.FullNames.Contains(query.Keyword));
+            authorQuery = authorQuery.Where(a => a.FullName.Contains(query.Keyword));
         }
 
         if (query.JoinMonth > 0)
@@ -187,11 +187,11 @@ public class AuthorRepository :IAuthorRepository
 	public async Task<IList<AuthorItem>> GetAuthorsAsync(CancellationToken cancellationToken = default)
 	{
 		return await _context.Set<Author>()
-			.OrderBy(a => a.FullNames)
+			.OrderBy(a => a.FullName)
 			.Select(a => new AuthorItem()
 			{
 				Id = a.Id,
-				FullName = a.FullNames,
+				FullName = a.FullName,
 				Email = a.Email,
 				JoinedDate = a.JoinedDate,
 				ImageUrl = a.ImageUrl,
@@ -210,11 +210,11 @@ public class AuthorRepository :IAuthorRepository
 		return await _context.Set<Author>()
 			.AsNoTracking()
 			.WhereIf(!string.IsNullOrWhiteSpace(name),
-				x => x.FullNames.Contains(name))
+				x => x.FullName.Contains(name))
 			.Select(a => new AuthorItem()
 			{
 				Id = a.Id,
-				FullName = a.FullNames,
+				FullName = a.FullName,
 				Email = a.Email,
 				JoinedDate = a.JoinedDate,
 				ImageUrl = a.ImageUrl,
@@ -236,7 +236,7 @@ public class AuthorRepository :IAuthorRepository
 
 		if (!string.IsNullOrEmpty(name))
 		{
-			authorQuery = authorQuery.Where(x => x.FullNames.Contains(name));
+			authorQuery = authorQuery.Where(x => x.FullName.Contains(name));
 		}
 
 		return await mapper(authorQuery)

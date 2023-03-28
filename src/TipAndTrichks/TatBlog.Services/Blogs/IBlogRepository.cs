@@ -108,20 +108,20 @@ public interface IBlogRepository
     //Task<IPagedList<Post>> GetPagePostsAsync(
     //    PostQuery query, IPagingParams pagingParams, CancellationToken cancellationToken = default);
 
-    //Task<IPagedList<T>> GetPagePostsAsync<T>(
-    //    PostQuery query,
-    //    IPagingParams pagingParams,
-    //    Func<IQueryable<Post>, IQueryable<T>> mapper,
-    //    CancellationToken cancellationToken
-    //    );
+    Task<IPagedList<T>> GetPagePostsAsync<T>(
+        PostQuery query,
+        IPagingParams pagingParams,
+        Func<IQueryable<Post>, IQueryable<T>> mapper,
+        CancellationToken cancellationToken = default
+        );
 
 
     Task<IPagedList<Post>> GetPagePostAsync(
         PostQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
 
-    // chuc nang moi
-    Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default);
+	// chuc nang moi
+	Task<Author> GetAuthorBySlugAsync(string slug, CancellationToken cancellationToken = default);
 
     Task<Tag> GetTagBySlugAsync(string slug, CancellationToken cancellationToken = default);
 

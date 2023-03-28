@@ -1,6 +1,12 @@
-﻿using TatBlog.Core.Collections;
+﻿using FluentValidation;
+using Mapster;
+using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
+using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.WebApi.Extensions;
 using TatBlog.WebApi.Models;
 
 namespace TatBlog.WebApi.Endpoints

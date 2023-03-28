@@ -12,7 +12,7 @@ public class Author : IEntity
     // ma tac gia bai viet
     public int Id { get; set; }
     // ten tac gia
-    public string FullNames { get; set; }
+    public string FullName { get; set; }
     // ten dinh danh dung de tao URL
     public string UrlSlug { get; set; }
     // duong dan toi hinh anh

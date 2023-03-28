@@ -35,35 +35,35 @@ namespace TatBlog.Data.Seeders
             var authors = new List<Author>() {
                 new()
                 {
-                    FullNames = "Jason Mouth",
+                    FullName = "Jason Mouth",
                     UrlSlug = "jason-mouth",
                     Email = "json@gmail.com",
                     JoinedDate = new DateTime(2022, 10, 21)
                 },
                 new()
                 {
-                    FullNames = "Jessica Wonder",
+                    FullName = "Jessica Wonder",
                     UrlSlug = "jessica-wonder",
                     Email = "jessica665@gmail.com",
                     JoinedDate = new DateTime(2020, 4, 19)
                 },
                 new()
                 {
-                    FullNames = "Leo Messi",
+                    FullName = "Leo Messi",
                     UrlSlug = "leo-messi",
                     Email = "messipsg10@gmail.com",
                     JoinedDate = new DateTime(2022, 8, 19)
                 },
                 new()
                 {
-                    FullNames = "Cristiano Ronadldo",
+                    FullName = "Cristiano Ronadldo",
                     UrlSlug = "cristiano-ronaldo",
                     Email = "ronaldo7@gmail.com",
                     JoinedDate = new DateTime(2022, 8, 7)
                 },
                 new()
                 {
-                    FullNames = "Neymar Jr",
+                    FullName = "Neymar Jr",
                     UrlSlug = "neymar-jr",
                     Email = "neymarjs11@gmail.com",
                     JoinedDate = new DateTime(2023, 8, 6)
@@ -71,7 +71,7 @@ namespace TatBlog.Data.Seeders
                 ,
                 new()
                 {
-                    FullNames = "Kevin Bruyner",
+                    FullName = "Kevin Bruyner",
                     UrlSlug = "kevin-bruyner",
                     Email = "kevinbruynerjs11@gmail.com",
                     JoinedDate = new DateTime(2023, 8, 16)

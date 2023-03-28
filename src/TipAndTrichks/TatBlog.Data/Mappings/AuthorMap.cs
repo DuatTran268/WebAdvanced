@@ -17,7 +17,7 @@ public class AuthorMap : IEntityTypeConfiguration<Author>
 
         builder.HasKey(a => a.Id); // khoa chinh
 
-        builder.Property(a => a.FullNames)
+        builder.Property(a => a.FullName)
             .IsRequired()   //not null
             .HasMaxLength(100); // toi da 100 ky tu
 

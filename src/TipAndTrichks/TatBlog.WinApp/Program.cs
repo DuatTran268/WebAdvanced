@@ -31,7 +31,7 @@ seeder.Initialize();
 //foreach (var author in authors)
 //{
 //    Console.WriteLine("{0, -4} {1, -30} {2, -30} {3, 12:MM/dd/yyyy}",
-//        author.Id, author.FullNames, author.Email, author.JoinedDate);
+//        author.Id, author.FullName, author.Email, author.JoinedDate);
 //}
 
 
@@ -54,7 +54,7 @@ seeder.Initialize();
 //        Title = p.Title,
 //        ViewCount = p.ViewCount,
 //        PostedDate = p.PostedDate,
-//        Author = p.Author.FullNames,
+//        Author = p.Author.FullName,
 //        Category = p.Category.Name,
 //    }).ToList();
 
@@ -88,7 +88,7 @@ seeder.Initialize();
 //    Console.WriteLine("Title    : {0}", post.Title);
 //    Console.WriteLine("View     : {0}", post.ViewCount);
 //    Console.WriteLine("Date     : {0}", post.PostedDate);
-//    Console.WriteLine("Author   : {0}", post.Author.FullNames);
+//    Console.WriteLine("Author   : {0}", post.Author.FullName);
 //    Console.WriteLine("Category : {0}", post.Category.Name);
 //    Console.WriteLine("".PadRight(80, '-'));
 //}
@@ -370,7 +370,7 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 //Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
 //Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
 //    findAuthorsById.Id,
-//    findAuthorsById.FullNames,
+//    findAuthorsById.FullName,
 //    findAuthorsById.JoinedDate,
 //    findAuthorsById.Email
 //    );
@@ -383,7 +383,7 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 //Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,30}", "ID", "FullName", "JoinDate", "Emails");
 //Console.WriteLine("{0,-5}{1,-30}{2,-10}{3,36}",
 //    findAuthorSlug.Id,
-//    findAuthorSlug.FullNames,
+//    findAuthorSlug.FullName,
 //    findAuthorSlug.JoinedDate,
 //    findAuthorSlug.Email
 //    );
@@ -395,7 +395,7 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 //// e) them hoac cap nhat thong tin tac gia
 //Author authorsAdd = new Author()
 //{
-//    FullNames = "David Degea",
+//    FullName = "David Degea",
 //    UrlSlug = "david-degea",
 //    JoinedDate = new DateTime(2023, 3, 6),
 //    Email = "daviddegeamu@gmail.com"
@@ -410,7 +410,7 @@ IAuthorRepository repoAuthors = new AuthorRepository(context);
 //{
 //    PageNumber = 2,
 //    PageSize = 3,
-//    SortColumn = "FullNames",
+//    SortColumn = "FullName",
 //    SortOrder = "ASC" // sap giam
 //};
 

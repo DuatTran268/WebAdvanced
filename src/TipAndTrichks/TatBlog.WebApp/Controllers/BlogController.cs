@@ -118,7 +118,7 @@ namespace TatBlog.WebApp.Controllers
 			var postList = await _blogRepository.GetPagePostAsync(postQuery, pageNumber, pageSize);
 
 			ViewBag.PostQuery = postQuery;
-			ViewBag.Title = $"Bài viết của chủ đề '{author.FullNames}'";
+			ViewBag.Title = $"Bài viết của chủ đề '{author.FullName}'";
 
 			return View("Index", postList);
 
