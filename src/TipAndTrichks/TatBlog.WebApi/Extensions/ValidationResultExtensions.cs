@@ -44,6 +44,6 @@ namespace TatBlog.WebApi.Extensions
 				g => g.Select(e => e.ErrorMessage).ToList()
 				);
 		}
-
+	// corporate = company
 	}
 }
