@@ -44,4 +44,50 @@ public interface IAuthorRepository
 
     // count author
     Task<int> CountAuthorAsync(CancellationToken cancellationToken = default);
+
+
+	#region Code Teacher
+
+	Task<Author> GetAuthorBySlugAsync(
+		string slug,
+		CancellationToken cancellationToken = default);
+
+	Task<Author> GetCachedAuthorBySlugAsync(
+		string slug, CancellationToken cancellationToken = default);
+
+	Task<Author> GetAuthorByIdAsync(int authorId);
+
+	Task<Author> GetCachedAuthorByIdAsync(int authorId);
+
+	Task<IList<AuthorItem>> GetAuthorsAsync(
+		CancellationToken cancellationToken = default);
+
+	Task<IPagedList<AuthorItem>> GetPagedAuthorsAsync(
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
+
+	Task<IPagedList<T>> GetPagedAuthorsAsync<T>(
+		Func<IQueryable<Author>, IQueryable<T>> mapper,
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
+
+	Task<bool> AddOrUpdateAsync(
+		Author author,
+		CancellationToken cancellationToken = default);
+
+	Task<bool> DeleteAuthorAsync(
+		int authorId,
+		CancellationToken cancellationToken = default);
+
+	Task<bool> IsAuthorSlugExistedAsync(
+		int authorId, string slug,
+		CancellationToken cancellationToken = default);
+
+	Task<bool> SetImageUrlAsync(
+		int authorId, string imageUrl,
+		CancellationToken cancellationToken = default);
+
+	#endregion
 }

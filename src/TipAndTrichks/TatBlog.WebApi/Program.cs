@@ -45,6 +45,7 @@
 //}
 #endregion
 
+using TatBlog.WebApi.Endpoints;
 using TatBlog.WebApi.Extensions;
 using TatBlog.WebApi.Mapsters;
 using TatBlog.WebApi.Validations;
@@ -63,7 +64,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+	// config the http request pipeline
 	app.SetUpRequestPipeline();
+
+	// config API endpoints
+	app.MapAuthorEndpoints();
+
+
 	app.Run();
 
 }

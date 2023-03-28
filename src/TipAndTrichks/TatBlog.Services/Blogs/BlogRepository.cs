@@ -116,7 +116,7 @@ public class BlogRepository : IBlogRepository
 		IQueryable<Author> authors = _context.Set<Author>();
 		return await authors.OrderBy(x => x.FullNames).Select(x => new AuthorItem()
 		{
-			AuthorId = x.Id,
+			Id = x.Id,
 			FullName = x.FullNames,
 			UrlSlug = x.UrlSlug,
 			ImageUrl = x.ImageUrl,
