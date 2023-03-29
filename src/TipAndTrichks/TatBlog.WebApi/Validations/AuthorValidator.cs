@@ -20,8 +20,10 @@ namespace TatBlog.WebApi.Validations
 				.WithMessage("Joined Date not not valid");
 
 			RuleFor(a => a.Email)
-				.NotEmpty().WithMessage("Email not empty")
-				.MaximumLength(100).WithMessage("Email up to 100 characters");
+				.NotEmpty()
+				.EmailAddress().WithMessage("Email invalidate")
+				.MaximumLength(100).WithMessage("Email up to 100 characters")
+				.WithMessage("Email not empty");
 
 			RuleFor(a => a.Notes)
 				.MaximumLength(500).WithMessage("Notes up to 500 characters");
