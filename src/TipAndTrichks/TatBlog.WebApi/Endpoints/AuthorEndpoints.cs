@@ -10,10 +10,12 @@ using TatBlog.Services.Media;
 using TatBlog.WebApi.Extensions;
 using TatBlog.WebApi.Filters;
 using TatBlog.WebApi.Models;
+using TatBlog.WebApi.Models.Author;
+using TatBlog.WebApi.Models.Post;
 
 namespace TatBlog.WebApi.Endpoints
 {
-	public static class AuthorEndpoints
+    public static class AuthorEndpoints
 	{
 		public static WebApplication MapAuthorEndpoints(this WebApplication app)
 		{
@@ -31,7 +33,7 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces(404);
 
 			//  get by author id
-			routeGroupBuilder.MapGet("/{id:guid}/posts", GetPostsByAuthorId)
+			routeGroupBuilder.MapGet("/{id:int}/listpost", GetPostsByAuthorId)
 				.WithName("GetPostsByAuthorId")
 				.Produces<PaginationResult<PostDto>>();
 
