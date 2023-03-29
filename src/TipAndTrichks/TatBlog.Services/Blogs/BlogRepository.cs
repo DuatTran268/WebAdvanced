@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Caching.Memory;
 using SlugGenerator;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,12 @@ public class BlogRepository : IBlogRepository
 {
 	// Cai dat phuong thuc khoi tao cua lop 
 	private readonly BlogDbContext _context;
-	public BlogRepository(BlogDbContext context)
+	private readonly IMemoryCache _memoryCache;
+
+	public BlogRepository(BlogDbContext context, IMemoryCache memoryCache)
 	{
 		_context = context;
+		_memoryCache = memoryCache;
 	}
 
 
@@ -753,6 +757,14 @@ public class BlogRepository : IBlogRepository
 			}).ToPagedListAsync(pagingParams, cancellationToken);
 	}
 
-
+	public async Task<Category> GetCachedCategoryByIdAsync(int categoryId)
+	{
+		return await _memoryCache.GetOrCreateAsync($"category.by-id.{categoryId}",
+			async (entry) =>
+			{
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+				return await GetCategoryByIdAsync(categoryId);
+			});
+	}
 
 }

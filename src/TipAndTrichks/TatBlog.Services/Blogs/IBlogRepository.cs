@@ -208,4 +208,7 @@ public interface IBlogRepository
 		IPagingParams pagingParams,
 		string name = null,
 		CancellationToken cancellationToken = default);
+
+	Task<Category> GetCachedCategoryByIdAsync(int categoryId);
+
 }

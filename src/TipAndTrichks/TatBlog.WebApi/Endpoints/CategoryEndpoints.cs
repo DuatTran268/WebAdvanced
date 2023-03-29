@@ -1,4 +1,5 @@
-﻿using TatBlog.Core.Collections;
+﻿using MapsterMapper;
+using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
 using TatBlog.Services.Blogs;
 using TatBlog.WebApi.Models.Category;
@@ -15,6 +16,12 @@ public static class CategoryEndpoints
 			.WithName("GetCategoies")
 			.Produces<PaginationResult<CategoryItem>>();
 
+
+		// get categories details
+		routeGroupBuilder.MapGet("/{id:int}", GetCategoriesDetailsById)
+			.WithName("GetCategoriesDetailsById")
+			.Produces<CategoryItem>()
+			.Produces(404);
 		return app;
 	}
 
@@ -28,7 +35,21 @@ public static class CategoryEndpoints
 
 		return Results.Ok(paginationResult);
 
-
 	}
+
+	// get category detail by Id
+	private static async Task<IResult> GetCategoriesDetailsById(
+		int id, IBlogRepository blogRepository, IMapper mapper
+		)
+	{
+		var category = await blogRepository.GetCachedCategoryByIdAsync(id);
+		return category == null
+			? Results.NotFound($"Không tìm thấy category có mã số {id}")
+			:Results.Ok(mapper.Map<CategoryItem>(category));
+	}
+
+	
+
+
 
 }
