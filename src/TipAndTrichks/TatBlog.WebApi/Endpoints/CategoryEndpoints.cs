@@ -1,8 +1,12 @@
-﻿using MapsterMapper;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
 using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
 using TatBlog.Services.Blogs;
+using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.Category;
+using TatBlog.WebApi.Models.Post;
 
 namespace TatBlog.WebApi.Endpoints;
 
@@ -22,6 +26,11 @@ public static class CategoryEndpoints
 			.WithName("GetCategoriesDetailsById")
 			.Produces<CategoryItem>()
 			.Produces(404);
+
+		// get post by author slug
+		routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}/posts", GetPostsByCategoriesSlug)
+			.WithName("GetPostsByCategoriesSlug")
+			.Produces<PaginationResult<CategoryDto>>();
 		return app;
 	}
 
@@ -48,7 +57,27 @@ public static class CategoryEndpoints
 			:Results.Ok(mapper.Map<CategoryItem>(category));
 	}
 
-	
+	// get post by category id
+	private static async Task<IResult> GetPostsByCategoriesSlug(
+		[FromRoute] string slug,
+		[AsParameters] PagingModel pagingModel,
+		IBlogRepository blogRepository
+		)
+	{
+		var postQuery = new PostQuery()
+		{
+			AuthorSlug = slug,
+			PublishedOnly = true
+		};
+		var postList = await blogRepository.GetPagePostsAsync(
+				postQuery, pagingModel,
+				posts => posts.ProjectToType<CategoryDto>());
+
+		var paginationResult = new PaginationResult<CategoryDto>(postList);
+
+		return Results.Ok(paginationResult);
+
+	}
 
 
 
