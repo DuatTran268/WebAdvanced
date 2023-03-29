@@ -723,4 +723,36 @@ public class BlogRepository : IBlogRepository
 	{
 		return await _context.Set<Category>().CountAsync(cancellationToken);
 	}
+
+	public async Task<IPagedList<T>> GetPagedCategoryAsync<T>(Func<IQueryable<Category>, IQueryable<T>> mapper, IPagingParams pagingParams, string name = null, CancellationToken cancellationToken = default)
+	{
+		var categoryQuery = _context.Set<Category>().AsNoTracking();
+
+		if (!string.IsNullOrEmpty(name))
+		{
+			categoryQuery = categoryQuery.Where(x => x.Name.Contains(name));
+		}
+
+		return await mapper(categoryQuery)
+			.ToPagedListAsync(pagingParams, cancellationToken);
+	}
+
+	public async Task<IPagedList<CategoryItem>> GetPagedCategoryAsync(IPagingParams pagingParams, string name = null, CancellationToken cancellationToken = default)
+	{
+		return await _context.Set<Category>()
+			.AsNoTracking()
+			.WhereIf(!string.IsNullOrWhiteSpace(name),
+				x => x.Name.Contains(name))
+			.Select(c => new CategoryItem()
+			{
+				Id = c.Id,
+				UrlSlug = c.UrlSlug,
+				Name = c.Name,
+				Description = c.Description,
+				ShowOnMenu = c.ShowOnMenu
+			}).ToPagedListAsync(pagingParams, cancellationToken);
+	}
+
+
+
 }

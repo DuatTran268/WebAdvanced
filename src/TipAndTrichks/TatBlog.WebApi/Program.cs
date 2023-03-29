@@ -70,6 +70,7 @@ var app = builder.Build();
 	// config API endpoints
 	app.MapAuthorEndpoints();
 
+	app.MapCategoryEndpoint();
 
 	app.Run();
 // 

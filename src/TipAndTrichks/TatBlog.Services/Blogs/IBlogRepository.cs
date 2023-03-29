@@ -193,4 +193,19 @@ public interface IBlogRepository
 
     // count category
     Task<int> CountCategoryAsync(CancellationToken cancellationToken =default);
+
+
+
+	// getPage category 
+
+	Task<IPagedList<CategoryItem>> GetPagedCategoryAsync(
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
+
+	Task<IPagedList<T>> GetPagedCategoryAsync<T>(
+		Func<IQueryable<Category>, IQueryable<T>> mapper,
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
 }
