@@ -51,6 +51,11 @@ public static class CategoryEndpoints
 			.Produces(400)
 			.Produces(409);
 
+		// delete category 
+		routeGroupBuilder.MapDelete("/{id:int}", DeleteCategoryById)
+			.WithName("DeleteCategoryById")
+			.Produces(204)
+			.Produces(404);
 		return app;
 	}
 
@@ -135,6 +140,15 @@ public static class CategoryEndpoints
 
 	}
 
+
+	// delete category by id
+	private static async Task<IResult> DeleteCategoryById(
+		int id, IBlogRepository blogRepository)
+	{
+		return await blogRepository.DeleteCategoryById(id)
+			? Results.NoContent()
+			: Results.NotFound($"Không tìm thấy category với id = {id}");
+	}
 
 
 }
