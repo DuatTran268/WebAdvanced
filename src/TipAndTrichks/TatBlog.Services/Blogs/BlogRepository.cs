@@ -841,4 +841,15 @@ public class BlogRepository : IBlogRepository
 			}).ToPagedListAsync(pagingParams, cancellationToken);
 	}
 
+	public async Task<Tag> GetCachedTagByIdAsync(int authorId)
+	{
+		return await _memoryCache.GetOrCreateAsync(
+			$"tag.by-id.{authorId}",
+			async (entry) =>
+			{
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+				return await GetTagByIdAsync(authorId);
+			});
+	}
+
 }

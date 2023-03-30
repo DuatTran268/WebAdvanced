@@ -240,4 +240,7 @@ public interface IBlogRepository
 	string name = null,
 	CancellationToken cancellationToken = default);
 
+	Task<Tag> GetCachedTagByIdAsync(int authorId);
+
+
 }
