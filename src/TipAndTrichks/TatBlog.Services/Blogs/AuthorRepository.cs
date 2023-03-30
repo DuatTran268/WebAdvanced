@@ -219,6 +219,7 @@ public class AuthorRepository :IAuthorRepository
 				JoinedDate = a.JoinedDate,
 				ImageUrl = a.ImageUrl,
 				UrlSlug = a.UrlSlug,
+				Notes = a.Notes,
 				PostCount = a.Posts.Count(p => p.Published)
 			})
 			.ToPagedListAsync(pagingParams, cancellationToken)

@@ -27,6 +27,11 @@ public class MapsterConfiguration : IRegister
 
 		config.NewConfig<Post, PostDto>();
 		config.NewConfig<Post, PostDetail>();
+		config.NewConfig<PostEditModel, Post>()
+			.Ignore(dest => dest.Id)
+			.Ignore(dest => dest.ImageUrl)
+			.Ignore(dest => dest.Tags);
+		config.NewConfig<Post, PostEditModel>();
 
 	}
 
