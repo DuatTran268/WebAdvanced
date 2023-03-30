@@ -825,4 +825,20 @@ public class BlogRepository : IBlogRepository
 		return await mapper(postQuery)
 			.ToPagedListAsync(pagingParams, cancellationToken);
 	}
+
+	public async Task<IPagedList<TagItem>> GetPagedTagsAsync(IPagingParams pagingParams, string name = null, CancellationToken cancellationToken = default)
+	{
+		return await _context.Set<Tag>()
+			.AsNoTracking()
+			.WhereIf(!string.IsNullOrWhiteSpace(name),
+				x => x.Name.Contains(name))
+			.Select(t => new TagItem()
+			{
+				Id = t.Id,
+				Name = t.Name,
+				Description = t.Description,
+				PostCount = t.Posts.Count(p => p.Published)
+			}).ToPagedListAsync(pagingParams, cancellationToken);
+	}
+
 }

@@ -231,4 +231,13 @@ public interface IBlogRepository
 		IPagingParams pagingParams,
 		string name = null,
 		CancellationToken cancellationToken = default);
+
+
+
+	// get tag
+	Task<IPagedList<TagItem>> GetPagedTagsAsync(
+	IPagingParams pagingParams,
+	string name = null,
+	CancellationToken cancellationToken = default);
+
 }
