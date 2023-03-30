@@ -79,6 +79,14 @@ public class BlogRepository : IBlogRepository
 			.AnyAsync(x => x.Id != postId && x.UrlSlug == slug, cancellationToken);
 	}
 
+	// kiem tra xem ten dinh danh cua category da co chua
+	public async Task<bool> IsCategoriesSlugExistedAsync(int categoryId, string slug, CancellationToken cancellationToken = default)
+	{
+		return await _context.Categories
+			.AnyAsync(c => c.Id != categoryId && c.UrlSlug == slug, cancellationToken);
+	}
+
+
 	// tang so luot xem cua mot bai viet
 	public async Task IncreaseViewCountAsync(
 		int postId,

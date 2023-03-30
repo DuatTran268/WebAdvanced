@@ -35,15 +35,22 @@ public static class CategoryEndpoints
 			.Produces<PaginationResult<CategoryDto>>();
 
 		// add category
-		// add author
-
-
 		routeGroupBuilder.MapPost("/", AddCategory)
 			.WithName("AddCategories")
 			.AddEndpointFilter<ValidatorFilter<CategoryEditModel>>()
 			.Produces(201)
 			.Produces(400)
 			.Produces(409);
+
+
+		// update category
+		routeGroupBuilder.MapPut("/{id:int}", UpdateCategoryById)
+			.WithName("UpdateCategoryById")
+			.AddEndpointFilter<ValidatorFilter<CategoryEditModel>>()
+			.Produces(201)
+			.Produces(400)
+			.Produces(409);
+
 		return app;
 	}
 
@@ -99,7 +106,7 @@ public static class CategoryEndpoints
 		IBlogRepository blogRepository,
 		IMapper mapper)
 	{
-		if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
+		if (await blogRepository.IsCategoriesSlugExistedAsync(0, model.UrlSlug))
 		{
 			return Results.Conflict($"Slug '{model.UrlSlug}' đã được sử dụng");
 		}
@@ -110,7 +117,24 @@ public static class CategoryEndpoints
 		new { categories.Id },
 		mapper.Map<CategoryItem>(categories));
 	}
-	
+
+	// update category by id
+	private static async Task<IResult> UpdateCategoryById(
+		int id, CategoryEditModel model, IBlogRepository blogRepository, IMapper mapper)
+	{
+		if (await blogRepository.IsCategoriesSlugExistedAsync(id, model.UrlSlug))
+		{
+			return Results.Conflict($"Slug '{model.UrlSlug}' đã được sử dụng");
+		}
+		var category = mapper.Map<Category>(model);
+		category.Id = id;
+
+		return await blogRepository.AddOrUpdateCateAsync(category)
+			? Results.NoContent()
+			: Results.NotFound();
+
+	}
+
 
 
 }

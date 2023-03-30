@@ -31,8 +31,12 @@ public interface IBlogRepository
         CancellationToken cancellationToken = default
         );
 
-    // tang so luot xem cua mot bai viet
-    Task IncreaseViewCountAsync(
+    // kiem tra xem ten dinh danh cua category da co hay chua
+    Task<bool> IsCategoriesSlugExistedAsync(int categoryId, string slug,
+        CancellationToken cancellationToken = default);
+
+	// tang so luot xem cua mot bai viet
+	Task IncreaseViewCountAsync(
         int postId,
         CancellationToken cancellationToken = default );
 
