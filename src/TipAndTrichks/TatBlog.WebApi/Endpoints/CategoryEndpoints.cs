@@ -3,7 +3,9 @@ using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.WebApi.Filters;
 using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.Category;
 using TatBlog.WebApi.Models.Post;
@@ -31,6 +33,17 @@ public static class CategoryEndpoints
 		routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}/posts", GetPostsByCategoriesSlug)
 			.WithName("GetPostsByCategoriesSlug")
 			.Produces<PaginationResult<CategoryDto>>();
+
+		// add category
+		// add author
+
+
+		routeGroupBuilder.MapPost("/", AddCategory)
+			.WithName("AddCategories")
+			.AddEndpointFilter<ValidatorFilter<CategoryEditModel>>()
+			.Produces(201)
+			.Produces(400)
+			.Produces(409);
 		return app;
 	}
 
@@ -79,6 +92,25 @@ public static class CategoryEndpoints
 
 	}
 
+	// add new post
+
+	private static async Task<IResult> AddCategory(
+		CategoryEditModel model,
+		IBlogRepository blogRepository,
+		IMapper mapper)
+	{
+		if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
+		{
+			return Results.Conflict($"Slug '{model.UrlSlug}' đã được sử dụng");
+		}
+		var categories = mapper.Map<Category>(model);
+		await blogRepository.AddOrUpdateCateAsync(categories);
+
+		return Results.CreatedAtRoute("AddCategories",
+		new { categories.Id },
+		mapper.Map<CategoryItem>(categories));
+	}
+	
 
 
 }

@@ -767,4 +767,19 @@ public class BlogRepository : IBlogRepository
 			});
 	}
 
+	public async Task<bool> AddOrUpdateCateAsync(Category category, CancellationToken cancellationToken = default)
+	{
+		if (category.Id > 0)
+		{
+			_context.Categories.Update(category);
+			_memoryCache.Remove($"category.by-id.{category.Id}");
+		}
+		else
+		{
+			_context.Categories.Add(category);
+		}
+		return await _context.SaveChangesAsync(cancellationToken) > 0;
+	}
+
+
 }
