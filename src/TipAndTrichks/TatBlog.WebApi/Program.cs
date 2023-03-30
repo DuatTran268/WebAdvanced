@@ -72,6 +72,8 @@ var app = builder.Build();
 
 	app.MapCategoryEndpoint();
 
+	app.MapPostEndpoint();
+
 	app.Run();
 // 
 }

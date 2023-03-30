@@ -1,6 +1,6 @@
 ﻿namespace TatBlog.WebApi.Models.Post
 {
-	public class PostEditModel
+	public class PostEditModel : PagingModel
 	{
 		public string Title { get; set; }
 		public string UrlSlug { get; set; }

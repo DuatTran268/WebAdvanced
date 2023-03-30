@@ -13,7 +13,7 @@ namespace TatBlog.Core.DTO
 		public string ShortDescription { get; set; }
 		public string Description { get; set; }
 		public string CategoryName { get; set; }
-		public string ViewCount { get; set; }
+		public int ViewCount { get; set; }
 		public string UrlSlug { get; set; }
 		public string ImageUrl { get; set; }
 		public bool Published { get; set; }

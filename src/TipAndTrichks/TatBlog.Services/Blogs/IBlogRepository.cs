@@ -219,4 +219,16 @@ public interface IBlogRepository
 	Task<bool> AddOrUpdateCateAsync(
 	Category category,
 	CancellationToken cancellationToken = default);
+
+
+	Task<IPagedList<PostItem>> GetPagedPostsAsync(
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
+
+	Task<IPagedList<T>> GetPagedPostsAsync<T>(
+		Func<IQueryable<Post>, IQueryable<T>> mapper,
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
 }
