@@ -912,4 +912,33 @@ public class BlogRepository : IBlogRepository
 		}
 		return await _context.SaveChangesAsync(cancellationToken) > 0;
 	}
+
+	// get n post top reader
+	public async Task<IList<T>> GetNPostTopReaderAsync<T>(
+		int n, 
+		Func<IQueryable<Post>, 
+			IQueryable<T>> mapper, 
+		CancellationToken cancellationToken = default)
+	{
+		var topPost = _context.Set<Post>()
+			.Include(p => p.Author)
+			.Include(p => p.Tags)
+			.Include(p => p.Category)
+			.OrderByDescending(p => p.ViewCount)
+			.Take(n);
+
+		return await mapper(topPost).ToListAsync(cancellationToken);
+	}
+
+	public async Task<IList<T>> GetNRandomPostAsync<T>(int n, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+	{
+		IQueryable<Post> rdPostQuery = _context.Set<Post>()
+			.Include(p => p.Author)
+			.Include(p => p.Tags)
+			.Include(p => p.Category)
+			.OrderBy(c => Guid.NewGuid())
+			.Take(n);
+
+		return await mapper(rdPostQuery).ToListAsync(cancellationToken);
+	}
 }

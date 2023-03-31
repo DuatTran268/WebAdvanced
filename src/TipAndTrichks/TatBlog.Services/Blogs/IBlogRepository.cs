@@ -260,4 +260,18 @@ public interface IBlogRepository
 	Task<bool> AddOrUpdateTagAsync(
 		Tag tag,
 		CancellationToken cancellationToken = default);
+
+    Task<IList<T>> GetNPostTopReaderAsync<T>(
+        int n,
+        Func<IQueryable<Post>,
+        IQueryable<T>> mapper, 
+        CancellationToken cancellationToken = default);
+	Task<IList<T>> GetNRandomPostAsync<T>(
+		int n,
+		Func<IQueryable<Post>,
+		IQueryable<T>> mapper,
+		CancellationToken cancellationToken = default);
+
+
+
 }

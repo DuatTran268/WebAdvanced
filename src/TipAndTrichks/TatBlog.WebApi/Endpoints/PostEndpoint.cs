@@ -41,6 +41,22 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("DeletePost")
 				.Produces(401)
 				.Produces<ApiResponse<string>>();
+
+			// get N post top reader
+				routeGroupBuilder.MapGet("featured/{limit:int}", GetNPostTopReader)
+				.WithName("GetNPostTopReader")
+				.Produces<ApiResponse<IList<PostDto>>>();
+
+			// get random post 
+				routeGroupBuilder.MapGet("random/{limit:int}", GetNRandomPostList)
+				.WithName("GetNRandomPostList")
+				.Produces<ApiResponse<IList<PostDto>>>();
+
+			// get post recent 
+			routeGroupBuilder.MapGet("archives/{limit:int}", GetPostRecentMonth)
+			.WithName("GetPostRecentMonth")
+			.Produces<ApiResponse<IList<CountPostMonthly>>>();
+
 			return app;
 		}
 
@@ -99,6 +115,39 @@ namespace TatBlog.WebApi.Endpoints
 				? Results.Ok(ApiResponse.Success("Post is deleted ", HttpStatusCode.NoContent))
 				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find post"));
 		}
+
+		// get n post top reader
+		private static async Task<IResult> GetNPostTopReader(int limit,
+			IBlogRepository blogRepository, ILogger<IResult> logger)
+		{
+			var postsTopReader = await blogRepository.GetNPostTopReaderAsync(limit,
+				p => p.ProjectToType<PostDto>());
+			return Results.Ok(ApiResponse.Success(postsTopReader));
+		}
+
+
+
+		// get random post list
+		public static async Task<IResult> GetNRandomPostList(int limit,
+			IBlogRepository blogRepository, ILogger<IResult> logger)
+		{
+			var postRandom = await blogRepository.GetNRandomPostAsync(
+				limit, p => p.ProjectToType<PostDto>());
+
+			return Results.Ok(ApiResponse.Success(postRandom));
+
+		}
+
+		public static async Task<IResult> GetPostRecentMonth(int limit,
+			IBlogRepository blogRepository, ILogger<IResult> logger)
+		{
+			var postRecentMonth = await blogRepository.CountPostInMonth(limit);
+
+			return Results.Ok(ApiResponse.Success(postRecentMonth));
+		}
+
+
+
 
 	}
 }
