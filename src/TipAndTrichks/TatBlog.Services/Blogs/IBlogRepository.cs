@@ -251,4 +251,8 @@ public interface IBlogRepository
 		int postsId, string imageUrl,
 		CancellationToken cancellationToken = default);
 
+
+	Task<bool> IsTagSlugExistedAsync(
+		int tagId, string slug,
+		CancellationToken cancellationToken = default);
 }

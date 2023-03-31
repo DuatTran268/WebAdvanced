@@ -885,5 +885,10 @@ public class BlogRepository : IBlogRepository
 			, cancellationToken) > 0;
 	}
 
+	public async Task<bool> IsTagSlugExistedAsync(int tagId, string slug, CancellationToken cancellationToken = default)
+	{
+		return await _context.Tags.AnyAsync(
+			x => x.Id != tagId && x.UrlSlug == slug, cancellationToken);
+	}
 
 }

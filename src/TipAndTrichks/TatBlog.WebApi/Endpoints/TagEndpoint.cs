@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.WebApi.Filters;
 using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.Category;
 using TatBlog.WebApi.Models.Post;
@@ -34,7 +36,13 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetPostsByTagsSlug")
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
-			return app;
+
+			routeGroupBuilder.MapPost("/", AddTags)
+			.WithName("AddTags")
+			.AddEndpointFilter<ValidatorFilter<TagEditModel>>()
+			.Produces(401)
+			.Produces<ApiResponse<TagItem>>();
+				return app;
 		}
 
 		private static async Task<IResult> GetTags(
@@ -80,6 +88,21 @@ namespace TatBlog.WebApi.Endpoints
 			var paginationResult = new PaginationResult<PostDto>(tagList);
 
 			return Results.Ok(ApiResponse.Success(paginationResult));
+		}
+
+		// add new tag
+		private static async Task<IResult> AddTags(
+			TagEditModel model, IBlogRepository blogRepository, IMapper mapper)
+		{
+			if (await blogRepository.IsTagSlugExistedAsync(0, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
+
+			var tag = mapper.Map<Tag>(model);
+			await blogRepository.CreateOrUpdateTagAsync(tag);
+			return Results.Ok(ApiResponse.Success(mapper.Map<TagItem>(tag), HttpStatusCode.Created));
 		}
 
 	}
