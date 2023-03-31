@@ -212,5 +212,45 @@ namespace TatBlog.WebApi.Endpoints
 
 
 
+		// update post
+		//private static async Task<IResult> UpdatePost(
+		//	int id,
+		//	PostEditModel model,
+		//	IAuthorRepository authorRepository,
+		//	IBlogRepository blogRepository,
+		//	IMapper mapper,
+		//	IMediaManager mediaManager)
+		//{
+
+		//	var post = await blogRepository.GetPostByIdAsync(id); 
+		//	if (post == null)
+		//	{
+		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+		//			$"Không tìm thấy id '{id}' của bài viết"));
+
+		//	}
+		//	if (await authorRepository.GetAuthorByIdAsync(model.AuthorId) == null)
+		//	{
+		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+		//			$"Không tìm thấy tác giả có id '{model.AuthorId}'"));
+		//	}
+
+		//	if (await blogRepository.GetCategoryByIdAsync(model.CategoryId) == null)
+		//	{
+		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+		//			$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
+		//	}
+
+		//	mapper.Map(model, post);
+		//	post.Id = id;
+		//	post.ModifiedDate = DateTime.Now;
+
+		//	//return await blogRepository.CreateOrUpdatePostAsync(post, model.GetSelectedTags() != null
+		//	//	? Results.NoContent
+			
+				
+		//}
+
+
 	}
 }
