@@ -8,6 +8,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
 using TatBlog.Services.Media;
+using TatBlog.WebApi.Filters;
 using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.Category;
 using TatBlog.WebApi.Models.Post;
@@ -63,6 +64,13 @@ namespace TatBlog.WebApi.Endpoints
 			routeGroupBuilder.MapGet("/byslug/{slug:regex(^[a-z0-9_-]+$)}", GetPostsDetailBySlug)
 			.WithName("GetPostsDetailBySlug")
 			.Produces<ApiResponse<PostDetail>>();
+
+			// add new post
+			routeGroupBuilder.MapPost("/", AddNewPost)
+				.WithName("AddNewPost")
+				.AddEndpointFilter<ValidatorFilter<PostEditModel>>()
+				.Produces(401)
+				.Produces<ApiResponse<PostDto>>();
 
 			return app;
 		}
@@ -165,7 +173,42 @@ namespace TatBlog.WebApi.Endpoints
 				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"No find post '{slug}'"))
 				: Results.Ok(ApiResponse.Success(mapper.Map<PostDetail>(postList)));
 		}
-			
+
+		// add post
+		private static async Task<IResult> AddNewPost(
+			PostEditModel model,
+			IAuthorRepository authorRepository,
+			IBlogRepository blogRepository,
+			IMapper mapper,
+			IMediaManager mediaManager)
+		{
+
+			if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Slug '{model.UrlSlug}' đã được sử dụng"));
+
+			}
+			if (await authorRepository.GetAuthorByIdAsync(model.AuthorId) == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Không tìm thấy tác giả có id '{model.AuthorId}'"));
+			}
+
+			if (await blogRepository.GetCategoryByIdAsync(model.CategoryId) == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
+			}
+
+				var post = mapper.Map<Post>(model);
+			post.PostedDate = DateTime.Now;
+
+			await blogRepository.CreateOrUpdatePostAsync(post, model.GetSelectedTags());
+
+			return Results.Ok(ApiResponse.Success(mapper.Map<PostDto>(post), 
+				HttpStatusCode.Created));
+		}
 
 
 
