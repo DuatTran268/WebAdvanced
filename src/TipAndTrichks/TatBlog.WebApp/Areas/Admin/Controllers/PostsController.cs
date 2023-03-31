@@ -76,10 +76,10 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			//var postQuery = new PostQuery()
 			//{
 			//	Keyword = model.Keyword,
-			//	CategoriesId = model.CategoryId,
-			//	AuthorsId = model.AuthorId,
+			//	CategoryId = model.CategoryId,
+			//	AuthorId = model.AuthorId,
 			//	PostedYear = model.Year,
-			//	PostedMonths = model.Month
+			//	PostedMonth = model.Month
 			//};
 			_logger.LogInformation("Tạo điều kiện truy vấn");
 

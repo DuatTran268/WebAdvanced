@@ -106,7 +106,7 @@ namespace TatBlog.WebApi.Endpoints
 		{
 			var postQuery = new PostQuery()
 			{
-				AuthorsId = id,
+				AuthorId = id,
 				PublishedOnly = true
 			};
 

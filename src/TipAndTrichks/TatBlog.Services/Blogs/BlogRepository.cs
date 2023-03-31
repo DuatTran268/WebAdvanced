@@ -330,6 +330,14 @@ public class BlogRepository : IBlogRepository
 				|| p.Tags.Any(t => t.Name.Contains(query.Keyword))
 			  );
 		}
+		if (query.CategoryId > 0)
+		{
+			postsQuery = postsQuery.Where(p => p.CategoryId == query.CategoryId);
+		}
+		if (query.AuthorId > 0)
+		{
+			postsQuery = postsQuery.Where(p => p.AuthorId == query.AuthorId);
+		}
 		if (!string.IsNullOrWhiteSpace(query.CategorySlug))
 		{
 			postsQuery = postsQuery
@@ -347,10 +355,10 @@ public class BlogRepository : IBlogRepository
 			  .Where(p => p.Tags.Any(t => t.UrlSlug == query.TagSlug));
 		}
 
-		if (query.PostedMonths > 0)
+		if (query.PostedMonth > 0)
 		{
 			postsQuery = postsQuery
-			  .Where(p => p.PostedDate.Month == query.PostedMonths);
+			  .Where(p => p.PostedDate.Month == query.PostedMonth);
 		}
 		if (query.PostedYear > 0)
 		{
@@ -358,16 +366,16 @@ public class BlogRepository : IBlogRepository
 				.Where(p => p.PostedDate.Year == query.PostedYear);
 		}
 
-		if (query.CategoriesId > 0)
+		if (query.CategoryId > 0)
 		{
 			postsQuery = postsQuery
-			  .Where(p => p.CategoryId == query.CategoriesId);
+			  .Where(p => p.CategoryId == query.CategoryId);
 		}
 
-		if (query.AuthorsId > 0)
+		if (query.AuthorId > 0)
 		{
 			postsQuery = postsQuery
-			  .Where(p => p.AuthorId == query.AuthorsId);
+			  .Where(p => p.AuthorId == query.AuthorId);
 		}
 
 		if (!string.IsNullOrEmpty(query.CategoryName))
@@ -867,14 +875,14 @@ public class BlogRepository : IBlogRepository
 	}
 
 
-
-	public async Task<Post> GetCachedPostByIdAsync(int postId)
+	public async Task<Post> GetCachedPostByIdAsync(int postId, bool postDetails = false,
+			CancellationToken cancellationToken = default)
 	{
 		return await _memoryCache.GetOrCreateAsync($"posts.by-id.{postId}",
 			async (entry) =>
 			{
 				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-				return await GetPostByIdAsync(postId);
+				return await GetPostByIdAsync(postId, postDetails);
 			});
 	}
 

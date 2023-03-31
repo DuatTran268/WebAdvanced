@@ -64,7 +64,7 @@ namespace TatBlog.WebApi.Endpoints
 		int id, IBlogRepository blogRepository, IMapper mapper
 		)
 		{
-			var posts = await blogRepository.GetCachedPostByIdAsync(id);
+			var posts = await blogRepository.GetCachedPostByIdAsync(id, true);
 
 			var postQuery = mapper.Map<PostDetail>(posts);
 

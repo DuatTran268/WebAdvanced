@@ -214,7 +214,8 @@ public interface IBlogRepository
 		CancellationToken cancellationToken = default);
 
 	Task<Category> GetCachedCategoryByIdAsync(int categoryId);
-	Task<Post> GetCachedPostByIdAsync(int postId);
+	Task<Post> GetCachedPostByIdAsync(int postId, bool postDetails = false, 
+        CancellationToken cancellationToken = default);
 
 	// add or update category
 	Task<bool> AddOrUpdateCateAsync(

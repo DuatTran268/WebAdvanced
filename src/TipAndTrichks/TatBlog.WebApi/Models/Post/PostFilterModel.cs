@@ -5,8 +5,8 @@
 		public string Keyword { get; set; }
 		public int? CategoryId { get; set; }
 		public int? AuthorId { get; set; }
-		public DateTime? PostMonth { get; set; }
-		public DateTime? PostYear { get; set; }
+		public int? PostedMonth { get; set; }
+		public int? PostedYear { get; set; }
 
 	}
 }

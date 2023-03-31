@@ -9,13 +9,13 @@ namespace TatBlog.Core.DTO;
 public class PostQuery
 {
     // ma tac gia
-    public int? AuthorsId { get; set; }
+    public int? AuthorId { get; set; }
 
     // slug tac gia
     public string AuthorSlug { get; set; } = "";
 
     // ma chuyen muc
-    public int? CategoriesId { get; set; }
+    public int? CategoryId { get; set; }
 
     // ten ki hieu chuyen muc
     public string CategoryName { get; set; } = "";
@@ -26,7 +26,7 @@ public class PostQuery
     public string Keyword { get; set; } = "";
 
     // thang dang
-    public int? PostedMonths { get; set; } = 0;
+    public int? PostedMonth { get; set; } = 0;
 
     // nam dang bai
     public int? PostedYear { get; set; } = 0;
