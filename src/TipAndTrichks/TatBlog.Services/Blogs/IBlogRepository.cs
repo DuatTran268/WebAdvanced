@@ -255,4 +255,8 @@ public interface IBlogRepository
 	Task<bool> IsTagSlugExistedAsync(
 		int tagId, string slug,
 		CancellationToken cancellationToken = default);
+
+	Task<bool> AddOrUpdateTagAsync(
+		Tag tag,
+		CancellationToken cancellationToken = default);
 }

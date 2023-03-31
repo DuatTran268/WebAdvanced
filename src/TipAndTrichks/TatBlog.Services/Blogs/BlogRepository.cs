@@ -891,4 +891,17 @@ public class BlogRepository : IBlogRepository
 			x => x.Id != tagId && x.UrlSlug == slug, cancellationToken);
 	}
 
+	public async Task<bool> AddOrUpdateTagAsync(Tag tag, CancellationToken cancellationToken = default)
+	{
+		if (tag.Id > 0)
+		{
+			_context.Tags.Update(tag);
+			_memoryCache.Remove($"tag.by-id.{tag.Id}");
+		}
+		else
+		{
+			_context.Tags.Add(tag);
+		}
+		return await _context.SaveChangesAsync(cancellationToken) > 0;
+	}
 }

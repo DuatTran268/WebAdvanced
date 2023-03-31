@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -36,13 +37,23 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetPostsByTagsSlug")
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
-
+			// add tag
 			routeGroupBuilder.MapPost("/", AddTags)
 			.WithName("AddTags")
 			.AddEndpointFilter<ValidatorFilter<TagEditModel>>()
 			.Produces(401)
 			.Produces<ApiResponse<TagItem>>();
-				return app;
+
+
+			// update tag 
+			routeGroupBuilder.MapPut("/{id:int}", UpdateTag)
+			.WithName("UpdateTag")
+			.AddEndpointFilter<ValidatorFilter<TagEditModel>>()
+			.Produces(401)
+			.Produces<ApiResponse<string>>();
+
+
+			return app;
 		}
 
 		private static async Task<IResult> GetTags(
@@ -103,6 +114,33 @@ namespace TatBlog.WebApi.Endpoints
 			var tag = mapper.Map<Tag>(model);
 			await blogRepository.CreateOrUpdateTagAsync(tag);
 			return Results.Ok(ApiResponse.Success(mapper.Map<TagItem>(tag), HttpStatusCode.Created));
+		}
+
+
+		// update tag 
+		private static async Task<IResult> UpdateTag(
+			int id, TagEditModel model,
+			IValidator<TagEditModel> validator,
+			IBlogRepository blogRepository,
+			IMapper mapper)
+		{
+			var validationResult = await validator.ValidateAsync(model);
+			if (!validationResult.IsValid)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, validationResult));
+			}
+
+			if (await blogRepository.IsTagSlugExistedAsync(id, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
+			var tag = mapper.Map<Tag>(model);
+			tag.Id = id;
+
+			return await blogRepository.AddOrUpdateTagAsync(tag)
+				? Results.Ok(ApiResponse.Success("Author is updated", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
+
 		}
 
 	}
