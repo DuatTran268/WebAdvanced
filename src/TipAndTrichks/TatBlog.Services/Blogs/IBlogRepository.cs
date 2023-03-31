@@ -214,6 +214,7 @@ public interface IBlogRepository
 		CancellationToken cancellationToken = default);
 
 	Task<Category> GetCachedCategoryByIdAsync(int categoryId);
+	Task<Post> GetCachedPostByIdAsync(int postId);
 
 	// add or update category
 	Task<bool> AddOrUpdateCateAsync(
@@ -239,6 +240,14 @@ public interface IBlogRepository
 	IPagingParams pagingParams,
 	string name = null,
 	CancellationToken cancellationToken = default);
+
+	Task<IPagedList<T>> GetPagedTagsAsync<T>(
+	   PostQuery query,
+	   IPagingParams pagingParams,
+	   Func<IQueryable<Post>, IQueryable<T>> mapper,
+	   CancellationToken cancellationToken = default
+	   );
+
 
 	Task<Tag> GetCachedTagByIdAsync(int authorId);
 

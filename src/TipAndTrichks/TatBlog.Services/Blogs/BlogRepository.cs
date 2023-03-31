@@ -797,11 +797,11 @@ public class BlogRepository : IBlogRepository
 			.Include(t => t.Author)
 			.AsNoTracking()
 			.WhereIf(!string.IsNullOrWhiteSpace(name), x => x.Title.Contains(name))
-			.Select(p => new PostItem 
-			{ 
+			.Select(p => new PostItem
+			{
 				Id = p.Id,
 				Title = p.Title,
-				UrlSlug= p.UrlSlug,
+				UrlSlug = p.UrlSlug,
 				ShortDescription = p.ShortDescrption,
 				Description = p.Description,
 				PostDate = p.PostedDate,
@@ -809,7 +809,7 @@ public class BlogRepository : IBlogRepository
 				Published = p.Published,
 				CategoryName = p.Category.Name,
 				ImageUrl = p.ImageUrl,
-				
+
 			}).ToPagedListAsync(pagingParams, cancellationToken);
 	}
 
@@ -852,4 +852,31 @@ public class BlogRepository : IBlogRepository
 			});
 	}
 
+	public async Task<IPagedList<T>> GetPagedTagsTAsync<T>(Func<IQueryable<Tag>, IQueryable<T>> mapper, IPagingParams pagingParams, string name = null, CancellationToken cancellationToken = default)
+	{
+		var tagQuery = _context.Set<Tag>().AsNoTracking();
+
+		if (!string.IsNullOrEmpty(name))
+		{
+			tagQuery = tagQuery.Where(x => x.Name.Contains(name));
+		}
+
+		return await mapper(tagQuery)
+			.ToPagedListAsync(pagingParams, cancellationToken);
+	}
+
+	public Task<IPagedList<T>> GetPagedTagsAsync<T>(PostQuery query, IPagingParams pagingParams, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+	{
+		throw new NotImplementedException();
+	}
+
+	public async Task<Post> GetCachedPostByIdAsync(int postId)
+	{
+		return await _memoryCache.GetOrCreateAsync($"posts.by-id.{postId}",
+			async (entry) =>
+			{
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+				return await GetPostByIdAsync(postId);
+			});
+	}
 }
