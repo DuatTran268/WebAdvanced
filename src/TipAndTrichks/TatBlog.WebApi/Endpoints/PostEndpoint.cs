@@ -1,9 +1,11 @@
 ﻿using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Runtime.CompilerServices;
 using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
 using TatBlog.Services.Media;
 using TatBlog.WebApi.Models;
@@ -56,6 +58,11 @@ namespace TatBlog.WebApi.Endpoints
 			routeGroupBuilder.MapGet("archives/{limit:int}", GetPostRecentMonth)
 			.WithName("GetPostRecentMonth")
 			.Produces<ApiResponse<IList<CountPostMonthly>>>();
+
+			// get post details
+			routeGroupBuilder.MapGet("/byslug/{slug:regex(^[a-z0-9_-]+$)}", GetPostsDetailBySlug)
+			.WithName("GetPostsDetailBySlug")
+			.Produces<ApiResponse<PostDetail>>();
 
 			return app;
 		}
@@ -146,6 +153,19 @@ namespace TatBlog.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(postRecentMonth));
 		}
 
+		// get post details by slug
+		private static async Task<IResult> GetPostsDetailBySlug(
+			[FromRoute] string slug,
+			IBlogRepository blogRepository,
+			IMapper mapper)
+		{
+			var postList = await blogRepository.GetPostSlugAsync(0, 0,slug);
+
+			return postList == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"No find post '{slug}'"))
+				: Results.Ok(ApiResponse.Success(mapper.Map<PostDetail>(postList)));
+		}
+			
 
 
 
