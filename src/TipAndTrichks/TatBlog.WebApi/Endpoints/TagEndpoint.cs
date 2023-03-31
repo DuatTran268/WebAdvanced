@@ -52,7 +52,12 @@ namespace TatBlog.WebApi.Endpoints
 			.Produces(401)
 			.Produces<ApiResponse<string>>();
 
+			// delete tag
 
+			routeGroupBuilder.MapDelete("/{id:int}", DeleteTags)
+				.WithName("DeleteTags")
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 			return app;
 		}
 
@@ -141,6 +146,14 @@ namespace TatBlog.WebApi.Endpoints
 				? Results.Ok(ApiResponse.Success("Author is updated", HttpStatusCode.NoContent))
 				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
 
+		}
+
+		private static async Task<IResult> DeleteTags(
+			int id, IBlogRepository blogRepository)
+		{
+			return await blogRepository.DeleteTagById(id)
+				? Results.Ok(ApiResponse.Success("Tag is deleted", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find Tag"));
 		}
 
 	}
