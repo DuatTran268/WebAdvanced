@@ -252,4 +252,9 @@ public interface IBlogRepository
 	Task<Tag> GetCachedTagByIdAsync(int authorId);
 
 
+	// set image file
+	Task<bool> SetImageUrlAsync(
+		int postsId, string imageUrl,
+		CancellationToken cancellationToken = default);
+
 }

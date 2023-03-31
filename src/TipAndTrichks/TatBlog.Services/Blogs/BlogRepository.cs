@@ -879,4 +879,12 @@ public class BlogRepository : IBlogRepository
 				return await GetPostByIdAsync(postId);
 			});
 	}
+
+	public async Task<bool> SetImageUrlAsync(int postsId, string imageUrl, CancellationToken cancellationToken = default)
+	{
+		return await _context.Posts.Where(p => p.Id == postsId)
+			.ExecuteUpdateAsync(x => x.SetProperty(p => p.ImageUrl, p => imageUrl)
+			, cancellationToken) > 0;
+	}
+
 }

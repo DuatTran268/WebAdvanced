@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
 using TatBlog.Services.Blogs;
+using TatBlog.Services.Media;
 using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.Category;
 using TatBlog.WebApi.Models.Post;
@@ -26,6 +27,20 @@ namespace TatBlog.WebApi.Endpoints
 			routeGroupBuilder.MapGet("/{id:int}", GetPostsDetailsById)
 				.WithName("GetPostsDetailsById")
 				.Produces<ApiResponse<PostDto>>();
+
+			// set avata image
+			routeGroupBuilder.MapPost("/{id:int}/avatar", SetAvatarPost)
+			.WithName("SetAvatarPost")
+			.Accepts<IFormFile>("multipart/form-data")
+			.Produces(401)
+			.Produces<ApiResponse<string>>();
+
+			// delete post
+
+			routeGroupBuilder.MapDelete("/{id:int}", DeletePost)
+				.WithName("DeletePost")
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 			return app;
 		}
 
@@ -60,8 +75,30 @@ namespace TatBlog.WebApi.Endpoints
 
 		}
 
+		private static async Task<IResult> SetAvatarPost(
+			int id, IFormFile imageFile, IBlogRepository blogRepository, IMediaManager mediaManager)
+		{
+			var imageUrl = await mediaManager.SaveFileAsync(
+				imageFile.OpenReadStream(), imageFile.FileName, imageFile.ContentType);
+			if (string.IsNullOrWhiteSpace(imageUrl))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Không lưu được tập tin"));
+			}
 
+			await blogRepository.SetImageUrlAsync(id, imageUrl);
 
+			return Results.Ok(ApiResponse.Success(imageFile));
+			
+		}
+
+		// delete post
+		private static async Task<IResult> DeletePost(
+			int id, IBlogRepository blogRepository)
+		{
+			return await blogRepository.DeletePostById(id)
+				? Results.Ok(ApiResponse.Success("Post is deleted ", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find post"));
+		}
 
 	}
 }
