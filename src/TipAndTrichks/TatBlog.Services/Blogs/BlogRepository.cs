@@ -836,6 +836,7 @@ public class BlogRepository : IBlogRepository
 			{
 				Id = t.Id,
 				Name = t.Name,
+				UrlSlug = t.UrlSlug,
 				Description = t.Description,
 				PostCount = t.Posts.Count(p => p.Published)
 			}).ToPagedListAsync(pagingParams, cancellationToken);
@@ -865,10 +866,7 @@ public class BlogRepository : IBlogRepository
 			.ToPagedListAsync(pagingParams, cancellationToken);
 	}
 
-	public Task<IPagedList<T>> GetPagedTagsAsync<T>(PostQuery query, IPagingParams pagingParams, Func<IQueryable<Post>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
-	{
-		throw new NotImplementedException();
-	}
+
 
 	public async Task<Post> GetCachedPostByIdAsync(int postId)
 	{
@@ -886,5 +884,6 @@ public class BlogRepository : IBlogRepository
 			.ExecuteUpdateAsync(x => x.SetProperty(p => p.ImageUrl, p => imageUrl)
 			, cancellationToken) > 0;
 	}
+
 
 }

@@ -241,15 +241,9 @@ public interface IBlogRepository
 	string name = null,
 	CancellationToken cancellationToken = default);
 
-	Task<IPagedList<T>> GetPagedTagsAsync<T>(
-	   PostQuery query,
-	   IPagingParams pagingParams,
-	   Func<IQueryable<Post>, IQueryable<T>> mapper,
-	   CancellationToken cancellationToken = default
-	   );
 
 
-	Task<Tag> GetCachedTagByIdAsync(int authorId);
+	Task<Tag> GetCachedTagByIdAsync(int tagId);
 
 
 	// set image file
