@@ -75,6 +75,8 @@ var app = builder.Build();
 	app.MapPostEndpoint();
 
 	app.MapTagEndpoints();
+
+	app.MapDashBoardEndpoint();
 	app.Run();
 // 
 }
