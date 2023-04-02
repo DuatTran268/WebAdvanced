@@ -19,11 +19,11 @@ namespace TatBlog.WebApi.Validations
 				.MaximumLength(100)
 				.WithMessage("ShortDesciption tối đa 100 ký tự");
 
-			RuleFor(p => p.Desciption)
+			RuleFor(p => p.Description)
 				.NotEmpty()
 				.WithMessage("Description đề không được để trống")
 				.MaximumLength(500)
-				.WithMessage("Desciption tối đa 100 ký tự");
+				.WithMessage("Description tối đa 100 ký tự");
 
 			RuleFor(p => p.Meta)
 				.NotEmpty()

@@ -142,7 +142,7 @@ public interface IBlogRepository
         int postId, bool includeDetails = false,
         CancellationToken cancellationToken = default);
 
-	public Task<Post> CreateOrUpdatePostAsync(
+	public Task<bool> CreateOrUpdatePostAsync(
         Post post, IEnumerable<string> tags,
         CancellationToken cancellationToken = default);
 

@@ -510,7 +510,7 @@ public class BlogRepository : IBlogRepository
 	}
 
 
-	public async Task<Post> CreateOrUpdatePostAsync(Post post, IEnumerable<string> tags, CancellationToken cancellationToken = default)
+	public async Task<bool> CreateOrUpdatePostAsync(Post post, IEnumerable<string> tags, CancellationToken cancellationToken = default)
 	{
 		if (post.Id > 0)
 		{
@@ -552,9 +552,9 @@ public class BlogRepository : IBlogRepository
 		else
 			_context.Add(post);
 
-		await _context.SaveChangesAsync(cancellationToken);
+		return await _context.SaveChangesAsync(cancellationToken) > 0;
 
-		return post;
+		
 	}
 
 	//public async Task<Post> GetPostByIdAsync(Guid postId, CancellationToken cancellationToken = default)

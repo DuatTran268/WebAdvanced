@@ -72,6 +72,12 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces(401)
 				.Produces<ApiResponse<PostDto>>();
 
+			// update category
+			routeGroupBuilder.MapPut("/{id:int}", UpdatePost)
+				.WithName("UpdatePost")
+				.AddEndpointFilter<ValidatorFilter<PostEditModel>>()
+				.Produces(401)
+				.Produces<ApiResponse<PostDto>>();
 			return app;
 		}
 
@@ -212,44 +218,48 @@ namespace TatBlog.WebApi.Endpoints
 
 
 
-		// update post
-		//private static async Task<IResult> UpdatePost(
-		//	int id,
-		//	PostEditModel model,
-		//	IAuthorRepository authorRepository,
-		//	IBlogRepository blogRepository,
-		//	IMapper mapper,
-		//	IMediaManager mediaManager)
-		//{
+		//update post
+		private static async Task<IResult> UpdatePost(
+			int id,
+			PostEditModel model,
+			IAuthorRepository authorRepository,
+			IBlogRepository blogRepository,
+			IMapper mapper,
+			IMediaManager mediaManager)
+		{
 
-		//	var post = await blogRepository.GetPostByIdAsync(id); 
-		//	if (post == null)
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
-		//			$"Không tìm thấy id '{id}' của bài viết"));
+			var post = await blogRepository.GetPostByIdAsync(id);
+			if (post == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+					$"Không tìm thấy id '{id}' của bài viết"));
 
-		//	}
-		//	if (await authorRepository.GetAuthorByIdAsync(model.AuthorId) == null)
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-		//			$"Không tìm thấy tác giả có id '{model.AuthorId}'"));
-		//	}
+			}
+			if (await authorRepository.GetAuthorByIdAsync(model.AuthorId) == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Không tìm thấy tác giả có id '{model.AuthorId}'"));
+			}
 
-		//	if (await blogRepository.GetCategoryByIdAsync(model.CategoryId) == null)
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-		//			$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
-		//	}
+			if (await blogRepository.GetCategoryByIdAsync(model.CategoryId) == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
+			}
+			if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
 
-		//	mapper.Map(model, post);
-		//	post.Id = id;
-		//	post.ModifiedDate = DateTime.Now;
+			mapper.Map(model, post);
+			post.Id = id;
+			post.ModifiedDate = DateTime.Now;
 
-		//	//return await blogRepository.CreateOrUpdatePostAsync(post, model.GetSelectedTags() != null
-		//	//	? Results.NoContent
-			
-				
-		//}
+			return await blogRepository.CreateOrUpdatePostAsync(post, model.GetSelectedTags())
+			   ? Results.Ok(ApiResponse.Success($"Thay đổi thành công bài viết có id = {id}"))
+			   : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy bài viết có id = {id}"));
+		}
 
 
 	}
