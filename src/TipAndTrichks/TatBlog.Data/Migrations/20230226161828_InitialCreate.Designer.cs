@@ -147,7 +147,7 @@ namespace TatBlog.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("ShortDescrption")
+                    b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");

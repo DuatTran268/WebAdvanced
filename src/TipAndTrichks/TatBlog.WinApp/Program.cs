@@ -319,7 +319,7 @@ IBlogRepository blogRepository = new BlogRepository(context);
 //{
 //    Id = 12,
 //    Title = "ASP .NET CORE Test",
-//    ShortDescrption = "My test and friends has a great repository",
+//    ShortDescription = "My test and friends has a great repository",
 //    Description = "asp .Net core is a ....",
 //    Meta = "My and friends has a greate repository filled",
 //    UrlSlug = "aspnet-core-reactj12",

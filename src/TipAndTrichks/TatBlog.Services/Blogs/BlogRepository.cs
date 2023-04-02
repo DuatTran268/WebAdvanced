@@ -325,7 +325,7 @@ public class BlogRepository : IBlogRepository
 			postsQuery = postsQuery
 			  .Where(p => p.Title.Contains(query.Keyword)
 				|| p.Description.Contains(query.Keyword)
-				|| p.ShortDescrption.Contains(query.Keyword)
+				|| p.ShortDescription.Contains(query.Keyword)
 				|| p.UrlSlug.Contains(query.Keyword)
 				|| p.Tags.Any(t => t.Name.Contains(query.Keyword))
 			  );
@@ -810,7 +810,7 @@ public class BlogRepository : IBlogRepository
 				Id = p.Id,
 				Title = p.Title,
 				UrlSlug = p.UrlSlug,
-				ShortDescription = p.ShortDescrption,
+				ShortDescription = p.ShortDescription,
 				Description = p.Description,
 				PostDate = p.PostedDate,
 				ViewCount = p.ViewCount,

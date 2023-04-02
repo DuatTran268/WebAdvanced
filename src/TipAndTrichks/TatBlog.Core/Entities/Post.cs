@@ -14,7 +14,7 @@ public class Post :IEntity
     // tieu de bai viet
     public string Title { get; set; }
     // mo ta hay gioi thieu ngan ve noi dung
-    public string ShortDescrption { get; set; }
+    public string ShortDescription { get; set; }
 
     // noi dung chi tiet cua bai viet
     public string Description { get; set; }

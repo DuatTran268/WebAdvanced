@@ -270,7 +270,7 @@ namespace TatBlog.Data.Seeders
             new()
             {
                 Title = "ASP .NET Core Diagnostic Scenarios",
-                ShortDescrption = "David and friend has a great repository",
+                ShortDescription = "David and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "David and friend has a great reponsitory ",
                 UrlSlug = "aspnet-core-diagnostic-scenarios",
@@ -289,7 +289,7 @@ namespace TatBlog.Data.Seeders
             new()
             {
                 Title = "Javascript",
-                ShortDescrption = "Duat and friend has a great repository",
+                ShortDescription = "Duat and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "Duat and friend has a great reponsitory ",
                 UrlSlug = "javascript-language",
@@ -307,7 +307,7 @@ namespace TatBlog.Data.Seeders
             new()
             {
                 Title = "HTML CSS",
-                ShortDescrption = "ABC and friend has a great repository",
+                ShortDescription = "ABC and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "abc and friend has a great reponsitory ",
                 UrlSlug = "html-css-language-mark",
@@ -325,7 +325,7 @@ namespace TatBlog.Data.Seeders
             ,new()
             {
                 Title = "Reactjs",
-                ShortDescrption = "Reactjs and friend has a great repository",
+                ShortDescription = "Reactjs and friend has a great repository",
                 Description = "Here 's a few great DON'T and DO example",
                 Meta = "reactjs and friend has a great reponsitory ",
                 UrlSlug = "reat-js-javascript",
