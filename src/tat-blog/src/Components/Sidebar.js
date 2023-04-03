@@ -1,10 +1,11 @@
 import React from "react";
+import SearchForm from "./SearchForm";
 
 const Sidebar = () =>{
   return (
     <div className="pt-4 ps-2">
       <h1>
-        Tìm kiếm bài viết
+        <SearchForm/>
       </h1>
       <h1>
         Các chủ đề
