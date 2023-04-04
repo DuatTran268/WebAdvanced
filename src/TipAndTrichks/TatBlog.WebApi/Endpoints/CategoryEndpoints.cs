@@ -20,10 +20,14 @@ public static class CategoryEndpoints
 	public static WebApplication MapCategoryEndpoint(this WebApplication app)
 	{
 		// getcategory
-		var routeGroupBuilder = app.MapGroup("/api/categorys");
-		routeGroupBuilder.MapGet("/", GetCategoies)
+		var routeGroupBuilder = app.MapGroup("/api/categories");
+		routeGroupBuilder.MapGet("/listcate", GetCategoies)
 			.WithName("GetCategoies")
 			.Produces<ApiResponse<PaginationResult<CategoryItem>>>();
+
+		routeGroupBuilder.MapGet("/", GetCategories2)
+			.WithName("GetCategories2")
+			.Produces<ApiResponse<IList<CategoryItem>>>();
 
 
 		// get categories details
@@ -70,6 +74,13 @@ public static class CategoryEndpoints
 
 		return Results.Ok(ApiResponse.Success(paginationResult));
 
+	}
+
+	private static async Task<IResult> GetCategories2(
+		/*[AsParameters] CategoryFilterModel model, */IBlogRepository blogRepository)
+	{
+		var cateList = await blogRepository.GetCategoryAsync();
+		return Results.Ok(ApiResponse.Success(cateList));
 	}
 
 	// get category detail by Id
