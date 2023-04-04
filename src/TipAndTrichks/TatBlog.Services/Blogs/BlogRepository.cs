@@ -355,15 +355,15 @@ public class BlogRepository : IBlogRepository
 			  .Where(p => p.Tags.Any(t => t.UrlSlug == query.TagSlug));
 		}
 
-		if (query.PostedMonth > 0)
+		if (query.Month > 0)
 		{
 			postsQuery = postsQuery
-			  .Where(p => p.PostedDate.Month == query.PostedMonth);
+			  .Where(p => p.PostedDate.Month == query.Month);
 		}
-		if (query.PostedYear > 0)
+		if (query.Year > 0)
 		{
 			postsQuery = postsQuery
-				.Where(p => p.PostedDate.Year == query.PostedYear);
+				.Where(p => p.PostedDate.Year == query.Year);
 		}
 
 		if (query.CategoryId > 0)

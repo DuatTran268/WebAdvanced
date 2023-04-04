@@ -21,6 +21,7 @@ namespace TatBlog.WebApi.Models.Post
         public string ImageUrl { get; set; }
         //so luot xem, doc bai viet
         public int ViewCount { get; set; }
+        public bool Published { get; set; }
         //ngay gio dang bai
         public DateTime PostedDate { get; set; }
         // ngay gio cap nhat lan cuoi

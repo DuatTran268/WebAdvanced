@@ -175,14 +175,14 @@ namespace TatBlog.WebApp.Controllers
 		{
 			var postQuery = new PostQuery()
 			{
-				PostedMonth = month,
-				PostedYear = year,
+				Month = month,
+				Year = year,
 			};
 
 			var postList = await _blogRepository.GetPagePostAsync(postQuery, pageNumber, pageSize);
 			ViewBag.PostQuery = postQuery;
 
-			ViewBag.Title = $"Bài viết trong tháng {postQuery.PostedMonth} năm {postQuery.PostedYear}";
+			ViewBag.Title = $"Bài viết trong tháng {postQuery.Month} năm {postQuery.Year}";
 			return View("Index", postList);
 		}
 

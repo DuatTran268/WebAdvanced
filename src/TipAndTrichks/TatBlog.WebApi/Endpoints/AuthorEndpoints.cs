@@ -50,7 +50,7 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces <ApiResponse<AuthorItem>>();
 
 			// set athor picture
-			routeGroupBuilder.MapPost("/{id:int}/avatar", SetAuthorPicture)
+			routeGroupBuilder.MapPost("/{id:int}/pictures", SetAuthorPicture)
 				.WithName("SetAuthorPicture")
 				.Accepts<IFormFile>("multipart/form-data")
 				.Produces(401)
@@ -160,7 +160,8 @@ namespace TatBlog.WebApi.Endpoints
 			//	new { author.Id }, 
 			//	mapper.Map<AuthorItem>(author));
 
-			return Results.Ok(ApiResponse.Success(mapper.Map<AuthorItem>(author), HttpStatusCode.Created));
+			return Results.Ok(ApiResponse.Success(
+				mapper.Map<AuthorItem>(author), HttpStatusCode.Created));
 		}
 
 
@@ -173,7 +174,8 @@ namespace TatBlog.WebApi.Endpoints
 		{
 			var imageUrl = await mediaManager.SaveFileAsync(
 				imageFile.OpenReadStream(),
-				imageFile.FileName, imageFile.ContentType);
+				imageFile.FileName, 
+				imageFile.ContentType);
 
 			if (string.IsNullOrWhiteSpace(imageUrl))
 			{
@@ -200,7 +202,8 @@ namespace TatBlog.WebApi.Endpoints
 
 			if (await authorRepository.IsAuthorSlugExistedAsync(id, model.UrlSlug))
 			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,$"Slug '{model.UrlSlug}' đã được sử dụng"));
+				return Results.Ok(ApiResponse.Fail(
+					HttpStatusCode.Conflict,$"Slug '{model.UrlSlug}' đã được sử dụng"));
 			}
 			var author = mapper.Map<Author>(model);
 			author.Id = id;

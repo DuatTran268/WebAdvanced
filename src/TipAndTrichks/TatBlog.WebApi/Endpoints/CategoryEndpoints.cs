@@ -64,7 +64,7 @@ public static class CategoryEndpoints
 		return app;
 	}
 
-
+	// get category có phân trang
 	private static async Task<IResult> GetCategoies(
 		[AsParameters] CategoryFilterModel model, IBlogRepository blogRepository)
 	{
@@ -77,7 +77,7 @@ public static class CategoryEndpoints
 	}
 
 	private static async Task<IResult> GetCategories2(
-		/*[AsParameters] CategoryFilterModel model, */IBlogRepository blogRepository)
+		IBlogRepository blogRepository)
 	{
 		var cateList = await blogRepository.GetCategoryAsync();
 		return Results.Ok(ApiResponse.Success(cateList));

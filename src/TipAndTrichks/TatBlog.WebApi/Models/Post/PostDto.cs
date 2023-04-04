@@ -19,6 +19,7 @@ namespace TatBlog.WebApi.Models.Post
         // so luot xem doc bai viet
         public int ViewCount { get; set; }
         // ngay gioi dang bai
+        public bool Published { get; set; }
         public DateTime PostedDate { get; set; }
         //ngay gio cap nhat lan cuoi
         public DateTime? ModifiedDate { get; set; }
