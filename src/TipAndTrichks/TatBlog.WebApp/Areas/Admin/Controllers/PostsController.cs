@@ -78,8 +78,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			//	Keyword = model.Keyword,
 			//	CategoryId = model.CategoryId,
 			//	AuthorId = model.AuthorId,
-			//	Year = model.Year,
-			//	Month = model.Month
+			//	PostedYear = model.PostedYear,
+			//	PostedMonth = model.PostedMonth
 			//};
 			_logger.LogInformation("Tạo điều kiện truy vấn");
 

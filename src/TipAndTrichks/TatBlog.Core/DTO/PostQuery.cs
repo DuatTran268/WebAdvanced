@@ -26,10 +26,10 @@ public class PostQuery
     public string Keyword { get; set; } = "";
 
     // thang dang
-    public int? Month { get; set; } = 0;
+    public int? PostedMonth { get; set; } = 0;
 
     // nam dang bai
-    public int? Year { get; set; } = 0;
+    public int? PostedYear { get; set; } = 0;
 
     public string SelectedTags { get; set; } = "";
     public string TagSlug { get; set; } = "";
