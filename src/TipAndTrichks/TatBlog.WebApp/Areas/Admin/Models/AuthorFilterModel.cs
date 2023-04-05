@@ -10,7 +10,7 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 		public int AuthorId { get; set; }
 		
 		[DisplayName("Tên tác giả")]
-		public string FullNames { get; set; }
+		public string FullName { get; set; }
 		[DisplayName("Từ khoá")]
 		public string Keyword { get; set; }
 

@@ -12,7 +12,7 @@ namespace TatBlog.WebApp.Validations
 		{
 			_authorRepository = authorRepository;
 
-			RuleFor(x => x.FullNames).NotEmpty().MaximumLength(500);
+			RuleFor(x => x.FullName).NotEmpty().MaximumLength(500);
 			RuleFor(x => x.UrlSlug).NotEmpty().MaximumLength(500);
 			RuleFor(x => x.Email).NotEmpty().MaximumLength(100);
 			RuleFor(x => x.Note).NotEmpty().MaximumLength(1000);

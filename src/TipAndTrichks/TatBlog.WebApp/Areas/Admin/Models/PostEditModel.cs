@@ -18,7 +18,7 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 		[DisplayName("Giới thiệu")]
 		//[Required(ErrorMessage = "Giới thiệu không được để trống")]
 		//[MaxLength(2000, ErrorMessage = "Giới thiệu tối đa 2000 ký tự")]
-		public string ShortDescrption { get; set; }
+		public string ShortDescription { get; set; }
 
 
 

@@ -14,7 +14,7 @@ namespace TatBlog.WebApp.Validations
 
 			RuleFor(x => x.Title).NotEmpty().MaximumLength(500);
 
-			RuleFor(x => x.ShortDescrption).NotEmpty();
+			RuleFor(x => x.ShortDescription).NotEmpty();
 			
 			RuleFor(x => x.Description).NotEmpty();
 

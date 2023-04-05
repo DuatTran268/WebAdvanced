@@ -21,7 +21,7 @@ namespace TatBlog.Data.Seeders
         {
             _dbContext.Database.EnsureCreated();
 
-            if (_dbContext.Posts.Any()) return;
+            //if (_dbContext.Posts.Any()) return;
 
             var authors = AddAuthors();
             var categories = AddCategories();
