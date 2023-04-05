@@ -10,41 +10,59 @@ const PostList = ({ postItem }) => {
 
   let postedDate = new Date(postItem.postedDate);
 
+  const { urlSlug, title, shortDescription, category, author, tags } = postItem;
+
   return (
     <article className="blog-entry mb-4">
       <Card>
         <div className="row g-0">
           <div className="col-md-4">
-            <Card.Img variant="top" src={imageUrl} alt={postItem.title} />
+            <Card.Img variant="top" src={imageUrl} alt={title} />
           </div>
           <div className="col-md-8">
             <Card.Body>
-              <Card.Title>{postItem.title}</Card.Title>
+              <Card.Title>
+                <Link
+                  to={`/post/${urlSlug}`}
+                  title="Xem chi tiết"
+                  className="text-decoration-none"
+                >
+                  {title}
+                </Link>
+              </Card.Title>
 
               <Card.Text>
                 <small className="text-muted">Tác giả: </small>
                 <span className="text-primary m-1">
-                  {postItem.author.fullName}
+                  <Link
+                    className="text-decoration-none"
+                    to={`/author/${author.urlSlug}`}
+                  >
+                    {author.fullName}
+                  </Link>
                 </span>
                 <span className="text-muted">Chủ đề: </span>
                 <span className="text-primary m-1">
-                  {postItem.category.name}
+                  <Link
+                    className="text-decoration-none"
+                    to={`/category/${category.urlSlug}`}
+                  >
+                    {category.name}
+                  </Link>
                 </span>
               </Card.Text>
 
-              <Card.Text>{postItem.shortDescription}</Card.Text>
+              <Card.Text>{shortDescription}</Card.Text>
 
               <div className="tag-list">
-                <TagList tagList={postItem.tags} />
+                <TagList tagList={tags} />
               </div>
 
               <div className="text-end">
                 <Link
-                  to={`/blog/post?year=${postedDate.getFullYear()} & month=${postedDate.getMonth()}&day=${postedDate.getDate()}&slug=${
-                    postItem.urlSlug
-                  }`}
+                  to={`/blog/post/${postedDate.getFullYear()}/${postedDate.getMonth()}/${postedDate.getDate()}/${urlSlug}`}
                   className="btn btn-primary"
-                  title={postItem.title}
+                  title={title}
                 >
                   Xem chi tiết
                 </Link>

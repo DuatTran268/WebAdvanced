@@ -4,6 +4,7 @@ export async function getCategories(){
   try {
     //// call api
     const response = await axios.get(`https://localhost:7247/api/categories`);
+
     const data = response.data;
     if(data.isSuccess){
       return data.result;
