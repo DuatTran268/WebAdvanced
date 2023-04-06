@@ -6,7 +6,7 @@ import { isEmptyOrSpaces } from "../Utils/Utils";
 const PostList = ({ postItem }) => {
   let imageUrl = isEmptyOrSpaces(postItem.imageUrl)
     ? process.env.PUBLIC_URL + "/images/image1.png"
-    : `${postItem.imageUrl}`;
+    : `https://localhost:7247/${postItem.imageUrl}`;
 
   let postedDate = new Date(postItem.postedDate);
 
