@@ -307,7 +307,8 @@ public class BlogRepository : IBlogRepository
 	// o
 	public async Task<IList<Post>> GetRandomNPost(int n, CancellationToken cancellationToken = default)
 	{
-		return await _context.Set<Post>().OrderBy(p => Guid.NewGuid()).Take(n).ToListAsync(cancellationToken);
+		return await _context.Set<Post>().OrderBy(
+			p => Guid.NewGuid()).Take(n).ToListAsync(cancellationToken);
 	}
 
 

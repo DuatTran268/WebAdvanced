@@ -67,11 +67,11 @@ namespace TatBlog.WebApi.Endpoints
 			.Produces<ApiResponse<PostDetail>>();
 
 			// add new post
-			routeGroupBuilder.MapPost("/", AddNewPost)
-				.WithName("AddNewPost")
-				.AddEndpointFilter<ValidatorFilter<PostEditModel>>()
-				.Produces(401)
-				.Produces<ApiResponse<PostDto>>();
+			//routeGroupBuilder.MapPost("/", AddNewPost)
+			//	.WithName("AddNewPost")
+			//	.AddEndpointFilter<ValidatorFilter<PostEditModel>>()
+			//	.Produces(401)
+			//	.Produces<ApiResponse<PostDto>>();
 
 			// update category
 			routeGroupBuilder.MapPut("/{id:int}", UpdatePost)
@@ -92,11 +92,11 @@ namespace TatBlog.WebApi.Endpoints
 
 
 
-			//routeGroupBuilder.MapPost("/", AddPost)
-			//.WithName("AddPost")
-			//.Accepts<PostEditModel>("multipart/form-data")
-			//.Produces(401)
-			//.Produces<ApiResponse<PostItem>>();
+			routeGroupBuilder.MapPost("/", AddPost)
+			.WithName("AddPost")
+			.Accepts<PostEditModel>("multipart/form-data")
+			.Produces(401)
+			.Produces<ApiResponse<PostItem>>();
 
 			return app;
 		}
@@ -202,40 +202,40 @@ namespace TatBlog.WebApi.Endpoints
 		}
 
 		// add post
-		private static async Task<IResult> AddNewPost(
-			PostEditModel model,
-			IAuthorRepository authorRepository,
-			IBlogRepository blogRepository,
-			IMapper mapper,
-			IMediaManager mediaManager)
-		{
+		//private static async Task<IResult> AddNewPost(
+		//	PostEditModel model,
+		//	IAuthorRepository authorRepository,
+		//	IBlogRepository blogRepository,
+		//	IMapper mapper,
+		//	IMediaManager mediaManager)
+		//{
 
-			if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
-			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-					$"Slug '{model.UrlSlug}' đã được sử dụng"));
+		//	//if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
+		//	//{
+		//	//	return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+		//	//		$"Slug '{model.UrlSlug}' đã được sử dụng"));
 
-			}
-			if (await authorRepository.GetAuthorByIdAsync(model.AuthorId) == null)
-			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-					$"Không tìm thấy tác giả có id '{model.AuthorId}'"));
-			}
+		//	//}
+		//	if (await authorRepository.GetAuthorByIdAsync(model.AuthorId) == null)
+		//	{
+		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+		//			$"Không tìm thấy tác giả có id '{model.AuthorId}'"));
+		//	}
 
-			if (await blogRepository.GetCategoryByIdAsync(model.CategoryId) == null)
-			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-					$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
-			}
+		//	if (await blogRepository.GetCategoryByIdAsync(model.CategoryId) == null)
+		//	{
+		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+		//			$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
+		//	}
 
-			var post = mapper.Map<Post>(model);
-			post.PostedDate = DateTime.Now;
+		//	var post = mapper.Map<Post>(model);
+		//	post.PostedDate = DateTime.Now;
 
-			await blogRepository.CreateOrUpdatePostAsync(post, model.GetSelectedTags());
+		//	await blogRepository.CreateOrUpdatePostAsync(post, model.GetSelectedTags());
 
-			return Results.Ok(ApiResponse.Success(mapper.Map<PostDto>(post),
-				HttpStatusCode.Created));
-		}
+		//	return Results.Ok(ApiResponse.Success(mapper.Map<PostDto>(post),
+		//		HttpStatusCode.Created));
+		//}
 
 
 
@@ -267,11 +267,11 @@ namespace TatBlog.WebApi.Endpoints
 				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
 					$"Không tìm thấy chủ đề có id '{model.CategoryId}'"));
 			}
-			if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
-			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-					$"Slug '{model.UrlSlug}' đã được sử dụng"));
-			}
+			//if (await blogRepository.IsPostSlugExistedAsync(0, model.UrlSlug))
+			//{
+			//	return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+			//		$"Slug '{model.UrlSlug}' đã được sử dụng"));
+			//}
 
 			mapper.Map(model, post);
 			post.Id = id;
@@ -340,9 +340,15 @@ namespace TatBlog.WebApi.Endpoints
 				};
 			}
 
-			post.Title = model.Title; post.AuthorId = model.AuthorId; post.CategoryId = model.CategoryId;
-			post.ShortDescription = model.ShortDescription; post.Description = model.Description; post.Meta = model.Meta;
-			post.Published = model.Published; post.ModifiedDate = DateTime.Now; post.UrlSlug = model.Title.GenerateSlug();
+			post.Title = model.Title; 
+			post.AuthorId = model.AuthorId; 
+			post.CategoryId = model.CategoryId;
+			post.ShortDescription = model.ShortDescription; 
+			post.Description = model.Description; 
+			post.Meta = model.Meta;
+			post.Published = model.Published; 
+			post.ModifiedDate = DateTime.Now; 
+			post.UrlSlug = model.Title.GenerateSlug();
 
 			if (model.ImageFile?.Length > 0)
 			{

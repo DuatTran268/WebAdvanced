@@ -26,7 +26,7 @@ namespace TatBlog.WebApi.Models.Post
 		public IEnumerable<SelectListItem> MonthList { get; set; }
 
 
-		public PostFilterModel()
+		public PostFilterModel()	
 		{
 			MonthList = Enumerable.Range(1, 12).Select(m => new SelectListItem()
 			{
