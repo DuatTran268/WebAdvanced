@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
@@ -5,8 +6,13 @@ import Footer from "./Components/Footer";
 import Index from "./Pages/Index";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact"
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Blog from "./Pages/Blog";
+import DetailPost from "./Pages/DetailPost";
+import PostByCategory from "./Pages/PostByCategory";
+import PostByAuthor from "./Pages/PostByAuthor";
+import PostByTag from "./Pages/PostByTag";
+import PostByTime from "./Pages/PostByTime";
+import NotFound from "./Components/NotFound";
 import Layout from "./Pages/Layout";
 import Rss from "./Pages/Rss";
 
@@ -26,6 +32,14 @@ function App() {
                 <Route path="/blog/About" element={<About/>}/>
                 <Route path="/blog/Contact" element={<Contact/>}/>
                 <Route path="/blog/Rss" element={<Rss/>}/>
+                <Route path="/posts" element ={<Blog/>}/>
+                <Route path="/post/:slug" element={<DetailPost/>}/>
+                <Route path="/post/:year/:month/:date/:slug" element={<DetailPost/>}/>
+                <Route path="/author/:slug" element={<PostByAuthor/>}/>
+                <Route path="/tags/:slug" element={<PostByTag/>}/>
+                <Route path="/category/:slug" element={<PostByCategory/>}/>
+                <Route path="/archives/:year/:month" element={<PostByTime/>}/>
+                {/* <Route path="*" element={<NotFound/>}/> */}
               </Route>
             </Routes>
             </div>

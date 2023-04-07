@@ -46,6 +46,9 @@ public interface IBlogRepository
     Task<IList<CategoryItem>> GetCategoryAsync(
         bool showOnMenu = false, CancellationToken cancellationToken = default);
 
+    Task<IList<TagItem>> GetTagAsync(
+       CancellationToken cancellationToken = default);
+
 	Task<IList<AuthorItem>> GetAuthorAsync(
         CancellationToken cancellationToken = default);
 

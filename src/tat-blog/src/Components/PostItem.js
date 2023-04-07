@@ -60,7 +60,7 @@ const PostList = ({ postItem }) => {
 
               <div className="text-end">
                 <Link
-                  to={`/blog/post/${postedDate.getFullYear()}/${postedDate.getMonth()}/${postedDate.getDate()}/${urlSlug}`}
+                  to={`/post/${postedDate.getFullYear()}/${postedDate.getMonth()}/${postedDate.getDate()}/${urlSlug}`}
                   className="btn btn-primary"
                   title={title}
                 >
