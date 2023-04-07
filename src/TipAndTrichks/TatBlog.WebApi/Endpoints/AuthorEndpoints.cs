@@ -27,6 +27,13 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetAuthors")
 				.Produces<ApiResponse<PaginationResult<AuthorItem>>>();
 
+			// get top author post
+			routeGroupBuilder.MapGet("/best/{limit:int}", GetTopAuthor)
+				.WithName("GetTopAuthor")
+				.Produces<ApiResponse<AuthorItem>>();
+
+
+
 			// get author details
 			routeGroupBuilder.MapGet("/{id:int}", GetAuthorDetails)
 				.WithName("GetAuthorsById")
@@ -81,6 +88,16 @@ namespace TatBlog.WebApi.Endpoints
 
 			var paginationResult = new PaginationResult<AuthorItem>(authorList);
 			return Results.Ok(ApiResponse.Success(paginationResult));
+		}
+
+		// get top author most posts
+		private static async Task<IResult> GetTopAuthor(
+			int limit,
+			IAuthorRepository authorRepository
+			)
+		{
+			var author = await authorRepository.GetTopAuthorMostPosts(limit);
+			return Results.Ok(ApiResponse.Success(author));
 		}
 
 		// get author details

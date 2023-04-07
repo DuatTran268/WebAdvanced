@@ -283,4 +283,20 @@ public class AuthorRepository :IAuthorRepository
 				cancellationToken) > 0;
 
 	}
+
+	public async Task<List<AuthorItem>> GetTopAuthorMostPosts(int numAuthor, CancellationToken cancellationToken = default)
+	{
+		return await _context.Set<Author>().Select(a => new AuthorItem()
+		{
+			Id = a.Id,
+			FullName = a.FullName,
+			Email = a.Email,
+			UrlSlug = a.UrlSlug,
+			ImageUrl = a.ImageUrl,
+			JoinedDate = a.JoinedDate,
+			Notes = a .Notes,
+			PostCount = a.Posts.Count(p => p.Published)
+
+		}).Take(numAuthor).ToListAsync(cancellationToken);
+	}
 }
