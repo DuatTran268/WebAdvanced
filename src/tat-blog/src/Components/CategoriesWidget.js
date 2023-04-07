@@ -22,23 +22,19 @@ const CategoriesWidget = () => {
         <h3 className="text-success mb-2">
           Các chủ đề
         </h3>
-
-        {categoryList.length > 0 && 
-          <ListGroup>
-            {categoryList.map((item, index) => {
-              return (
-                <ListGroup.Item key={index}>
-                  <Link to={`/category/${item.urlSlug}`}
-                  title={item.description}
-                  key={index}>
-                  {item.name}
-                  <span>&nbsp;({item.postCount})</span>
-                  </Link>
-                </ListGroup.Item>
-              );
-            })}
-          </ListGroup>
-        }
+        
+        <div className="list-group list-group-flush">
+        {categoryList.map((item) => (
+          <Link className="list-group-item d-flex align-items-start justify-content-between" to={`/category/${item.urlSlug}`}>
+            <div className="me-auto">
+              {item.name}
+            </div>
+            <span className="badge bg-success rounded-pill">
+              {item.postCount}
+            </span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

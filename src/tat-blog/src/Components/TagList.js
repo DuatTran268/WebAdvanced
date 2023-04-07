@@ -7,7 +7,7 @@ const TagList = ({tagList}) =>{
       <>
         {tagList.map((item, index) => {
           return(
-            <Link to= {`/blog/tag?slug=${item.name}`}
+            <Link to= {`/tag/${item.urlSlug}`}
             title={item.name}
             className="btn btn-sm btn-outline-secondary me-1"
             key={index}>

@@ -36,10 +36,10 @@ function App() {
                 <Route path="/post/:slug" element={<DetailPost/>}/>
                 <Route path="/post/:year/:month/:date/:slug" element={<DetailPost/>}/>
                 <Route path="/author/:slug" element={<PostByAuthor/>}/>
-                <Route path="/tags/:slug" element={<PostByTag/>}/>
+                <Route path="/tag/:slug" element={<PostByTag/>}/>
                 <Route path="/category/:slug" element={<PostByCategory/>}/>
                 <Route path="/archives/:year/:month" element={<PostByTime/>}/>
-                {/* <Route path="*" element={<NotFound/>}/> */}
+                <Route path="*" element={<NotFound/>}/>
               </Route>
             </Routes>
             </div>
