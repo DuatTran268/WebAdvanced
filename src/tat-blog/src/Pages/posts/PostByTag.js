@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useParams } from "react-router-dom";
-import PostSearch from '../Components/PostSearch'
+import PostSearch from '../../Components/posts/PostSearch'
 
 function PostByTag() {
   useEffect(() => {

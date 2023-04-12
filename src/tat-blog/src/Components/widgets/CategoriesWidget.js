@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCategories } from "../Services/CategoriesWidgets";
+import { getCategories } from "../../Services/CategoriesWidgets";
 
 const CategoriesWidget = (categoryItem) => {
   const [categoryList, setCategoryList] = useState([]);

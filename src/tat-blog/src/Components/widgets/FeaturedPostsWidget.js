@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
-import { getFeaturedPost } from "../Services/FeaturedPostsWidget";
+import { getFeaturedPost } from "../../Services/FeaturedPostsWidget";
 
 
 const FeaturedWidget = (featuredItem) => {

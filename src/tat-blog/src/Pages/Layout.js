@@ -1,13 +1,23 @@
 import { Outlet } from "react-router-dom";
-
+import Sidebar from "../Components/common/Sidebar";
+import Navbar from "../Components/common/Navbar";
 const Layout = () => {
   return (
     <>
-      <Outlet/>
-    </>
+      <Navbar />
 
-  )
-}
+      <div className="container-fluid py-3">
+        <div className="row">
+          <div className="col-9">
+            <Outlet />
+          </div>
+          <div className="col-3 border-start">
+            <Sidebar />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Layout;
-

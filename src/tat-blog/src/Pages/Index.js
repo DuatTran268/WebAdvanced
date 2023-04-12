@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import PostSearch from '../Components/PostSearch';
+import PostSearch from '../Components/posts/PostSearch';
 
 
 function Index() {

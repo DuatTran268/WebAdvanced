@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getArchives } from "../Services/ArchiveWidget";
+import { getArchives } from "../../Services/ArchiveWidget";
 
 const Archives = () => {
   const [monthList, setMonthlyList] = useState([]);

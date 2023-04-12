@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import Pager from './Pager';
 import PostItem from './PostItem';
-import { getPosts } from "../Services/BlogRepository";
+import { getPosts } from "../../Services/BlogRepository";
+import Pager from "../common/Pager"
 
 function PostSearch(props) {
   const { querySearch, params } = props;

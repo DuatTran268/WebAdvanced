@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getTagClould } from "../Services/TagCloudWidget";
+import { getTagClould } from "../../Services/TagCloudWidget";
 
 const TagCloudWidget = (tagItem) => {
   const [tagList, setTagCloudList] = useState([]);

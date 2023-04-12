@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getPostBySlug } from "../Services/BlogRepository";
-import { isEmptyOrSpaces } from "../Utils/Utils";
+import { getPostBySlug } from "../../Services/BlogRepository";
+import { isEmptyOrSpaces } from "../../Utils/Utils";
 
 const DetailPost = () => {
   const params = useParams(); // get params tu url tren trinh duyet

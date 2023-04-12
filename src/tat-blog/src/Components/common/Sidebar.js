@@ -1,15 +1,15 @@
 import React from "react";
-import CategoriesWidget from "./CategoriesWidget";
+import CategoriesWidget from "../widgets/CategoriesWidget";
 import SearchForm from "./SearchForm";
-import FeaturedPostsWidget from "./FeaturedPostsWidget"
+import FeaturedPostsWidget from "../widgets/FeaturedPostsWidget"
 
-import RandomPostWidget from "./RandomPostWidget";
+import RandomPostWidget from "../widgets/RandomPostWidget";
 
-import TagCloudWidget from "./TagCloudWidget";
+import TagCloudWidget from "../widgets/TagCloudWidget";
 
-import TopAuthorWidget from "./TopAuthorWidget";
+import TopAuthorWidget from "../widgets/TopAuthorWidget";
 
-import Archives from "./Archives";
+import Archives from "../widgets/Archives";
 
 const Sidebar = () =>{
   return (
