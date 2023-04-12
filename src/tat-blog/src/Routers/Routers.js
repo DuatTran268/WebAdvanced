@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "../Components/common/Footer";
 import Index from "../Pages/Index";
-
-
 import About from "../Pages/About";
 import Contact from "../Pages/Contact";
 import Blog from "../Pages/Blog";
@@ -14,6 +12,13 @@ import PostByTime from "../Pages/posts/PostByTime";
 import NotFound from "../Components/common/NotFound";
 import Layout from "../Pages/Layout";
 import Rss from "../Pages/Rss";
+import AdminLayout from "../Pages/admin/layout/Layout";
+import AdminIndex from "../Pages/admin/pages/Index";
+import Authors from "../Pages/admin/pages/Author";
+import Categories from "../Pages/admin/pages/Categories";
+import Comments from "../Pages/admin/pages/Comment";
+import Tags from "../Pages/admin/pages/Tags";
+import Posts from "../Pages/admin/pages/post/Posts"
 
 const Routers = () => {
   return (
@@ -36,6 +41,19 @@ const Routers = () => {
             />
             <Route path="/archives/:year/:month" element={<PostByTime />} />
             <Route path="*" element={<NotFound />} />
+          </Route>
+
+          {/* admin */}
+          <Route path="/admin" element={<AdminLayout/>}>
+            {/* <Route path="/admin" element={<AdminIndex.default/>}/> */}
+            <Route path="/admin" element={<AdminIndex/>}/>
+            <Route path="/admin/authors" element={<Authors/>}/>
+            <Route path="/admin/categories" element={<Categories/>}/>
+            <Route path="/admin/tags" element={<Tags/>}/>
+            <Route path="/admin/posts" element={<Posts/>}/>
+            <Route path="/admin/comments" element={<Comments/>}/>
+
+
           </Route>
         </Routes>
         <Footer />
