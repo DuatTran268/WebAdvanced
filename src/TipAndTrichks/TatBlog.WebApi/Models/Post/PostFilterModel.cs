@@ -21,6 +21,8 @@ namespace TatBlog.WebApi.Models.Post
 		[DisplayName(("Năm"))]
 		public int? Year { get; set; }
 
+		public string TagSlug { get; set; }
+
 		public IEnumerable<SelectListItem> AuthorList { get; set; }
 		public IEnumerable<SelectListItem> CategoryList { get; set; }
 		public IEnumerable<SelectListItem> MonthList { get; set; }

@@ -5,14 +5,11 @@ import {
   faEnvelope,
   faGlobeOceania,
   faInfoCircle,
-  faMap,
   faMapLocation,
   faPhone,
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { Form } from "react-router-dom";
-import { text } from "@fortawesome/fontawesome-svg-core";
 import { Button } from "react-bootstrap";
 
 const Contact = () => {

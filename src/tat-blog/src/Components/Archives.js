@@ -20,8 +20,8 @@ const Archives = () => {
       <h3 className="text-success mb-2">Archives</h3>
 
       <div className="list-group list-group-flush">
-        {monthList.map((item) => (
-          <Link className="list-group-item d-flex align-items-start justify-content-between" to={`/archives/${item.year}/${item.month}`}>
+        {monthList.map((item, index) => (
+          <Link key={index} className="list-group-item d-flex align-items-start justify-content-between" to={`/archives/${item.year}/${item.month}`}>
             <div className="me-auto">
               {item.monthName} {item.year}
             </div>

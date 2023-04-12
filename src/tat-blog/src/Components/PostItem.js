@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { isEmptyOrSpaces } from "../Utils/Utils";
 
 const PostList = ({ postItem }) => {
+  console.log(postItem)
   let imageUrl = isEmptyOrSpaces(postItem.imageUrl)
     ? process.env.PUBLIC_URL + "/images/image1.png"
     : `https://localhost:7247/${postItem.imageUrl}`;
 
-  let postedDate = new Date(postItem.postedDate);
+  // let postedDate = new Date(postItem.postedDate);
 
   const { urlSlug, title, shortDescription, category, author, tags } = postItem;
 
@@ -60,7 +61,7 @@ const PostList = ({ postItem }) => {
 
               <div className="text-end">
                 <Link
-                  to={`/post/${postedDate.getFullYear()}/${postedDate.getMonth()}/${postedDate.getDate()}/${urlSlug}`}
+                  to={`/post/${urlSlug}`}
                   className="btn btn-primary"
                   title={title}
                 >

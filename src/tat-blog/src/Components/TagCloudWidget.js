@@ -10,14 +10,15 @@ const TagCloudWidget = (tagItem) => {
       if (data) setTagCloudList(data);
       else setTagCloudList([]);
     });
-  });
+  }, []);
 
   return (
     <div className="mb-3">
       <h3 className="text-success">Tag Cloud</h3>
-      {tagList.map((item) => {
+      {tagList.map((item, index) => {
         return (
           <Link
+            key={index}
             className="btn btn-outline-success btn-sm me-2 mb-2"
             to={`/tag/${item.urlSlug}`}
             title="Xem chi tiết"

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import { getCategories } from "../Services/CategoriesWidgets";
 
@@ -24,8 +23,8 @@ const CategoriesWidget = () => {
         </h3>
         
         <div className="list-group list-group-flush">
-        {categoryList.map((item) => (
-          <Link className="list-group-item d-flex align-items-start justify-content-between" to={`/category/${item.urlSlug}`}>
+        {categoryList.map((item, index) => (
+          <Link key={index} className="list-group-item d-flex align-items-start justify-content-between" to={`/category/${item.urlSlug}`}>
             <div className="me-auto">
               {item.name}
             </div>

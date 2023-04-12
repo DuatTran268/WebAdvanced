@@ -1,56 +1,27 @@
-import React, {useEffect, useState} from "react";
-import { useLocation } from "react-router-dom";
-import Pager from "../Components/Pager";
-import PostItem from '../Components/PostItem'
-import { getPosts } from "../Services/BlogRepository";
-
-const Index = () => {
-  const[postList, setPostList] = useState([]);
-  const [metadata, setMetaData] = useState({});
-
-  function useQuery(){
-    const {search} = useLocation();
-
-    return React.useMemo(() => 
-    new URLSearchParams(search), [search]);
-  }
-
-  let query = useQuery(),
-  k = query.get('k') ?? '',
-  p = query.get('p') ?? 1,
-  ps = query.get('ps') ?? 5;
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import PostSearch from '../Components/PostSearch';
 
 
-  useEffect(() => {
-    document.title = 'Trang chủ';
+function Index() {
+  const querySearch = new URLSearchParams(useLocation().search);
+  const keyword = querySearch.get('Keyword') ?? '';
 
-    getPosts(k, ps, p).then(data => {
-      if(data){
-        setPostList(data.items);
-        setMetaData(data.metadata);
-      }
-      else
-        setPostList([]);
-    })
-  }, [k, p, ps]);
+  return (
+    <div className='container'>
+      <h1 className='mt-3'>
+        {keyword.length !== 0 ? (
+          <>
+            Bài viết theo từ khóa:
+            <span className='text-danger'> {keyword}</span>
+          </>
+        ) : (
+          'Danh sách bài viết'
+        )}
+      </h1>
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [postList]);
-
-  if(postList.length > 0)
-    return (
-      <div className="p-4">
-        {postList.map((item, index) => {
-          return (
-            <PostItem postItem={item} key={index}/>
-          );
-        })}
-        <Pager postquery={{'keyword': k}} metadata={metadata}/>
-      </div>
-    );
-  else return(
-    <></>
+      <PostSearch querySearch={querySearch} />
+    </div>
   );
 }
 

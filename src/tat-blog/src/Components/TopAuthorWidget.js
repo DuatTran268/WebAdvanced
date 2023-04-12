@@ -13,7 +13,7 @@ const TopAuthorWidget = (topAuthor) => {
         setAuthorList([]);
       }
     });
-  });
+  }, []);
 
   return (
     <div className="mb-3">
