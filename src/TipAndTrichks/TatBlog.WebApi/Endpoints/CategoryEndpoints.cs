@@ -36,9 +36,9 @@ public static class CategoryEndpoints
 			.Produces<ApiResponse<CategoryItem>>();
 
 		// get post by author slug
-		routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}/posts", GetPostsByCategoriesSlug)
+		routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}", GetPostsByCategoriesSlug)
 			.WithName("GetPostsByCategoriesSlug")
-			.Produces<ApiResponse<PaginationResult<CategoryDto>>>();
+			.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
 		// add category
 		routeGroupBuilder.MapPost("/", AddCategory)
@@ -105,14 +105,14 @@ public static class CategoryEndpoints
 	{
 		var postQuery = new PostQuery()
 		{
-			AuthorSlug = slug,
+			CategorySlug = slug,
 			PublishedOnly = true
 		};
 		var postList = await blogRepository.GetPagePostsAsync(
 				postQuery, pagingModel,
-				posts => posts.ProjectToType<CategoryDto>());
+				posts => posts.ProjectToType<PostDto>());
 
-		var paginationResult = new PaginationResult<CategoryDto>(postList);
+		var paginationResult = new PaginationResult<PostDto>(postList);
 		return Results.Ok(ApiResponse.Success(paginationResult));
 	}
 

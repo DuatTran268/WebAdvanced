@@ -32,5 +32,4 @@ const TagCloudWidget = (tagItem) => {
   );
 };
 
-
-export default TagCloudWidget
+export default TagCloudWidget;

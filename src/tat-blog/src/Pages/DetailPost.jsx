@@ -7,16 +7,17 @@ const DetailPost = () => {
   const params = useParams(); // get params tu url tren trinh duyet
   const [post, setPost] = useState(null);
   const { slug } = params;
-
-  let imageUrl = !post || isEmptyOrSpaces(post.imageUrl)
-    ? process.env.PUBLIC_URL + "/images/image1.png"
-    : `https://localhost:7247/${post.imageUrl}`;
+  
+  let imageUrl =
+    !post || isEmptyOrSpaces(post.imageUrl)
+      ? process.env.PUBLIC_URL + "/images/image1.png"
+      : `https://localhost:7247/${post.imageUrl}`;
 
   // call api get post by slug
   useEffect(() => {
     getPostBySlug(slug).then((data) => {
       // console.log(">>> check data", data);
-
+      window.scrollTo(0, 0);
       if (data) {
         setPost(data);
       } else setPost({});
@@ -59,7 +60,11 @@ const DetailPost = () => {
           <span>
             <small className="text-danger">Tags:</small>
             {post.tags.map((tag, index) => (
-              <Link key={index} className="text-decoration-none btn btn-primary">
+              <Link
+                key={index}
+                to={`/tag/${tag.urlSlug}`}
+                className="text-decoration-none btn btn-outline-success me-2"
+              >
                 {tag.name}
               </Link>
             ))}

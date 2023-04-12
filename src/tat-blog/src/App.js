@@ -34,10 +34,9 @@ function App() {
                 <Route path="/blog/Rss" element={<Rss/>}/>
                 <Route path="/posts" element ={<Blog/>}/>
                 <Route path="/post/:slug" element={<DetailPost/>}/>
-                {/* <Route path="/post/:year/:month/:date/:slug" element={<DetailPost/>}/> */}
                 <Route path="/author/:slug" element={<PostByAuthor/>}/>
                 <Route path="/tag/:TagSlug" element={<PostByTag/>}/>
-                <Route path="/category/:slug" element={<PostByCategory/>}/>
+                <Route path="/category/:CategorySlug" element={<PostByCategory/>}/>
                 <Route path="/archives/:year/:month" element={<PostByTime/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Route>
