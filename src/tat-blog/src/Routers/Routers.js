@@ -18,7 +18,10 @@ import Authors from "../Pages/admin/pages/Author";
 import Categories from "../Pages/admin/pages/Categories";
 import Comments from "../Pages/admin/pages/Comment";
 import Tags from "../Pages/admin/pages/Tags";
-import Posts from "../Pages/admin/pages/post/Posts"
+import Posts from "../Pages/admin/pages/post/Posts";
+import NotFoundAdmin from "../Pages/admin/pages/NotFound";
+import BadRequest from "../Pages/admin/pages/BadRequest";
+
 
 const Routers = () => {
   return (
@@ -53,6 +56,8 @@ const Routers = () => {
             <Route path="/admin/posts" element={<Posts/>}/>
             <Route path="/admin/comments" element={<Comments/>}/>
 
+            <Route path="*" element={<NotFoundAdmin/>}/>
+            {/* <Route path="/400" element={<BadRequest/>}/> */}
 
           </Route>
         </Routes>

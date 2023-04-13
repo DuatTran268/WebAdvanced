@@ -1,19 +1,8 @@
-import axios from "axios";
+import { get_api } from "./Methods";
 
 export async function getRandomPost(){
-  try {
-    const response = await axios.get(`https://localhost:7247/api/posts/random/5`);
 
-    const data = response.data;
-    if(data.isSuccess){
-      return data.result;
-    }
-    else{
-      return null;
-    }
-  } catch (error) {
-    console.log('Error', error.message);
-    return null;
-  }
+  return get_api (`https://localhost:7247/api/posts/random/5`)
+  
 }
 
