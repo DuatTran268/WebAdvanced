@@ -1,22 +1,26 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
-import { getPostsAdmin } from "../../../../Services/BlogRepository";
+import { getPostFilter } from "../../../../Services/BlogRepository";
 import Loading from "../../../../Components/Loading";
 import { Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PostFilerPane from "../../../../Components/admin/PostFilterPane";
+import { useSelector } from "react-redux";
+
 
 const Posts = () => {
-  const [postList, setPostList] = useState([]);
-  const [isVisibleLoading, setIsVisibleLoading] = useState(true);
+  const [postsList, setPostList] = useState([]);
+  const [isVisibleLoading, setIsVisibleLoading] = useState(true),
+  postFilter = useSelector(state => state.postFilter);
 
-  let k = "",
+  let {id} = useParams,
     p = 1,
     ps = 10;
 
   useEffect(() => {
     document.title = "Quản lý bài viết";
 
-    getPostsAdmin(k, ps, p).then(data => {
+    getPostFilter(postFilter.keyword, postFilter.authorId, postFilter.categoryId, postFilter.year, postFilter.month, ps, p).then(data => {
       if (data) {
         setPostList(data.items);
         console.log("data: ", data);
@@ -25,7 +29,8 @@ const Posts = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [k, p, ps]);
+
+  }, [postFilter.keyword, postFilter.authorId, postFilter.categoryId, postFilter.year, postFilter.month, p, ps]);
 
   return (
     <>
@@ -44,8 +49,8 @@ const Posts = () => {
             </tr>
           </thead>
           <tbody>
-            {postList.length > 0 ? (
-              postList.map((item, index) => (
+            {postsList.length > 0 ? (
+              postsList.map((item, index) => (
                 <tr key={index}>
                   <td>
                     <Link

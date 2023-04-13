@@ -35,3 +35,21 @@ export async function getPostBySlug (urlSlug = ''){
 export async function getFilter() {
   return get_api (`https://localhost:7247/api/posts/get-filter`);
 }
+
+
+export function getPostFilter (keyword = '', authorId = '', categoryId = '', year='', month ='',
+pageSize = 10, pageNumber =1, sortColumn = '', sortOrder = ''){
+  let url = new URL(`https://localhost:7247/api/posts/get-posts-filter`);
+  keyword  !== '' && url.searchParams.append('Keyword', keyword);
+  authorId !== '' && url.searchParams.append('AuthorId', authorId);
+  categoryId !== '' && url.searchParams.append('CategoryId', categoryId);
+  year !== '' && url.searchParams.append('Year', year);
+  month !== '' && url.searchParams.append('Month', month);
+  sortColumn !== '' && url.searchParams.append('SortColumn', sortColumn);
+  sortOrder !== '' && url.searchParams.append('SortOrder', sortColumn);
+  url.searchParams.append('PageSize', pageSize);
+  url.searchParams.append('PageNumber', pageNumber);
+  
+  return get_api(url.href);
+
+}

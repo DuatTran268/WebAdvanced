@@ -3,18 +3,40 @@ import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getFilter } from "../../Services/BlogRepository";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  reset, 
+  updateAuthorId,
+  updateCategoryId,
+  updateKeyword,
+  updateMonth,
+  updateYear
+} from '../../Redux/Reducer';
+
 const PostFilerPane = () => {
-  const current = new Date(),
-    [keyword, setKeyword] = useState(""),
-    [authorId, setAuthorId] = useState(""),
-    [categoryId, setCategoryId] = useState(""),
-    [year, setYear] = useState(current.getFullYear()),
-    [month, setMonth] = useState(current.setFullYear()),
-    [postFilter, setPostFilter] = useState({
-      authorList: [],
-      categoryList: [],
-      monthList: [],
-    });
+  const postFilter = useSelector(state => state.postFilter), dispatch = useDispatch(),
+  [filter, setFilter] = useState({
+    authorList : [],
+    categoryList: [],
+    monthList: []
+  });
+
+  const handleReset = (e) => {
+    dispatch(reset());
+  };
+
+
+  //const current = new Date(),
+    // [keyword, setKeyword] = useState(""),
+    // [authorId, setAuthorId] = useState(""),
+    // [categoryId, setCategoryId] = useState(""),
+    // [year, setYear] = useState(current.getFullYear()),
+    // [month, setMonth] = useState(current.setFullYear()),
+    // [postFilter, setPostFilter] = useState({
+    //   authorList: [],
+    //   categoryList: [],
+    //   monthList: [],
+    // });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,13 +45,13 @@ const PostFilerPane = () => {
   useEffect(() => {
     getFilter().then((data) => {
       if (data) {
-        setPostFilter({
+        setFilter({
           authorList: data.authorList,
           categoryList: data.categoryList,
           monthList: data.monthList,
         });
       } else {
-        setPostFilter({
+        setFilter({
           authorList: [],
           categoryList: [],
           monthList: [],
@@ -37,10 +59,12 @@ const PostFilerPane = () => {
       }
     });
   }, []);
+  
 
   return (
     <Form
       method="get"
+      onReset={handleReset}
       onSubmit={handleSubmit}
       className="row gy-2 gx-3 align-items-center p-2"
     >
@@ -49,22 +73,23 @@ const PostFilerPane = () => {
         <Form.Control
           type="text"
           placeholder="Nhập vào từ khoá ..."
-          name={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
+          name='keyword'
+          value={postFilter.keyword}
+          onChange={(e) => dispatch(updateKeyword(e.target.value))}
         />
       </Form.Group>
 
       <Form.Group className="col-auto">
         <Form.Label className="visually-hidden">AuthorId</Form.Label>
         <Form.Select
-          name="authorId"
-          value={authorId}
-          onChange={(e) => setAuthorId(e.target.value)}
+          name="authorId" 
+          value={postFilter.authorId}
+          onChange={(e) => dispatch(updateAuthorId(e.target.value))}
           title=" Author Id"
         >
           <option value="">-- Chọn tác giả --</option>
-          {postFilter.authorList.length > 0 &&
-            postFilter.authorList.map((item, index) => (
+          {filter.authorList.length > 0 &&
+            filter.authorList.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.text}
               </option>
@@ -77,13 +102,13 @@ const PostFilerPane = () => {
 
         <Form.Select
           name="categoryId"
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
+          value={postFilter.categoryId}
+          onChange={(e) => dispatch(updateCategoryId(e.target.value))}
           title="Category Id"
         >
           <option value="">-- Chọn chủ đề --</option>
-          {postFilter.categoryList.length > 0 &&
-            postFilter.categoryList.map((item, index) => (
+          {filter.categoryList.length > 0 &&
+            filter.categoryList.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.text}
               </option>
@@ -97,9 +122,9 @@ const PostFilerPane = () => {
         <Form.Control type="number" 
           placeholder="Nhập năm ..."
           name="year"
-          value={year}
-          max={year}
-          onChange={e => setYear(e.target.value)}
+          value={postFilter.year}
+          max={postFilter.year}
+          onChange={e => dispatch(updateYear(e.target.value))}
         />
       </Form.Group>
 
@@ -108,13 +133,13 @@ const PostFilerPane = () => {
 
         <Form.Select
           name="month"
-          value={month}
-          onChange={(e) => setMonth(e.target.value)}
-          title="month"
+          value={postFilter.monthList}
+          onChange={(e) => dispatch(updateMonth(e.target.value))}
+          title="Month"
         >
           <option value="">-- Chọn tháng --</option>
-          {postFilter.monthList.length > 0 &&
-            postFilter.monthList.map((item, index) => (
+          {filter.monthList.length > 0 &&
+            filter.monthList.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.text}
               </option>
@@ -123,7 +148,7 @@ const PostFilerPane = () => {
       </Form.Group>
 
       <Form.Group className="col-auto">
-        <Button variant="primary" type="submit">
+        <Button variant="danger" type="submit">
           Tìm/lọc
         </Button>
         <Link to='/admin/posts/edit' className="btn btn-success ms-2">Thêm mới</Link>
