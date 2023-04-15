@@ -34,7 +34,7 @@ const Posts = () => {
 
   return (
     <>
-      <h1>Đây là khu vực quản lý bài viết </h1>
+      <h1>Đây là khu vực quản lý bài viết {id}</h1>
       <PostFilerPane/>
       {isVisibleLoading ? (
         <Loading />

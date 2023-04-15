@@ -1,11 +1,13 @@
-// import { Link } from "react-router-dom";
-// import { useQuery } from "";
+import { useMyQuery } from "../../../Utils/Utils";
 
-// const BadRequest = () => {
-//   let query = useQuery(),
-//     redirectTo = query.get("redirectTo") ?? "/";
+const BadRequest = () => {
+  let query = useMyQuery(),
+  redirectTo = query.get('redirectTo')?? '/'
+  return(
+    <>
 
-//   return <>... BadRequest như bad boy ...</>;
-// };
+    </>
+  )
+}
 
-// export default BadRequest;
+export default BadRequest;

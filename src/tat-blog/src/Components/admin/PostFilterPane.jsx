@@ -149,7 +149,7 @@ const PostFilerPane = () => {
 
       <Form.Group className="col-auto">
         <Button variant="danger" type="submit">
-          Tìm/lọc
+          Xoá Lọc
         </Button>
         <Link to='/admin/posts/edit' className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>

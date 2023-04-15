@@ -21,6 +21,7 @@ import Tags from "../Pages/admin/pages/Tags";
 import Posts from "../Pages/admin/pages/post/Posts";
 import NotFoundAdmin from "../Pages/admin/pages/NotFound";
 import BadRequest from "../Pages/admin/pages/BadRequest";
+import Edit from "../Pages/admin/pages/post/Edit";
 
 
 const Routers = () => {
@@ -44,6 +45,7 @@ const Routers = () => {
             />
             <Route path="/archives/:year/:month" element={<PostByTime />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/400" element={<BadRequest/>}/>
           </Route>
 
           {/* admin */}
@@ -55,10 +57,11 @@ const Routers = () => {
             <Route path="/admin/tags" element={<Tags/>}/>
             <Route path="/admin/posts" element={<Posts/>}/>
             <Route path="/admin/comments" element={<Comments/>}/>
+            <Route path="/admin/posts/edit" element={<Edit/>}/>
+            <Route path="/admin/posts/edit/:id" element={<Edit/>}/>
+            <Route path="/admin/tags" element={<Edit/>}/>
 
             <Route path="*" element={<NotFoundAdmin/>}/>
-            {/* <Route path="/400" element={<BadRequest/>}/> */}
-
           </Route>
         </Routes>
         <Footer />
