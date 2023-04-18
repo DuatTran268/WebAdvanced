@@ -14,7 +14,7 @@ import Layout from "../Pages/Layout";
 import Rss from "../Pages/Rss";
 import AdminLayout from "../Pages/admin/layout/Layout";
 import AdminIndex from "../Pages/admin/pages/Index";
-import Authors from "../Pages/admin/pages/Author";
+import Authors from "../Pages/admin/pages/author/Author";
 import Categories from "../Pages/admin/pages/Categories";
 import Comments from "../Pages/admin/pages/Comment";
 import Tags from "../Pages/admin/pages/tags/Tags";

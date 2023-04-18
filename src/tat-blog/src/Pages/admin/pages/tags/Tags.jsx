@@ -64,7 +64,7 @@ const Tags = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={4}>
+                <td colSpan={5}>
                   <h4 className="text-danger text-center">
                     Không tìm thấy thẻ nào
                   </h4>
