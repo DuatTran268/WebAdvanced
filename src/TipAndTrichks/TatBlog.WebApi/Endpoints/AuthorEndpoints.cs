@@ -217,7 +217,7 @@ namespace TatBlog.WebApi.Endpoints
 				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest,validationResult));
 			}
 
-			if (await authorRepository.IsAuthorSlugExistedAsync(id, model.UrlSlug))
+			if (await authorRepository.IsAuthorSlugExistedAsync(0, model.UrlSlug))
 			{
 				return Results.Ok(ApiResponse.Fail(
 					HttpStatusCode.Conflict,$"Slug '{model.UrlSlug}' đã được sử dụng"));

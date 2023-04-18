@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { get_api, post_api } from "./Methods";
+import { get_api, post_api, delete_api } from "./Methods";
 
 export async function getPosts (params){
   
@@ -61,4 +61,8 @@ export async function getPostById(id = 0){
 
 export function addOrUpdatePost(formData){
   return post_api(`https://localhost:7247/api/posts`, formData);
+}
+
+export async function deletePost(id = 0){
+  return delete_api(`https://localhost:7247/api/posts/${id}`);
 }

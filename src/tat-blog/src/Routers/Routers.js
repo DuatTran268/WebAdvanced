@@ -17,11 +17,12 @@ import AdminIndex from "../Pages/admin/pages/Index";
 import Authors from "../Pages/admin/pages/Author";
 import Categories from "../Pages/admin/pages/Categories";
 import Comments from "../Pages/admin/pages/Comment";
-import Tags from "../Pages/admin/pages/Tags";
+import Tags from "../Pages/admin/pages/tags/Tags";
 import Posts from "../Pages/admin/pages/post/Posts";
 import NotFoundAdmin from "../Pages/admin/pages/NotFound";
 import BadRequest from "../Pages/admin/pages/BadRequest";
 import Edit from "../Pages/admin/pages/post/Edit";
+import EditTag from "../Pages/admin/pages/tags/EditTag";
 
 
 const Routers = () => {
@@ -59,7 +60,7 @@ const Routers = () => {
             <Route path="/admin/comments" element={<Comments/>}/>
             <Route path="/admin/posts/edit" element={<Edit/>}/>
             <Route path="/admin/posts/edit/:id" element={<Edit/>}/>
-            <Route path="/admin/tags" element={<Edit/>}/>
+            <Route path="/admin/tags/edit/:id" element={<EditTag/>}/>
 
             <Route path="*" element={<NotFoundAdmin/>}/>
           </Route>
