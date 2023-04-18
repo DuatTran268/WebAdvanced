@@ -23,6 +23,7 @@ import NotFoundAdmin from "../Pages/admin/pages/NotFound";
 import BadRequest from "../Pages/admin/pages/BadRequest";
 import Edit from "../Pages/admin/pages/post/Edit";
 import EditTag from "../Pages/admin/pages/tags/EditTag";
+import EditAuthor from "../Pages/admin/pages/author/EditAuthor";
 
 
 const Routers = () => {
@@ -54,6 +55,8 @@ const Routers = () => {
             {/* <Route path="/admin" element={<AdminIndex.default/>}/> */}
             <Route path="/admin" element={<AdminIndex/>}/>
             <Route path="/admin/authors" element={<Authors/>}/>
+            <Route path="/admin/authors/edit" element={<EditAuthor/>}/>
+            <Route path="/admin/authors/edit/:id" element={<EditAuthor/>}/>
             <Route path="/admin/categories" element={<Categories/>}/>
             <Route path="/admin/tags" element={<Tags/>}/>
             <Route path="/admin/posts" element={<Posts/>}/>

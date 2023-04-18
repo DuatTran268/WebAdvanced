@@ -67,6 +67,7 @@ const EditTag = () => {
         noValidate
         validated={validated}
       >
+        
         <Form.Group type="hidden" name="id" value={tag.id}>
           <div className="row mb-3">
             <Form.Label className="col-sm-2 col-form-label">Tiêu đề</Form.Label>
@@ -94,6 +95,7 @@ const EditTag = () => {
               </Form.Control.Feedback>
             </div>
           </div>
+          
           <div className="row mb-3">
             <Form.Label className="col-sm-2 col-form-label">Description</Form.Label>
             <div className="col-sm-10">

@@ -1,4 +1,4 @@
-import { get_api, post_api } from "./Methods";
+import { get_api, post_api, put_api } from "./Methods";
 
 
 export async function getTopAuthor(){
@@ -35,4 +35,8 @@ export async function getAuthorById(id = 0){
   if(id > 0){
     return get_api(`https://localhost:7247/api/authors/${id}`)
   }
+}
+
+export async function updateAuthor(id = 0){
+  return put_api (`https://localhost:7247/api/authors/${id}`)
 }

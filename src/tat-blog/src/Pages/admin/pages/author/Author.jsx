@@ -61,7 +61,7 @@ const Author = () => {
                         Hình
                       </td>
                       <td>
-                        <Link>
+                        <Link to={`/admin/authors/edit/${item.id}`}>
                           {item.fullName}
                         </Link>
                       </td>
