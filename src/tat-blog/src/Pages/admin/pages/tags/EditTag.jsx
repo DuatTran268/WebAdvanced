@@ -6,10 +6,10 @@ import Form from 'react-bootstrap/Form'
 import {
   getTagById,
   getFilterTag,
-  puUpdateTag,
+  putUpdateTag,
 } from "../../../../Services/TagCloudWidget";
 
-import { Link, Params, useParams } from "react-router-dom";
+import { Link, Navigate, Params, useParams } from "react-router-dom";
 import { set } from "date-fns";
 
 const EditTag = () => {
@@ -37,12 +37,33 @@ const EditTag = () => {
     });
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (e.currentTarget.checkValidity() === false){
+      e.stopPropagation();
+      setValidated(true);
+    }
+    else{
+      putUpdateTag().then((data) => {
+        if(data){
+          alert("Đã lưu thành công");
+        }
+        else{
+          alert("Đã xảy ra lỗi khi lưu");
+        }
+      });
+    }
+  }
+
+  if (id && !isInteger(id))
+    return <Navigate to={`/400?redirectTo=/admin/posts`} />;
+
   return (
     <>
       <Form
         method="post"
         encType=""
-        // onSubmit={}
+        onSubmit={handleSubmit}
         noValidate
         validated={validated}
       >
@@ -63,6 +84,7 @@ const EditTag = () => {
               </Form.Control.Feedback>
             </div>
           </div>
+
           <div className="row mb-3">
             <Form.Label className="col-sm-2 col-form-label">UrlSlug</Form.Label>
             <div className="col-sm-10">
@@ -82,12 +104,11 @@ const EditTag = () => {
             </div>
           </div>
 
-
           <div className="text-center">
             <Button variant="primary" type="submit">
               Lưu các thay đổi
             </Button>
-            <Link to="/admin/posts" className="btn btn-danger ms-2">
+            <Link to="/admin/tags" className="btn btn-danger ms-2">
               Hủy và quay lại
             </Link>
           </div>

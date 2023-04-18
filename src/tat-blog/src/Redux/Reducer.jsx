@@ -69,3 +69,32 @@ export const reducer = postFilterReducer.reducer;
 // return {
 //   ...state,keyword:action.payload.keyword
 // };
+
+
+// // tag
+// const initialStateTag = {
+//   name: "",
+// }
+
+// const tagsFilterReduce = createSlice({
+//   name: "tagsFilter",
+//   initialStateTag,
+//   reducers :{
+//     resetTag: (state, action) => {
+//       return initialStateTag;
+//     },
+
+//     updateName: (state, action) => {
+//       return {
+//         ...state,
+//         name: action.payload,
+//       };
+//     },
+//   }
+// })
+
+// export const {
+//   resetTag,
+//   updateName
+// } = tagsFilterReduce.actions;
+// export const reducerTag = tagsFilterReduce.reducer;

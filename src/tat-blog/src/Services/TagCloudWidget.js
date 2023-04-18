@@ -1,4 +1,4 @@
-import { get_api, put_api } from "./Methods";
+import { get_api, post_api, put_api } from "./Methods";
 
 export async function getTagClould(){
 
@@ -36,8 +36,12 @@ export async function getTagById(id = 0){
   }
 }
 
-export async function puUpdateTag(id = 0){
-  if (id > 0){
-    return put_api (`https://localhost:7247/api/tags/${id}`)
-  }
+export function putUpdateTag(id = 0){
+  return put_api (`https://localhost:7247/api/tags/${id}`)
 }
+
+export function addTag(id = 0){
+  return post_api (`https://localhost:7247/api/tags/${id}`)
+}
+
+

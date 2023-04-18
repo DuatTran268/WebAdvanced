@@ -59,7 +59,7 @@ const TagFilterPane = () => {
         <Button  type="submit" className="btn btn-primary ms-2">
           Bỏ lọc
         </Button>
-        <Link to='/admin/posts/edit' className="btn btn-success ms-2">Thêm mới</Link>
+        <Link to='/admin/tags/edit' className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>
     </Form>
   );

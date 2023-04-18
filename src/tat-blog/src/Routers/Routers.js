@@ -60,6 +60,7 @@ const Routers = () => {
             <Route path="/admin/comments" element={<Comments/>}/>
             <Route path="/admin/posts/edit" element={<Edit/>}/>
             <Route path="/admin/posts/edit/:id" element={<Edit/>}/>
+            <Route path="/admin/tags/edit" element={<EditTag/>}/>
             <Route path="/admin/tags/edit/:id" element={<EditTag/>}/>
 
             <Route path="*" element={<NotFoundAdmin/>}/>
