@@ -12,3 +12,4 @@ function App() {
 export default App;
 
 // test new branch lab06 homework
+// test new branch lab06 practice
