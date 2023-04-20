@@ -66,3 +66,8 @@ export function addOrUpdatePost(formData){
 export async function deletePost(id = 0){
   return delete_api(`https://localhost:7247/api/posts/${id}`);
 }
+
+// change published
+export function changePublished(id = 0){
+  return get_api(`https://localhost:7247/api/posts/changepublished/${id}`)
+}

@@ -1,13 +1,17 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
-import { getPostFilter, deletePost } from "../../../../Services/BlogRepository";
+import { getPostFilter, deletePost, changePublished } from "../../../../Services/BlogRepository";
 import Loading from "../../../../Components/Loading";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import PostFilerPane from "../../../../Components/admin/PostFilterPane";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGlobe,
+  faLock,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Posts = () => {
   const [postsList, setPostList] = useState([]);
@@ -56,6 +60,25 @@ const Posts = () => {
       }
     }
   };
+
+  // change published 
+  const handleChangePublish = (e, id) => {
+    e.preventDefault();
+
+    ChangePublished(id)
+
+    async function ChangePublished(id){
+      await changePublished(id)
+      // const response = await changePublished(id);
+        // if (response) {
+        //   alert("Bạn đã thay đổi trạng thái bài viết")
+        // }else{
+        //   alert("Thay đổi trạng thái bài viết không thành công");
+        // }
+    }
+  }
+
+
   return (
     <>
       <h1>Đây là khu vực quản lý bài viết {id}</h1>
@@ -88,13 +111,27 @@ const Posts = () => {
                   </td>
                   <td>{item.author.fullName}</td>
                   <td>{item.category.name}</td>
-                  <td>{item.published ? "Có" : "Không"}</td>
+                  <td>
+                    <div className="text-center"
+                    onClick={(e) => handleChangePublish(e, item.id)}
+                    >
+                      {item.published ? (
+                        <div className="text-primary">
+                          <FontAwesomeIcon icon={faGlobe} /> Public
+                        </div>
+                      ) : (
+                        <div className="text-danger">
+                          <FontAwesomeIcon icon={faLock} /> Private
+                        </div>
+                      )}
+                    </div>
+                  </td>
                   <td>
                     <div
-                      className="text-center"
+                      className="text-center text-danger"
                       onClick={(e) => handleDeletePost(e, item.id)}
                     >
-                      <FontAwesomeIcon icon={faRemove} />
+                      <FontAwesomeIcon icon={faTrash} />
                     </div>
                   </td>
                 </tr>

@@ -1,6 +1,6 @@
-import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import { faRemove, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -11,53 +11,49 @@ import { deleteTag, getTagFilter } from "../../../../Services/TagCloudWidget";
 const Tags = () => {
   const [tagList, setTagList] = useState([]);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
-  tagFilter = useSelector(state => state.tagFilter);
+    tagFilter = useSelector((state) => state.tagFilter);
 
-  let{id} = useParams,
-  p = 1, ps = 10;
+  let { id } = useParams,
+    p = 1,
+    ps = 10;
 
-  useEffect(() =>{
-    document.title ="Quản lý tags";
+  useEffect(() => {
+    document.title = "Quản lý tags";
 
-    getTagFilter(tagFilter, ps, p).then(data => {
-      if(data){
+    getTagFilter(tagFilter, ps, p).then((data) => {
+      if (data) {
         console.log("data: ", data);
         setTagList(data.items);
-      }else{
+      } else {
         setTagList([]);
       }
       setIsVisibleLoading(false);
-
     });
   }, [tagFilter, p, ps, tagList]);
 
   // delete
-  const handleDeletePost = (e, id) => {
+  const handleDeleteTag = (e, id) => {
     e.preventDefault();
     RemovePost(id);
 
-    async function RemovePost(id){
-      if (window.confirm("Bạn có muốn xoá bài viết này"))
-      {
+    async function RemovePost(id) {
+      if (window.confirm("Bạn có muốn xoá bài viết này")) {
         const res = await deleteTag(id);
-        if(res){
-          alert("Đã xoá bài viết")
-        }else{
+        if (res) {
+          alert("Đã xoá bài viết");
+        } else {
           alert("Đã xảy ra lỗi khi xoá bài viết");
         }
       }
     }
   };
 
-  
   return (
     <>
-      <h1>
-        Đây là khu vực quản lý các Tags {id}
-      </h1>
-      <TagFilterPane/>
+      <h1>Đây là khu vực quản lý các Tags {id}</h1>
+      <TagFilterPane />
       {isVisibleLoading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <Table striped responsive bordered>
           <thead>
@@ -73,17 +69,16 @@ const Tags = () => {
               tagList.map((item, index) => (
                 <tr key={index}>
                   <td>
-                    <Link to={`/admin/tags/edit/${item.id}`}>
-                      {item.name}
-                    </Link>
+                    <Link to={`/admin/tags/edit/${item.id}`}>{item.name}</Link>
                   </td>
                   <td>{item.description}</td>
                   <td>{item.postCount}</td>
                   <td>
-                    <div className="text-center"
-                    onClick={(e) => handleDeletePost(e, item.id)}
+                    <div
+                      className="text-center text-danger"
+                      onClick={(e) => handleDeleteTag(e, item.id)}
                     >
-                    <FontAwesomeIcon icon={faRemove}/>
+                      <FontAwesomeIcon icon={faTrash} />
                     </div>
                   </td>
                 </tr>
@@ -102,6 +97,6 @@ const Tags = () => {
       )}
     </>
   );
-}
+};
 
 export default Tags;

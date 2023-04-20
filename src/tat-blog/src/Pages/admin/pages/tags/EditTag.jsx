@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { isInteger } from "../../../../Utils/Utils";
 import { Button } from "react-bootstrap";
@@ -9,8 +10,7 @@ import {
   putUpdateTag,
 } from "../../../../Services/TagCloudWidget";
 
-import { Link, Navigate, Params, useParams } from "react-router-dom";
-import { set } from "date-fns";
+import { Link, Navigate, useParams } from "react-router-dom";
 
 const EditTag = () => {
   const [validated, setValidated] = useState(false);
@@ -30,6 +30,7 @@ const EditTag = () => {
 
     getTagById(id).then((data) => {
       if (data) {
+        console.log("data: ", data);
         setTag(data);
       } else {
         setTag(initialState);
