@@ -36,8 +36,8 @@ export async function getTagById(id = 0){
   }
 }
 
-export function putUpdateTag(id = 0){
-  return put_api (`https://localhost:7247/api/tags/${id}`)
+export function putUpdateTag(id = 0, data){
+  return put_api (`https://localhost:7247/api/tags/${id}`, data)
 }
 
 export function addTag(id = 0){

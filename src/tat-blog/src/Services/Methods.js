@@ -35,9 +35,22 @@ export async function post_api(your_api, formData){
   }
 }
 
-export async function put_api(your_api, id){
+export async function put_api(your_api, formData){
+ 
   try {
-    const response = await axios.put(your_api, id);
+    let formDataObject = Object.fromEntries(formData.entries());
+    // Format the plain form data as JSON
+    let formDataJsonString = JSON.stringify(formDataObject);
+
+    const response = await axios({
+      method: 'put',
+      url: your_api,
+      data: formDataJsonString,
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
 
     const data = response.data;
     if (data.isSuccess){
@@ -53,9 +66,9 @@ export async function put_api(your_api, id){
 }
 
 
-export async function delete_api(your_api, formData){
+export async function delete_api(your_api){
   try {
-    const response = await axios.post(your_api, formData);
+    const response = await axios.delete(your_api);
 
     const data = response.data;
     if (data.isSuccess){

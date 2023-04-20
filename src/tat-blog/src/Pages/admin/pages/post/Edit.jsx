@@ -56,6 +56,7 @@ const Edit = () => {
       setValidated(true);
     } else {
       let form = new FormData(e.target);
+      console.log(e.target)
       form.append("published", post.published);
       addOrUpdatePost(form).then((data) => {
         if (data) alert("Đã lưu thành công!");
