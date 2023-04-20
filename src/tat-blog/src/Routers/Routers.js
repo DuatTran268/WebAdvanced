@@ -15,7 +15,7 @@ import Rss from "../Pages/Rss";
 import AdminLayout from "../Pages/admin/layout/Layout";
 import AdminIndex from "../Pages/admin/pages/Index";
 import Authors from "../Pages/admin/pages/author/Author";
-import Categories from "../Pages/admin/pages/Categories";
+import Categories from "../Pages/admin/pages/category/Categories";
 import Comments from "../Pages/admin/pages/Comment";
 import Tags from "../Pages/admin/pages/tags/Tags";
 import Posts from "../Pages/admin/pages/post/Posts";
@@ -24,6 +24,7 @@ import BadRequest from "../Pages/admin/pages/BadRequest";
 import Edit from "../Pages/admin/pages/post/Edit";
 import EditTag from "../Pages/admin/pages/tags/EditTag";
 import EditAuthor from "../Pages/admin/pages/author/EditAuthor";
+import EditCategory from "../Pages/admin/pages/category/EditCategory";
 
 
 const Routers = () => {
@@ -54,17 +55,19 @@ const Routers = () => {
           <Route path="/admin" element={<AdminLayout/>}>
             {/* <Route path="/admin" element={<AdminIndex.default/>}/> */}
             <Route path="/admin" element={<AdminIndex/>}/>
+            <Route path="/admin/posts" element={<Posts/>}/>
+            <Route path="/admin/posts/edit" element={<Edit/>}/>
+            <Route path="/admin/posts/edit/:id" element={<Edit/>}/>
             <Route path="/admin/authors" element={<Authors/>}/>
             <Route path="/admin/authors/edit" element={<EditAuthor/>}/>
             <Route path="/admin/authors/edit/:id" element={<EditAuthor/>}/>
-            <Route path="/admin/categories" element={<Categories/>}/>
             <Route path="/admin/tags" element={<Tags/>}/>
-            <Route path="/admin/posts" element={<Posts/>}/>
-            <Route path="/admin/comments" element={<Comments/>}/>
-            <Route path="/admin/posts/edit" element={<Edit/>}/>
-            <Route path="/admin/posts/edit/:id" element={<Edit/>}/>
             <Route path="/admin/tags/edit" element={<EditTag/>}/>
             <Route path="/admin/tags/edit/:id" element={<EditTag/>}/>
+            <Route path="/admin/categories" element={<Categories/>}/>
+            <Route path="/admin/categories/edit" element={<EditCategory/>}/>
+            <Route path="/admin/categories/edit/:id" element={<EditCategory/>}/>
+            <Route path="/admin/comments" element={<Comments/>}/>
 
             <Route path="*" element={<NotFoundAdmin/>}/>
           </Route>
