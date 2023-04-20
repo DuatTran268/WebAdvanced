@@ -1,4 +1,4 @@
-import { get_api, post_api, put_api } from "./Methods";
+import { delete_api, get_api, post_api, put_api } from "./Methods";
 
 export async function getTagClould(){
 
@@ -36,12 +36,16 @@ export async function getTagById(id = 0){
   }
 }
 
-export function putUpdateTag(id = 0, data){
-  return put_api (`https://localhost:7247/api/tags/${id}`, data)
+export function putUpdateTag(id = 0, formData){
+  return put_api (`https://localhost:7247/api/tags/${id}`, formData)
 }
 
 export function addTag(id = 0){
   return post_api (`https://localhost:7247/api/tags/${id}`)
 }
 
+
+export async function deleteTag(id = 0){
+  return delete_api (`https://localhost:7247/api/tags/${id}`)
+}
 

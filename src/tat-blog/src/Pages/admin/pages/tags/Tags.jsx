@@ -1,10 +1,12 @@
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, {useEffect, useState} from "react";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import TagFilterPane from "../../../../Components/admin/TagFilterPane";
 import Loading from "../../../../Components/Loading";
-import { getTagFilter } from "../../../../Services/TagCloudWidget";
+import { deleteTag, getTagFilter } from "../../../../Services/TagCloudWidget";
 
 const Tags = () => {
   const [tagList, setTagList] = useState([]);
@@ -27,7 +29,25 @@ const Tags = () => {
       setIsVisibleLoading(false);
 
     });
-  }, [tagFilter, p, ps]);
+  }, [tagFilter, p, ps, tagList]);
+
+  // delete
+  const handleDeletePost = (e, id) => {
+    e.preventDefault();
+    RemovePost(id);
+
+    async function RemovePost(id){
+      if (window.confirm("Bạn có muốn xoá bài viết này"))
+      {
+        const res = await deleteTag(id);
+        if(res){
+          alert("Đã xoá bài viết")
+        }else{
+          alert("Đã xảy ra lỗi khi xoá bài viết");
+        }
+      }
+    }
+  };
 
   
   return (
@@ -59,7 +79,13 @@ const Tags = () => {
                   </td>
                   <td>{item.description}</td>
                   <td>{item.postCount}</td>
-                  <td>Xoá đi</td>
+                  <td>
+                    <div className="text-center"
+                    onClick={(e) => handleDeletePost(e, item.id)}
+                    >
+                    <FontAwesomeIcon icon={faRemove}/>
+                    </div>
+                  </td>
                 </tr>
               ))
             ) : (
