@@ -1,21 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import { Link, Navigate, useParams } from "react-router-dom";
-import {
-  getAuthorById,
-  updateAuthor,
-} from "../../../../Services/TopAuthorWidget";
+import { getAuthorById, updateAuthor } from "../../../../Services/TopAuthorWidget";
 import { isInteger } from "../../../../Utils/Utils";
 
 const EditAuthor = () => {
   const [validated, setValidated] = useState(false);
   const initialState = {
       id: 0,
-      fullName: "",
+      name: "",
       urlSlug: "",
-      email: "",
-      notes: "",
     },
     [author, setAuthor] = useState(initialState);
 
@@ -23,12 +19,12 @@ const EditAuthor = () => {
   id = id ?? 0;
 
   useEffect(() => {
-    document.title = "Thêm cập nhật tác giả";
+    document.title = "Thêm/cập nhật thẻ ";
 
-    getAuthorById(id).then((data) => {
+      getAuthorById(id).then((data) => {
       if (data) {
+        console.log("data: ", data);
         setAuthor(data);
-        console.log("Check data", data)
       } else {
         setAuthor(initialState);
       }
@@ -42,7 +38,7 @@ const EditAuthor = () => {
       setValidated(true);
     } else {
       let data = new FormData(e.target);
-      
+
       updateAuthor(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
@@ -66,9 +62,8 @@ const EditAuthor = () => {
         validated={validated}
       >
         <Form.Control type="hidden" name="id" value={author.id} />
-
         <div className="row mb-3">
-          <Form.Label className="col-sm-2 col-form-label">Full name</Form.Label>
+          <Form.Label className="col-sm-2 col-form-label">Full Name</Form.Label>
           <div className="col-sm-10">
             <Form.Control
               type="text"
@@ -76,9 +71,7 @@ const EditAuthor = () => {
               title="FullName"
               required
               value={author.fullName || ""}
-              onChange={(e) =>
-                setAuthor({ ...author, fullName: e.target.value })
-              }
+              onChange={(e) => setAuthor({ ...author, fullName: e.target.value })}
             />
             <Form.Control.Feedback type="invalid">
               Không được bỏ trống.
@@ -95,9 +88,7 @@ const EditAuthor = () => {
               title="Url Slug"
               required
               value={author.urlSlug || ""}
-              onChange={(e) =>
-                setAuthor({ ...author, urlSlug: e.target.value })
-              }
+              onChange={(e) => setAuthor({ ...author, urlSlug: e.target.value })}
             />
             <Form.Control.Feedback type="invalid">
               Không được bỏ trống
@@ -106,58 +97,29 @@ const EditAuthor = () => {
         </div>
 
         <div className="row mb-3">
-          <Form.Label className="col-sm-2 col-form-label">Email</Form.Label>
+          <Form.Label className="col-sm-2 col-form-label">
+            Email
+          </Form.Label>
           <div className="col-sm-10">
             <Form.Control
               type="text"
               name="email"
-              title="Url Slug"
+              title="Email"
               required
               value={author.email || ""}
-              onChange={(e) => setAuthor({ ...author, email: e.target.value })}
+              onChange={(e) => setAuthor({ ...author, description: e.target.value })}
             />
             <Form.Control.Feedback type="invalid">
               Không được bỏ trống
             </Form.Control.Feedback>
           </div>
         </div>
-
-        {/* {!isEmptyOrSpaces(author.imageUrl) && (
-          <div className="row mb-3">
-            <Form.Label className="col-sm-2 col-form-label">
-              Hình hiện tại
-            </Form.Label>
-            <div className="col-sm-10">
-              <img src={author.imageUrl} alt={author.title} />
-            </div>
-          </div>
-        )}
-
-        <div className="row mb-3">
-          <Form.Label className="col-sm-2 col-form-label">
-            Chọn hình ảnh
-          </Form.Label>
-          <div className="col-sm-10">
-            <Form.Control
-              type="file"
-              name="imageFile"
-              accept="image/*"
-              title="Image file"
-              onChange={(e) =>
-                setAuthor({ ...author, imageFile: e.target.files[0] })
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              Không được bỏ trống.
-            </Form.Control.Feedback>
-          </div>
-        </div> */}
 
         <div className="text-center">
           <Button variant="primary" type="submit">
             Lưu các thay đổi
           </Button>
-          <Link to="/admin/authors" className="btn btn-danger ms-2">
+          <Link to="/admin/tags" className="btn btn-danger ms-2">
             Hủy và quay lại
           </Link>
         </div>

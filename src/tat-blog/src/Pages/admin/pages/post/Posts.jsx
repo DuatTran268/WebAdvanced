@@ -19,11 +19,11 @@ const Posts = () => {
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
     postFilter = useSelector((state) => state.postFilter);
 
-    const [metadata, setMetadata] = useState({});
-    const [pageNumber, setPageNumber] = useState(1);
-    function updatePageNumber(inc) {
-      setPageNumber((currentVal) => currentVal + inc);
-    }
+    // const [metadata, setMetadata] = useState({});
+    // const [pageNumber, setPageNumber] = useState(1);
+    // function updatePageNumber(inc) {
+    //   setPageNumber((currentVal) => currentVal + inc);
+    // }
   
 
   let { id } = useParams,
@@ -76,17 +76,15 @@ const Posts = () => {
     ChangePublished(id)
 
     async function ChangePublished(id){
-      await changePublished(id)
-      // const response = await changePublished(id);
-        // if (response) {
-        //   alert("Bạn đã thay đổi trạng thái bài viết")
-        // }else{
-        //   alert("Thay đổi trạng thái bài viết không thành công");
-        // }
+      // await changePublished(id)
+      const response = await changePublished(id);
+        if (response) {
+          alert("Bạn đã thay đổi trạng thái bài viết")
+        }else{
+          alert("Thay đổi trạng thái bài viết không thành công");
+        }
     }
   }
-
-  
 
 
   return (

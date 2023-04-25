@@ -37,7 +37,6 @@ const Categories = () => {
   // delete category api
   const handleDeleteCategory = (e, id) => {
     e.preventDefault();
-
     RemoveCategory(id);
     async function RemoveCategory(id) {
       if (window.confirm("Bạn có muốn xoá danh mục này")) {
@@ -52,7 +51,6 @@ const Categories = () => {
   return (
     <>
       <h1>Đây là khu vực quản lý chủ đề {id}</h1>
-
       <CategoryFilterPane/>
       {isVisibleLoading ? (
         <Loading />

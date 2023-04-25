@@ -8,7 +8,6 @@ import AuthorFilterPane from "../../../../Components/admin/AuthorFilterPane";
 import Loading from "../../../../Components/Loading";
 import {
   deleteAuthor,
-  getAuthorById,
   getAuthorFilter,
 } from "../../../../Services/TopAuthorWidget";
 

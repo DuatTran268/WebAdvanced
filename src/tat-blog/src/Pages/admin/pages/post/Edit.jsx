@@ -64,6 +64,8 @@ const Edit = () => {
       });
     }
   };
+
+  
   if (id && !isInteger(id))
     return <Navigate to={`/400?redirectTo=/admin/posts`} />;
   return (
@@ -117,7 +119,7 @@ const Edit = () => {
               type="text"
               required
               name="shortDescription"
-              title="Short description"
+              title="Short Description"
               value={decode(post.shortDescription || "")}
               onChange={(e) =>
                 setPost({ ...post, shortDescription: e.target.value })
@@ -128,26 +130,7 @@ const Edit = () => {
             </Form.Control.Feedback>
           </div>
         </div>
-        <div className="row mb-3">
-          <Form.Label className="col-sm-2 col-form-label">Nội dung</Form.Label>
-          <div className="col-sm-10">
-            <Form.Control
-              as="textarea"
-              rows={10}
-              type="text"
-              required
-              name="description"
-              title="Description"
-              value={decode(post.description || "")}
-              onChange={(e) =>
-                setPost({ ...post, description: e.target.value })
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              Không được bỏ trống.
-            </Form.Control.Feedback>
-          </div>
-        </div>
+     
         <div className="row mb-3">
           <Form.Label className="col-sm-2 col-form-label">Metadata</Form.Label>
           <div className="col-sm-10">

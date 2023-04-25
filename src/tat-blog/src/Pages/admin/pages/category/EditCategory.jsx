@@ -16,7 +16,7 @@ const EditCategory = () => {
       description: "",
       urlSlug: "",
     },
-    [tag, setTag] = useState(initialState);
+    [category, setCategory] = useState(initialState);
 
   let { id } = useParams();
   id = id ?? 0;
@@ -27,9 +27,9 @@ const EditCategory = () => {
     getCategoryById(id).then((data) => {
       if (data) {
         console.log("data: ", data);
-        setTag(data);
+        setCategory(data);
       } else {
-        setTag(initialState);
+        setCategory(initialState);
       }
     });
   }, []);
@@ -64,7 +64,7 @@ const EditCategory = () => {
         noValidate
         validated={validated}
       >
-        <Form.Control type="hidden" name="id" value={tag.id} />
+        <Form.Control type="hidden" name="id" value={category.id} />
         <div className="row mb-3">
           <Form.Label className="col-sm-2 col-form-label">Tiêu đề</Form.Label>
           <div className="col-sm-10">
@@ -73,8 +73,8 @@ const EditCategory = () => {
               name="name"
               title="Name"
               required
-              value={tag.name || ""}
-              onChange={(e) => setTag({ ...tag, name: e.target.value })}
+              value={category.name || ""}
+              onChange={(e) => setCategory({ ...category, name: e.target.value })}
             />
             <Form.Control.Feedback type="invalid">
               Không được bỏ trống.
@@ -90,8 +90,8 @@ const EditCategory = () => {
               name="urlSlug"
               title="Url Slug"
               required
-              value={tag.urlSlug || ""}
-              onChange={(e) => setTag({ ...tag, urlSlug: e.target.value })}
+              value={category.urlSlug || ""}
+              onChange={(e) => setCategory({ ...category, urlSlug: e.target.value })}
             />
             <Form.Control.Feedback type="invalid">
               Không được bỏ trống
@@ -109,8 +109,8 @@ const EditCategory = () => {
               name="description"
               title="Description"
               required
-              value={tag.description || ""}
-              onChange={(e) => setTag({ ...tag, description: e.target.value })}
+              value={category.description || ""}
+              onChange={(e) => setCategory({ ...category, description: e.target.value })}
             />
             <Form.Control.Feedback type="invalid">
               Không được bỏ trống
@@ -122,7 +122,7 @@ const EditCategory = () => {
           <Button variant="primary" type="submit">
             Lưu các thay đổi
           </Button>
-          <Link to="/admin/tags" className="btn btn-danger ms-2">
+          <Link to="/admin/categories" className="btn btn-danger ms-2">
             Hủy và quay lại
           </Link>
         </div>

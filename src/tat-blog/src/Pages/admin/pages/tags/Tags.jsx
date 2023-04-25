@@ -35,7 +35,6 @@ const Tags = () => {
   const handleDeleteTag = (e, id) => {
     e.preventDefault();
     RemovePost(id);
-
     async function RemovePost(id) {
       if (window.confirm("Bạn có muốn xoá bài viết này")) {
         const res = await deleteTag(id);
