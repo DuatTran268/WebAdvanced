@@ -22,6 +22,8 @@ namespace TatBlog.WebApi.Models.Post
 		public int? Year { get; set; }
 
 		public string TagSlug { get; set; }
+		[DisplayName(("Xuất bản"))]
+		public bool? PublishedOnly { get; set; }
 
 		public IEnumerable<SelectListItem> AuthorList { get; set; }
 		public IEnumerable<SelectListItem> CategoryList { get; set; }

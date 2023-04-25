@@ -366,7 +366,7 @@ public class BlogRepository : IBlogRepository
 			postsQuery = postsQuery
 				.Where(p => p.PostedDate.Year == query.PostedYear);
 		}
-		
+
 		if (query.CategoryId > 0)
 		{
 			postsQuery = postsQuery
@@ -385,7 +385,7 @@ public class BlogRepository : IBlogRepository
 				.Where(p => p.Category.Name == query.CategoryName);
 		}
 
-		if (query.PublishedOnly)
+		if (query.PublishedOnly == true)
 		{
 			postsQuery = postsQuery.Where(p => p.Published);
 		}
@@ -578,7 +578,8 @@ public class BlogRepository : IBlogRepository
 			.Include(x => x.Category)
 			.Include(x => x.Author)
 			.Include(x => x.Tags)
-			.FirstOrDefaultAsync(x => x.Id == postId, cancellationToken);
+			.Where(x => x.Id == postId)
+			.FirstOrDefaultAsync( cancellationToken);
 	}
 
 	// change status post

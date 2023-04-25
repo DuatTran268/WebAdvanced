@@ -22,6 +22,10 @@ namespace TatBlog.WebApi.Endpoints
 		{
 			var routeGroupBuilder = app.MapGroup("/api/authors");
 
+			routeGroupBuilder.MapGet("/notrequired", GetAuthorNotRequired)
+				.WithName("GetAuthorNotRequired")
+				.Produces<ApiResponse<IList<AuthorItem>>>();
+
 
 			routeGroupBuilder.MapGet("/", GetAuthors)
 				.WithName("GetAuthors")
@@ -45,7 +49,7 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
 			// get post by author slug
-			routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}", GetPostsByAuthorSlug)
+			routeGroupBuilder.MapGet("/byslug/{slug:regex(^[a-z0-9_-]+$)}", GetPostsByAuthorSlug)
 				.WithName("GetPostsByAuthorSlug")
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
@@ -77,6 +81,16 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces<ApiResponse<string>>();
 
 			return app;
+		}
+
+		// get author not required
+		private static async Task<IResult> GetAuthorNotRequired (
+			IAuthorRepository authorRepository
+			)
+		{
+			var authorList = await authorRepository.GetAuthorsAsync();
+			return Results.Ok(ApiResponse.Success(authorList));
+
 		}
 
 		private static async Task<IResult> GetAuthors(

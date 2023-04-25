@@ -98,6 +98,11 @@ namespace TatBlog.WebApi.Endpoints
 			.Produces(401)
 			.Produces<ApiResponse<PostItem>>();
 
+			// change published post
+			routeGroupBuilder.MapGet("/changepublished/{id:int}", ChangePublishedStatus)
+				.WithName("ChangePublishedStatus")
+				.Produces<ApiResponse<string>>();
+
 			return app;
 		}
 
@@ -369,6 +374,21 @@ namespace TatBlog.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(mapper.Map<PostItem>(post), HttpStatusCode.Created));
 		}
 
+
+		// change publish post
+		private static async Task<IResult> ChangePublishedStatus(
+			int id, IBlogRepository blogRepository)
+		{
+			var post = await blogRepository.GetPostByIdAsync(id);
+			if (post == null)
+			{
+				Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy bài viết có id = {id}"));
+			}
+
+			await blogRepository.ChangePublicStatusPostAsync(id);
+
+			return Results.Ok(ApiResponse.Success("Thay đổi trạng thái thành công ", HttpStatusCode.NoContent));
+		}
 
 	}
 }

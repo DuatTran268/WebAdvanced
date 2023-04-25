@@ -123,7 +123,8 @@ public interface IBlogRepository
         );
 
 
-    Task<IPagedList<Post>> GetPagePostAsync(
+
+	Task<IPagedList<Post>> GetPagePostAsync(
         PostQuery condition, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 
 

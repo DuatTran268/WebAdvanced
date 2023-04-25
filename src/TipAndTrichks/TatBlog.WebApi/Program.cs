@@ -59,6 +59,7 @@ var builder = WebApplication.CreateBuilder(args);
 		.ConfigureSwaggerOpenApi()
 		.ConfigureMapster()
 		.ConfigureFluentValidation();
+
 }
 
 

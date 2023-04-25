@@ -31,7 +31,7 @@ public static class CategoryEndpoints
 
 
 		// get categories details
-		routeGroupBuilder.MapGet("/{id:int}", GetCategoriesDetailsById)
+		routeGroupBuilder.MapGet("/byid/{id:int}", GetCategoriesDetailsById)
 			.WithName("GetCategoriesDetailsById")
 			.Produces<ApiResponse<CategoryItem>>();
 
