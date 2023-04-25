@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 
-import { getFilterTag } from "../../Services/TagCloudWidget";
+import { getTag } from "../../Services/TagCloudWidget";
 
 import { reset, updateKeyword } from '../../Redux/Reducer';
 import { useDispatch, useSelector } from "react-redux";
@@ -22,11 +22,10 @@ const TagFilterPane = () => {
   };
 
   useEffect(() => {
-    getFilterTag().then((data) => {
+    getTag().then((data) => {
       if(data){
         console.log("data: ", data);
         setFilter(data);
-
       }
       else{
         setFilter([]);

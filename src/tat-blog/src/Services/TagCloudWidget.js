@@ -13,7 +13,7 @@ export async function getTagBySlug(urlSlug = '', pageSize = 5, pageNumber = 1){
   
 }
 
-export async function getFilterTag(){
+export async function getTag(){
   return get_api (`https://localhost:7247/api/tags`)
 }
 

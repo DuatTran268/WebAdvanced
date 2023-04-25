@@ -38,7 +38,7 @@ export async function getFilter() {
 
 
 export function getPostFilter (keyword = '', authorId = '', categoryId = '', year='', month ='',
-pageSize = 10, pageNumber =1, sortColumn = '', sortOrder = ''){
+pageSize = 10, pageNumber =1, sortColumn = '', sortOrder = '', publishedOnly = false){
   let url = new URL(`https://localhost:7247/api/posts/get-posts-filter`);
   keyword  !== '' && url.searchParams.append('Keyword', keyword);
   authorId !== '' && url.searchParams.append('AuthorId', authorId);
@@ -47,6 +47,7 @@ pageSize = 10, pageNumber =1, sortColumn = '', sortOrder = ''){
   month !== '' && url.searchParams.append('Month', month);
   sortColumn !== '' && url.searchParams.append('SortColumn', sortColumn);
   sortOrder !== '' && url.searchParams.append('SortOrder', sortColumn);
+  url.searchParams.append('PublishedOnly', publishedOnly);
   url.searchParams.append('PageSize', pageSize);
   url.searchParams.append('PageNumber', pageNumber);
   

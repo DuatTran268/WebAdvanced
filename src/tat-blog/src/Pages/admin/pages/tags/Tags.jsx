@@ -1,4 +1,4 @@
-import { faRemove, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
@@ -29,7 +29,7 @@ const Tags = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [tagFilter, p, ps, tagList]);
+  }, [tagFilter, p, ps]);
 
   // delete
   const handleDeleteTag = (e, id) => {

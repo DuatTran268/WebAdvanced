@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux"
-import { Form, Link } from "react-router-dom";
+import { Button, Form} from "react-bootstrap";
+import { getCategories } from "../../Services/CategoriesWidgets";
 import { reset, updateKeyword } from "../../Redux/Reducer";
-import { getFilterCategory } from "../../Services/CategoriesWidgets";
-
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 
 const CategoryFilterPane = () => {
   const categoryFilter = useSelector(state => state.categoryFilter), dispatch = useDispatch(),
@@ -19,7 +18,7 @@ const CategoryFilterPane = () => {
   };
 
   useEffect(() => {
-    getFilterCategory().then((data) => {
+    getCategories().then((data) => {
       if (data){
         setFilter(data);
       }

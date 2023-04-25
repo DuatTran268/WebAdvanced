@@ -1,4 +1,4 @@
-import { faRemove, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
@@ -38,7 +38,6 @@ const Author = () => {
   const handleDeleteAuthor = (e, id) => {
     e.preventDefault();
     RemoveAuthor();
-
 
     async function RemoveAuthor(id) {
       if (window.confirm("Bạn có muốn xoá tác giả này")) {

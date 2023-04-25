@@ -12,11 +12,19 @@ import {
   faLock,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import PagerAdmin from "../../../../Components/admin/PagerAdmin";
 
 const Posts = () => {
   const [postsList, setPostList] = useState([]);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
     postFilter = useSelector((state) => state.postFilter);
+
+    const [metadata, setMetadata] = useState({});
+    const [pageNumber, setPageNumber] = useState(1);
+    function updatePageNumber(inc) {
+      setPageNumber((currentVal) => currentVal + inc);
+    }
+  
 
   let { id } = useParams,
     p = 1,
@@ -42,7 +50,7 @@ const Posts = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [postFilter, p, ps, postsList]);
+  }, [postFilter, p, ps]);
 
   // delete
   const handleDeletePost = (e, id) => {
@@ -78,6 +86,8 @@ const Posts = () => {
     }
   }
 
+  
+
 
   return (
     <>
@@ -86,67 +96,72 @@ const Posts = () => {
       {isVisibleLoading ? (
         <Loading />
       ) : (
-        <Table striped responsive bordered>
-          <thead>
-            <tr>
-              <th>Tiêu đề</th>
-              <th>Tác giả</th>
-              <th>Chủ đề</th>
-              <th>Xuất bản</th>
-              <th>Xoá</th>
-            </tr>
-          </thead>
-          <tbody>
-            {postsList.length > 0 ? (
-              postsList.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    <Link
-                      to={`/admin/posts/edit/${item.id}`}
-                      className="text-bold"
-                    >
-                      {item.title}
-                    </Link>
-                    <p className="text-muted">{item.shortDescription}</p>
-                  </td>
-                  <td>{item.author.fullName}</td>
-                  <td>{item.category.name}</td>
-                  <td>
-                    <div className="text-center"
-                    onClick={(e) => handleChangePublish(e, item.id)}
-                    >
-                      {item.published ? (
-                        <div className="text-primary">
-                          <FontAwesomeIcon icon={faGlobe} /> Public
-                        </div>
-                      ) : (
-                        <div className="text-danger">
-                          <FontAwesomeIcon icon={faLock} /> Private
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                  <td>
-                    <div
-                      className="text-center text-danger"
-                      onClick={(e) => handleDeletePost(e, item.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </div>
+        <>
+          <Table striped responsive bordered>
+            <thead>
+              <tr>
+                <th>Tiêu đề</th>
+                <th>Tác giả</th>
+                <th>Chủ đề</th>
+                <th>Xuất bản</th>
+                <th>Xoá</th>
+              </tr>
+            </thead>
+            <tbody>
+              {postsList.length > 0 ? (
+                postsList.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Link
+                        to={`/admin/posts/edit/${item.id}`}
+                        className="text-bold"
+                      >
+                        {item.title}
+                      </Link>
+                      <p className="text-muted">{item.shortDescription}</p>
+                    </td>
+                    <td>{item.author.fullName}</td>
+                    <td>{item.category.name}</td>
+                    <td>
+                      <div className="text-center"
+                      onClick={(e) => handleChangePublish(e, item.id)}
+                      >
+                        {item.published ? (
+                          <div className="text-primary">
+                            <FontAwesomeIcon icon={faGlobe} /> Public
+                          </div>
+                        ) : (
+                          <div className="text-danger">
+                            <FontAwesomeIcon icon={faLock} /> Private
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        className="text-center text-danger"
+                        onClick={(e) => handleDeletePost(e, item.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4}>
+                    <h4 className="text-danger text-center">
+                      Không tìm thấy bài viết nào
+                    </h4>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4}>
-                  <h4 className="text-danger text-center">
-                    Không tìm thấy bài viết nào
-                  </h4>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
+              )}
+            </tbody>
+          </Table>
+          {/* <PagerAdmin
+          metadata={posts.metadata}
+          onPageChange={updatePageNumber}/> */}
+        </>
       )}
     </>
   );

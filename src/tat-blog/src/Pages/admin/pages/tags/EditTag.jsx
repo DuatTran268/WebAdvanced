@@ -6,7 +6,6 @@ import Form from "react-bootstrap/Form";
 
 import {
   getTagById,
-  getFilterTag,
   putUpdateTag,
 } from "../../../../Services/TagCloudWidget";
 
