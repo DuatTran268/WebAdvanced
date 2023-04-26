@@ -15,13 +15,13 @@ public class BlogDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Tag> Tags { get; set; }
-    //protected override void OnConfiguring(
-    //    DbContextOptionsBuilder optionsBuilder)
-    //{
+    protected override void OnConfiguring(
+        DbContextOptionsBuilder optionsBuilder)
+    {
 
-    //    optionsBuilder.UseSqlServer(@"Server=DESKTOP-JS68JVN\SQLEXPRESS;Database=TatBlog;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;");
-    //    // server name : DESKTOP-JS68JVN\SQLEXPRESS
-    //}
+        optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=TatBlog;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;");
+        // server name : DESKTOP-JS68JVN\SQLEXPRESS
+    }
 
     public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
     {

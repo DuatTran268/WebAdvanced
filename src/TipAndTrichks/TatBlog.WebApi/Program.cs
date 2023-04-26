@@ -67,7 +67,7 @@ var app = builder.Build();
 {
 	// config the http request pipeline
 	app.SetUpRequestPipeline();
-
+	app.UseDataSeeder();
 	// config API endpoints
 	app.MapAuthorEndpoints();
 

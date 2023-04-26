@@ -21,9 +21,9 @@ namespace TatBlog.Data.Seeders
         {
             _dbContext.Database.EnsureCreated();
 
-            //if (_dbContext.Posts.Any()) return;
+			//if (_dbContext.Posts.Any()) return;
 
-            var authors = AddAuthors();
+			var authors = AddAuthors();
             var categories = AddCategories();
             var tags = AddTags();
             var posts = AddPosts(authors, categories, tags);
@@ -368,62 +368,60 @@ namespace TatBlog.Data.Seeders
                 }
             }
             ,
-            new()
-            {
-                Title = "Javascript",
-                ShortDescription = "Duat and friend has a great repository",
-                Description = "Here 's a few great DON'T and DO example",
-                Meta = "Duat and friend has a great reponsitory ",
-                UrlSlug = "javascript-language",
-                Published= true,
-                PostedDate = new DateTime(2022, 12, 10, 2, 3 , 0),
-                ModifiedDate = null,
-                ViewCount = 200,
-                Author = authors[2],
-                Category = categories[2],
-                Tags = new List<Tag>()
-                {
-                   tags[0], tags[1], tags[2], tags[3]
-                }
-            },
-            new()
-            {
-                Title = "HTML CSS",
-                ShortDescription = "HTML CSS and friend has a great repository",
-                Description = "Here 's a few great DON'T and DO example",
-                Meta = "HTML CSS and friend has a great reponsitory ",
-                UrlSlug = "html-css-language-mark",
-                Published= true,
-                PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
-                ModifiedDate = null,
-                ViewCount = 100,
-                Author = authors[4],
-                Category = categories[3],
-                Tags = new List<Tag>()
-                {
-                    tags[0], tags[1]
-                }
-            }
-            ,new()
-            {
-                Title = "Reactjs",
-                ShortDescription = "Reactjs and friend has a great repository",
-                Description = "Here 's a few great reactjs framework of javascript",
-                Meta = "reactjs and friend has a great reponsitory ",
-                UrlSlug = "react-js-javascript",
-                Published= true,
-                PostedDate = new DateTime(2023, 5, 1, 20, 3 , 0),
-                ModifiedDate = null,
-                ViewCount = 100,
-                Author = authors[6],
-                Category = categories[3],
-                Tags = new List<Tag>()
-                {
-                    tags[2], tags[8]
-                }
-            }
-
-			// sửa từ đây 
+			new()
+			{
+				Title = "Javascript",
+				ShortDescription = "Duat and friend has a great repository",
+				Description = "Here 's a few great DON'T and DO example",
+				Meta = "Duat and friend has a great reponsitory ",
+				UrlSlug = "javascript-language",
+				Published= true,
+				PostedDate = new DateTime(2022, 12, 10, 2, 3 , 0),
+				ModifiedDate = null,
+				ViewCount = 200,
+				Author = authors[2],
+				Category = categories[2],
+				Tags = new List<Tag>()
+				{
+				   tags[0], tags[1], tags[2], tags[3]
+				}
+			},
+			new()
+			{
+				Title = "HTML CSS",
+				ShortDescription = "HTML CSS and friend has a great repository",
+				Description = "Here 's a few great DON'T and DO example",
+				Meta = "HTML CSS and friend has a great reponsitory ",
+				UrlSlug = "html-css-language-mark",
+				Published= true,
+				PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
+				ModifiedDate = null,
+				ViewCount = 100,
+				Author = authors[4],
+				Category = categories[3],
+				Tags = new List<Tag>()
+				{
+					tags[0], tags[1]
+				}
+			}
+			,new()
+			{
+				Title = "Reactjs",
+				ShortDescription = "Reactjs and friend has a great repository",
+				Description = "Here 's a few great reactjs framework of javascript",
+				Meta = "reactjs and friend has a great reponsitory ",
+				UrlSlug = "react-js-javascript",
+				Published= true,
+				PostedDate = new DateTime(2023, 5, 1, 20, 3 , 0),
+				ModifiedDate = null,
+				ViewCount = 100,
+				Author = authors[6],
+				Category = categories[3],
+				Tags = new List<Tag>()
+				{
+					tags[2], tags[1]
+				}
+			}
 			,new()
 			{
 				Title = "Python",
@@ -435,7 +433,7 @@ namespace TatBlog.Data.Seeders
 				PostedDate = new DateTime(2023, 2, 1, 12, 6 , 0),
 				ModifiedDate = null,
 				ViewCount = 100,
-				Author = authors[8],
+				Author = authors[5],
 				Category = categories[5],
 				Tags = new List<Tag>()
 				{
@@ -453,11 +451,11 @@ namespace TatBlog.Data.Seeders
 				PostedDate = new DateTime(2021, 12, 6, 12, 03 , 0),
 				ModifiedDate = null,
 				ViewCount = 10,
-				Author = authors[8],
+				Author = authors[6],
 				Category = categories[2],
 				Tags = new List<Tag>()
 				{
-					tags[1], tags[2],tags[15], tags[12]
+					tags[1], tags[2],tags[12], tags[13]
 				}
 			}
 			,new()
@@ -486,14 +484,14 @@ namespace TatBlog.Data.Seeders
 				Meta = "C-Sharp is a language popular today",
 				UrlSlug = "c-sharp",
 				Published= true,
-				PostedDate = new DateTime(2021, 12, 11, 26, 12 , 0),
+				PostedDate = new DateTime(2021, 12, 11, 21, 12 , 0),
 				ModifiedDate = null,
 				ViewCount = 68,
-				Author = authors[8],
-				Category = categories[8],
+				Author = authors[4],
+				Category = categories[1],
 				Tags = new List<Tag>()
 				{
-					tags[8], tags[9], tags[19]
+					tags[8], tags[9], tags[11]
 				}
 			}
 			,new()
@@ -504,7 +502,7 @@ namespace TatBlog.Data.Seeders
 				Meta = "Ruby is a language program basic and developer",
 				UrlSlug = "ruby-language",
 				Published= false,
-				PostedDate = new DateTime(2020, 8, 9, 28, 13 , 0),
+				PostedDate = new DateTime(2020, 8, 9, 12, 13 , 0),
 				ModifiedDate = null,
 				ViewCount = 86,
 				Author = authors[6],
@@ -612,10 +610,10 @@ namespace TatBlog.Data.Seeders
 				Meta = "Flutter is a program language development by Google",
 				UrlSlug = "flutter",
 				Published= true,
-				PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
+				PostedDate = new DateTime(2022, 2, 10, 10, 3 , 0),
 				ModifiedDate = null,
 				ViewCount = 230,
-				Author = authors[8],
+				Author = authors[7],
 				Category = categories[8],
 				Tags = new List<Tag>()
 				{
@@ -633,7 +631,7 @@ namespace TatBlog.Data.Seeders
 				PostedDate = new DateTime(2023, 6, 8, 21, 3 , 0),
 				ModifiedDate = null,
 				ViewCount = 10,
-				Author = authors[7],
+				Author = authors[6],
 				Category = categories[2],
 				Tags = new List<Tag>()
 				{
@@ -651,7 +649,7 @@ namespace TatBlog.Data.Seeders
 				PostedDate = new DateTime(2023, 6, 8, 16, 18 , 0),
 				ModifiedDate = null,
 				ViewCount = 260,
-				Author = authors[8],
+				Author = authors[6],
 				Category = categories[6],
 				Tags = new List<Tag>()
 				{
@@ -696,96 +694,6 @@ namespace TatBlog.Data.Seeders
 			}
 			,new()
 			{
-				Title = "React Native",
-				ShortDescription = "React Native alow programer ",
-				Description = "React Native alow programer application",
-				Meta = "React Native alow programer application mobile ",
-				UrlSlug = "react-native",
-				Published= false,
-				PostedDate = new DateTime(2020, 2, 11, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 80,
-				Author = authors[7],
-				Category = categories[5],
-				Tags = new List<Tag>()
-				{
-					tags[0], tags[5]
-				}
-			}
-			,new()
-			{
-				Title = "API",
-				ShortDescription = "API is a ",
-				Description = "API is a ....",
-				Meta = "API is a .... use for ",
-				UrlSlug = "api",
-				Published= true,
-				PostedDate = new DateTime(2023, 6, 3, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 36,
-				Author = authors[5],
-				Category = categories[8],
-				Tags = new List<Tag>()
-				{
-					tags[1], tags[9]
-				}
-			}
-			,new()
-			{
-				Title = "API REST",
-				ShortDescription = "API REST is a",
-				Description = "API REST is a ...",
-				Meta = "API REST is a ",
-				UrlSlug = "api-rest",
-				Published= false,
-				PostedDate = new DateTime(2022, 3, 22, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 56,
-				Author = authors[2],
-				Category = categories[10],
-				Tags = new List<Tag>()
-				{
-					tags[8], tags[19]
-				}
-			}
-			,new()
-			{
-				Title = "Programer",
-				ShortDescription = "Programer Trĩ ",
-				Description = "Programer is a developer application",
-				Meta = "Programer is a developer application",
-				UrlSlug = "programer",
-				Published= false,
-				PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 38,
-				Author = authors[8],
-				Category = categories[10],
-				Tags = new List<Tag>()
-				{
-					tags[3], tags[8]
-				}
-			}
-			,new()
-			{
-				Title = "Infomation Technology",
-				ShortDescription = "Infomation Technology is a ",
-				Description = "Infomation Technology is a ... ",
-				Meta = "Infomation Technology is a ...",
-				UrlSlug = "it",
-				Published= true,
-				PostedDate = new DateTime(2023, 8, 10, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 96,
-				Author = authors[6],
-				Category = categories[10],
-				Tags = new List<Tag>()
-				{
-					tags[1], tags[6]
-				}
-			}
-			,new()
-			{
 				Title = "TatBlog WebApi",
 				ShortDescription = "TatBlog.WebApi is ",
 				Description = "TatBlog.WebApi code very hard",
@@ -795,103 +703,15 @@ namespace TatBlog.Data.Seeders
 				PostedDate = new DateTime(2023, 3, 6, 12, 3 , 0),
 				ModifiedDate = null,
 				ViewCount = 69,
-				Author = authors[5],
-				Category = categories[8],
+				Author = authors[7],
+				Category = categories[5],
 				Tags = new List<Tag>()
 				{
-					tags[2], tags[18], 
+					tags[2], tags[6],
 				}
 			}
-			,new()
-			{
-				Title = "Facebook",
-				ShortDescription = "Facebook and friend has a great repository",
-				Description = "Facebook and DO example",
-				Meta = "Facebook and friend has a great reponsitory ",
-				UrlSlug = "facebook",
-				Published= false,
-				PostedDate = new DateTime(2021, 2, 8, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 10,
-				Author = authors[2],
-				Category = categories[11],
-				Tags = new List<Tag>()
-				{
-					tags[4], tags[9]
-				}
-			}
-			,new()
-			{
-				Title = "Reactjs",
-				ShortDescription = "Reactjs is a framework",
-				Description = "Reactjs is a framework development web application",
-				Meta = "Reactjs is a framework development web application",
-				UrlSlug = "react-js",
-				Published= true,
-				PostedDate = new DateTime(2023, 7, 8, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 600,
-				Author = authors[8],
-				Category = categories[9],
-				Tags = new List<Tag>()
-				{
-					tags[20], tags[12], tags[18],
-				}
-			}
-			,new()
-			{
-				Title = "Java",
-				ShortDescription = "Java is a ",
-				Description = "Java is a program language ",
-				Meta = "Java is a program language development",
-				UrlSlug = "java",
-				Published= true,
-				PostedDate = new DateTime(2023, 12, 10, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount =200,
-				Author = authors[2],
-				Category = categories[8],
-				Tags = new List<Tag>()
-				{
-					tags[10], tags[11]
-				}
-			}
-			,new()
-			{
-				Title = "Spring boot",
-				ShortDescription = "Spring boot is a ",
-				Description = "Spring boot is a framework",
-				Meta = "Spring boot is a framework development applications",
-				UrlSlug = "spring-boot",
-				Published= true,
-				PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 100,
-				Author = authors[8],
-				Category = categories[9],
-				Tags = new List<Tag>()
-				{
-					tags[9], tags[12]
-				}
-			}
-			,new()
-			{
-				Title = "Project",
-				ShortDescription = "Specialized Project ",
-				Description = "Specialized Project is a",
-				Meta = "Specialized Project using .net and reactjs",
-				UrlSlug = "project",
-				Published= true,
-				PostedDate = new DateTime(2022, 2, 10, 20, 3 , 0),
-				ModifiedDate = null,
-				ViewCount = 280,
-				Author = authors[5],
-				Category = categories[6],
-				Tags = new List<Tag>()
-				{
-					tags[8], tags[9]
-				}
-			}
+
+
 
 		};
 
@@ -905,7 +725,7 @@ namespace TatBlog.Data.Seeders
             }
             //_dbContext.Authors.AddRange(authors);
             _dbContext.SaveChanges();
-
+	
             return posts;
 
         }

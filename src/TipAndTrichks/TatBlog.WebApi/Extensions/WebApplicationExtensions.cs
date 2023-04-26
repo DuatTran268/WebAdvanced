@@ -76,6 +76,23 @@ namespace TatBlog.WebApi.Extensions
 
 		}
 
-
+		public static IApplicationBuilder UseDataSeeder(
+		 this IApplicationBuilder app)
+		{
+			using var scope = app.ApplicationServices.CreateScope();
+			try
+			{
+				scope.ServiceProvider
+				  .GetRequiredService<IDataSeeder>()
+				  .Initialize();
+			}
+			catch (Exception ex)
+			{
+				scope.ServiceProvider
+					.GetRequiredService<ILogger<Program>>()
+					.LogError(ex, "Could not insert data into database");
+			}
+			return app;
+		}
 	}
 }
